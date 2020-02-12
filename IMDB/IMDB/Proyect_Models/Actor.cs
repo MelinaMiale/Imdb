@@ -49,11 +49,13 @@ namespace Proyect_Models
 			set;
         }
 
-		public Actor() { 
-			
-		
+		public Actor(long Id, string Name, string LastName, Nationality Nationality) {
+			this.ID_Actor = Id;
+			this.Name = Name;
+			this.LastName = LastName;
+			this.Nationality = Nationality;
 		}
-
+		
 	
 	}
 

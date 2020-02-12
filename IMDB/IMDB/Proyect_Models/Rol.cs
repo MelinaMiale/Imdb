@@ -29,7 +29,10 @@ namespace Proyect_Models
 			set;
 		}
 
-		public Rol(){}
+		public Rol(long Id, string character){
+			this.ID_Rol = Id;
+			this.Character = character;
+		}
 
 	}
 
