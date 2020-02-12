@@ -40,14 +40,14 @@ namespace Repository
                Movie movie1 = new Movie(1, "BridgetJones Diary");
                DateTime Movie1ReleaseDate = new DateTime(2001, 4, 4);
                movie1.ReleaseDate = Movie1ReleaseDate;
-               movie1.Flyer = "http://www.impawards.com/2001/posters/bridget_joness_diary_ver1.jpg";
+               movie1.FlyerUrl = "http://www.impawards.com/2001/posters/bridget_joness_diary_ver1.jpg";
                movie1.Nationality = Nationality.american;
                movie1.Cast = CastMovie1;
 
                Movie movie2 = new Movie(2, "Escape Plan");
                DateTime Movie2ReleaseDate = new DateTime(2013, 10, 31);
                movie2.ReleaseDate = Movie2ReleaseDate;
-               movie2.Flyer = "https://images-na.ssl-images-amazon.com/images/I/71DKbhlrU1L._AC_SL1008_.jpg";
+               movie2.FlyerUrl = "https://images-na.ssl-images-amazon.com/images/I/71DKbhlrU1L._AC_SL1008_.jpg";
                movie2.Nationality = Nationality.american;
                movie2.Cast = CastMovie2;
 
