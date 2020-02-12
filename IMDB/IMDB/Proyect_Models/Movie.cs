@@ -35,7 +35,7 @@ namespace Proyect_Models
 			set;
         }
 
-		public int Flyer
+		public string Flyer
         {
 			get;
 			set;
