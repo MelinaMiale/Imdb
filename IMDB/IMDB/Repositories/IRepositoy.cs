@@ -12,18 +12,21 @@ namespace Repository
         //lista todos las peliculas
         public List<Movie> GetAll();
 
+        public Movie GetById(long Id);
+
+        //public IEnumerable<Movie> AllMovies { get; }
         /*
-     
-        //busca y obtiene el objeto segun su id
-        public Movie GetByID(long id) { }
 
-        //metodo para contar objetos
-        public int Count() { }
+//busca y obtiene el objeto segun su id
+public Movie GetByID(long id) { }
 
-        public void Edit() { }
+//metodo para contar objetos
+public int Count() { }
 
-        public void DeleteById() { }
-        */
+public void Edit() { }
+
+public void DeleteById() { }
+*/
 
     }
 
