@@ -41,10 +41,10 @@ namespace Proyect_Models
 			set;
         }
 
-		public Movie(long Id, string Name, List<Rol> Casting){
+		public Movie(long Id, string Name){
 			this.ID_movie = Id;
 			this.Name = Name;
-			this.Cast = Casting;
+			//this.Cast = Casting;
 		}
 
 	}

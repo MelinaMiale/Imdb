@@ -12,6 +12,7 @@ namespace Repository
 
        public List<Movie> GetAll()
        {
+            /*
            //Lista de roles
            Rol rol5 = new Rol(5, "Emil Rottmayer");
            Rol rol6 = new Rol(6, "Ray Breslin");
@@ -34,13 +35,21 @@ namespace Repository
            CastMovie1.Add(rol6);
            CastMovie1.Add(rol7);
            CastMovie1.Add(rol8);
+           */
 
            //peliculas
-           Movie movie2 = new Movie(2, "Escape Plan", CastMovie1);
-           Movie movie1 = new Movie(1, "BridgetJones Diary", CastMovie2);
+           Movie movie2 = new Movie(2, "Escape Plan");
+           Movie movie1 = new Movie(1, "BridgetJones Diary");
 
            return new List<Movie> { movie1, movie2 };
        }
+
+        public Movie GetById(long Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        
 
     }
 
