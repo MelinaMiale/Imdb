@@ -14,19 +14,15 @@ namespace Repository
 
         public Movie GetById(long Id);
 
-        //public IEnumerable<Movie> AllMovies { get; }
         /*
 
-//busca y obtiene el objeto segun su id
-public Movie GetByID(long id) { }
+        //metodo para contar objetos
+        public int Count() { }
 
-//metodo para contar objetos
-public int Count() { }
+        public void Edit() { }
 
-public void Edit() { }
-
-public void DeleteById() { }
-*/
+        public void DeleteById() { }
+        */
 
     }
 

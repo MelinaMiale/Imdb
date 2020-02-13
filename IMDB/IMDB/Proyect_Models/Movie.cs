@@ -47,6 +47,8 @@ namespace Proyect_Models
 			//this.Cast = Casting;
 		}
 
+		public Movie() { }
+
 	}
 
 }

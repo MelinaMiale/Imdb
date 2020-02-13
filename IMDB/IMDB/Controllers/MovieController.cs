@@ -23,13 +23,24 @@ namespace IMDB.Controllers
         {
             movieViewModel.Id = movie.ID_movie;
             movieViewModel.Name = movie.Name;
-            movieViewModel.FlyerUrl = movie.FlyerUrl;
 
             return movieViewModel;
         }
 
+        private MovieViewDetails MapMovietoMovieViewModel(Movie movie, MovieViewDetails movieViewDetails)
+        {
+            movieViewDetails.ID = movie.ID_movie;
+            movieViewDetails.Name = movie.Name;
+            movieViewDetails.FlyerUrl = movie.FlyerUrl;
+            movieViewDetails.Nationality = movie.Nationality;
+            movieViewDetails.ReleaseDate = movie.ReleaseDate;
+            movieViewDetails.Cast = movie.Cast;
 
-        public ViewResult Index()
+            return movieViewDetails;
+        }
+
+
+        public ActionResult Index()
         {
             //obtengo lita de peliculas guardadas en storage
             var movies = db.GetAll();
@@ -50,19 +61,34 @@ namespace IMDB.Controllers
                            FlyerUrl = m.FlyerUrl,
                            Name = m.Name
                       }).ToList(); 
-             
              */
-
             return View(movieViewModel);// envio la lista de tipo MovieViewModel que contiene las peliculas con ese modelo 
         }
 
-        /*
-        public ActionResult Create()
+        public ActionResult Details(long Id)
         {
+            // traer pelicula >> metodo para buscar por id
+            var movieById = db.GetById(Id);
+
+            //genero pelicula de tipo MovieDetailsView y le asigno la pelicula que obtuve x id
+            MovieViewDetails movieViewDetailsByID = new MovieViewDetails();
+            movieViewDetailsByID = MapMovietoMovieViewModel(movieById, movieViewDetailsByID);
+
+            //enviarlos a la vista
+            return View(movieViewDetailsByID);
+        }
+
+        public ActionResult Edit()
+        {
+            // traer pelicula a editar con metodo para buscar por id
+            //mostrar los detalles con campos editables>> necesito crear EditMovieDetailsView
+            //guardar los cambios
+                       
             return View();
         }
-        */
 
+
+        
 
     }
 
