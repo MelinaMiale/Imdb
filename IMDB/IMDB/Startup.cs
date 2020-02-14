@@ -25,7 +25,7 @@ namespace IMDB
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddSingleton<IStorage, InMemoryMovieStorage>();
+            services.AddSingleton<IStorage, InMemoryStorage>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

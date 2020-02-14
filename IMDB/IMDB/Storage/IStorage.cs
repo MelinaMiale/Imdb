@@ -21,15 +21,7 @@ namespace Repository
 
         public void Delete(Movie deletedMovie);
 
-        /*
-
-        //metodo para contar objetos
-        public int Count() { }
-
-        public void Edit() { }
-
-        public void DeleteById() { }
-        */
+       
 
     }
 
