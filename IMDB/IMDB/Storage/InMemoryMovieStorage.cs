@@ -5,15 +5,15 @@ using System.Collections.Generic;
 namespace Repository
 {
     //aqui implemento mi interfaz reposity
-    public class InMemoryMovieStorage : IRepository
+    public class InMemoryMovieStorage : IStorage
 
     {
-        public InMemoryMovieStorage() { }
 
-        public List<Movie> GetAll()
-        {
+        List<Movie> moviesInStorage = new List<Movie>();
 
-            //Pelicula 1
+        public InMemoryMovieStorage() {
+
+            //Pelicula 2
             Rol rol5 = new Rol(5, "Emil Rottmayer");
             Rol rol6 = new Rol(6, "Ray Breslin");
             Rol rol7 = new Rol(7, "Hobbes");
@@ -27,7 +27,7 @@ namespace Repository
             movie2.Nationality = Nationality.american;
             movie2.Cast = CastMovie2;
 
-            //Pelicula 2
+            //Pelicula 1
             Rol rol1 = new Rol(1, "BridgetJones");
             Rol rol2 = new Rol(2, "Mark Darcy");
             Rol rol3 = new Rol(3, "Daniel Cleaver");
@@ -55,7 +55,13 @@ namespace Repository
             movie3.Nationality = Nationality.american;
             movie3.Cast = CastMovie3;
 
-            return new List<Movie> { movie1, movie2, movie3 };
+            moviesInStorage.Add(movie1); moviesInStorage.Add(movie2); moviesInStorage.Add(movie3);
+
+        }
+
+        public List<Movie> GetAll()
+        {
+            return moviesInStorage;
         }
 
         public Movie GetById(long Id)
@@ -75,10 +81,29 @@ namespace Repository
             return movieById;
         }
 
+        public void Save(Movie editedMovie)
+        {
+            
+             moviesInStorage.Add(editedMovie);
+            
+        } 
+        
+        public Movie Update(Movie editedMovie)
+        {
+            var newMovie = new Movie();
+            if(editedMovie != null)
+            {
+                newMovie.Name = editedMovie.Name;
+                newMovie.Nationality = editedMovie.Nationality;
+                newMovie.ReleaseDate = editedMovie.ReleaseDate;
+                newMovie.Cast = editedMovie.Cast;
+                newMovie.FlyerUrl = editedMovie.FlyerUrl;
+            }
 
+            return newMovie;
+        }
 
     }
-
 
 }
 
