@@ -140,11 +140,40 @@ namespace IMDB.Controllers
 
             return View();
         }
-        
 
-        public ActionResult Delete()
+
+        // GET: Student/Delete/5
+        public ActionResult Delete(long id)
         {
-            return View();
+            //obtengo pelicula que quiero borrar
+            var movie = db.GetById(id);
+            if (movie == null)
+            {
+                return this.NotFound();
+            }
+
+            //paso la pelicula a borrar al modeloVista
+            return View(MapMovietoMovieViewModel_Details(movie, new MovieViewDetails()));
+        }
+
+
+        // POST: Student/Delete/5
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeletePost(int id)
+        {
+            //tomo la pelicula que tengo en db, la q tiene el mismo id que viene de la pelicula que quiero borrar
+            var movieToDelete = db.GetById(id);
+
+            //if (ModelState.IsValid)
+            {
+                db.Delete(movieToDelete);
+            }
+
+            //regresar a la pagina index de movies
+            return RedirectToAction(nameof(MovieController.Index), "Home");
+
         }
 
     }

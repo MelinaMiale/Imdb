@@ -102,6 +102,12 @@ namespace Repository
             return newMovie;
         }
 
+        public void Delete(Movie deletedMovie)
+        {
+            var movieTodelete = GetById(deletedMovie.ID_movie);
+            moviesInStorage.Remove(movieTodelete);
+        }
+
     }
 
 }

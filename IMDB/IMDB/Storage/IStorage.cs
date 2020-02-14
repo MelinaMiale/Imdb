@@ -19,6 +19,8 @@ namespace Repository
 
         public void Save(Movie editedMovie);
 
+        public void Delete(Movie deletedMovie);
+
         /*
 
         //metodo para contar objetos
