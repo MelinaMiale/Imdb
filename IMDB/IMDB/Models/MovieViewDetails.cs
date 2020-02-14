@@ -1,6 +1,7 @@
 ﻿using Proyect_Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,6 +15,7 @@ namespace IMDB.Models
 			set;
 		}
 
+		[Required]
 		public string Name
 		{
 			get;
@@ -43,6 +45,9 @@ namespace IMDB.Models
 			get;
 			set;
 		}
+
+		public MovieViewDetails() { }
+		public MovieViewDetails(Movie movie) { }
 
 
 	}

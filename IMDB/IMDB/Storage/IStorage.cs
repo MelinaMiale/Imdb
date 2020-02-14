@@ -7,12 +7,17 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    public interface IRepository
+    public interface IStorage
+
     {
         //lista todos las peliculas
         public List<Movie> GetAll();
 
         public Movie GetById(long Id);
+
+        public Movie Update(Movie updatedMovie);
+
+        public void Save(Movie editedMovie);
 
         /*
 
