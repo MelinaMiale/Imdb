@@ -33,7 +33,6 @@ namespace IMDB.Controllers
             movieViewDetails.FlyerUrl = movie.FlyerUrl;
             movieViewDetails.Nationality = movie.Nationality;
             movieViewDetails.ReleaseDate = movie.ReleaseDate;
-            movieViewDetails.Cast = movie.Cast;
 
             return movieViewDetails;
         }
@@ -45,7 +44,6 @@ namespace IMDB.Controllers
             movieModel.FlyerUrl = movieViewDetails.FlyerUrl;
             movieModel.Nationality = movieViewDetails.Nationality;
             movieModel.ReleaseDate = movieViewDetails.ReleaseDate;
-            movieModel.Cast = movieViewDetails.Cast;
 
             return movieModel;
         }
@@ -123,7 +121,7 @@ namespace IMDB.Controllers
         }
 
 
-        /*// GET: Movie/Create
+        // GET: Movie/Create
         public ActionResult Create()
         {                                             
            return View();
@@ -142,7 +140,7 @@ namespace IMDB.Controllers
 
             return View();
         }
-        */
+        
 
         public ActionResult Delete()
         {

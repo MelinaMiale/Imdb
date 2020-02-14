@@ -28,12 +28,6 @@ namespace IMDB.Models
 			set;
 		}
 
-		public List<Rol> Cast
-		{
-			get;
-			set;
-		}
-
 		public DateTime ReleaseDate
 		{
 			get;
@@ -47,6 +41,7 @@ namespace IMDB.Models
 		}
 
 		public MovieViewDetails() { }
+
 		public MovieViewDetails(Movie movie) { }
 
 
