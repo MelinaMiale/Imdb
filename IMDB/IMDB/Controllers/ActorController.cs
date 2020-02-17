@@ -73,6 +73,7 @@ namespace IMDB.Web.Controllers
             return View(actorByIdDetailsMV);
         }
 
+
         // GET: Actor/Create
         public ActionResult Create()
         {

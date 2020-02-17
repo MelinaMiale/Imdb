@@ -27,7 +27,7 @@ namespace Proyect_Models
         {
 			get;
 			set;
-        }
+		}
 
 		public DateTime ReleaseDate
         {
@@ -41,8 +41,10 @@ namespace Proyect_Models
 			set;
         }
 
+		
 
-		public Movie(long Id, string Name){
+		public Movie(long Id, string Name)
+		{
 			this.ID_movie = Id;
 			this.Name = Name;
 			this.Characters = new List<Rol>();

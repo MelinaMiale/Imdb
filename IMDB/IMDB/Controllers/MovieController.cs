@@ -34,7 +34,7 @@ namespace IMDB.Controllers
             movieViewDetails.Nationality = movie.Nationality;
             movieViewDetails.ReleaseDate = movie.ReleaseDate;
             movieViewDetails.Characters = movie.Characters;
-
+            
             return movieViewDetails;
         }
 
@@ -82,9 +82,9 @@ namespace IMDB.Controllers
             var movieById = db.GetMovieById(Id);
 
             //genero pelicula de tipo MovieDetailsView y le asigno la pelicula que obtuve x id
-            MovieViewDetails movieViewDetailsByID = new MovieViewDetails();
+            var movieViewDetailsByID = new MovieViewDetails();
             movieViewDetailsByID = MapMovietoMovieViewModel_Details(movieById, movieViewDetailsByID);
-
+            
             //enviarlos a la vista
             return View(movieViewDetailsByID);
         }

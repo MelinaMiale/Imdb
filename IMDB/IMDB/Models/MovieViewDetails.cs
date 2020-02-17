@@ -46,10 +46,16 @@ namespace IMDB.Models
 			set;
 		}
 
+
+
+
+
+
 		public MovieViewDetails() { }
 
 		public MovieViewDetails(Movie movie) { }
 
+		
 
 	}
 }

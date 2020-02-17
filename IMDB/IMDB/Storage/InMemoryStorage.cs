@@ -12,6 +12,7 @@ namespace Repository
 
         List<Movie> moviesInStorage = new List<Movie>();
         List<Actor> actorsInStorage = new List<Actor>();
+        List<Rol> rolsInStorage = new List<Rol>();
 
         public InMemoryStorage() {
 
@@ -32,15 +33,8 @@ namespace Repository
             movie1.FlyerUrl = @"\img\EscapePlanPoster.jpg";
             movie1.Nationality = Nationality.american;
 
-            //Pelicula 3
-            Movie movie3 = new Movie(3, "When Harry met Sally");
-            DateTime Movie3ReleaseDate = new DateTime(1989, 07, 12);
-            movie3.ReleaseDate = Movie3ReleaseDate;
-            movie3.FlyerUrl = @"img\HarrySallyPoster.jpg";
-            movie3.Nationality = Nationality.american;
-           // movie3.Characters = CastMovie3;
-
-            moviesInStorage.Add(movie1); moviesInStorage.Add(movie2); moviesInStorage.Add(movie3);
+            
+            moviesInStorage.Add(movie1); moviesInStorage.Add(movie2);
             // ------------------------------------------------------------------------------------------------------------------------
 
             // instancio roles y actores
@@ -58,25 +52,30 @@ namespace Repository
             var RenéeZellweger = new Actor(1, "Renée", "Zellweger", Nationality.american);
             actorsInStorage.Add(RenéeZellweger);
             RenéeZellweger.RolsPlayed.Add(rol1);
-            rol1.ID_Actor = RenéeZellweger.ID_Actor;
+            rol1.ID_Actor = RenéeZellweger.ID_Actor; 
+            rol1.Actor = RenéeZellweger;
             movie1.Characters.Add(rol1);
+            
 
             var ColinFirth = new Actor(2, "Colin", "Firth", Nationality.british);
             actorsInStorage.Add(ColinFirth);
             ColinFirth.RolsPlayed.Add(rol2);
-            rol2.ID_Actor = ColinFirth.ID_Actor;
+            rol2.ID_Actor = ColinFirth.ID_Actor; 
+            rol2.Actor = ColinFirth;
             movie1.Characters.Add(rol2);
 
             var HughGrant = new Actor(3, "Hugh", "Grant", Nationality.british);
             actorsInStorage.Add(HughGrant);
             HughGrant.RolsPlayed.Add(rol3);
-            rol3.ID_Actor = HughGrant.ID_Actor;
+            rol3.ID_Actor = HughGrant.ID_Actor; 
+            rol3.Actor = HughGrant;
             movie1.Characters.Add(rol3);
 
             var GemmaJones = new Actor(4, "Gemma", "Jones", Nationality.british);
             actorsInStorage.Add(GemmaJones);
             GemmaJones.RolsPlayed.Add(rol4);
-            rol4.ID_Actor = GemmaJones.ID_Actor;
+            rol4.ID_Actor = GemmaJones.ID_Actor; 
+            rol4.Actor = GemmaJones;
             movie1.Characters.Add(rol4);
             //-------------------------------------------------------------------------
 
@@ -116,19 +115,10 @@ namespace Repository
 
             //-------------------------------------------------------------------------
 
-            //Pelicula 3
-            Rol rol9 = new Rol(5, "Sally", 3);
-            Rol rol10 = new Rol(6, "Harry", 3);
-            Rol rol11 = new Rol(7, "Marie", 3);
-            Rol rol12 = new Rol(8, "Jess", 3);
-
-            //Actores
-
-
+            rolsInStorage.Add(rol1); rolsInStorage.Add(rol2); rolsInStorage.Add(rol3); rolsInStorage.Add(rol4);
+            rolsInStorage.Add(rol5); rolsInStorage.Add(rol6); rolsInStorage.Add(rol7); rolsInStorage.Add(rol8);
+   
             //-------------------------------------------------------------------------------------------------------------------------
-
-
-
 
         }
 
@@ -208,6 +198,46 @@ namespace Repository
             }
 
             return actorById;
+        }
+
+        public List<Rol> GetAllRols()
+        {
+            return rolsInStorage;
+        }
+
+        /*public String GetActorNameByRolId (long rolId)
+        {
+            String actorNameByRolId = "";
+            var actorsInMovie = GetAllActors();
+            var rolsInMovies = GetAllRols();
+            
+            foreach(var rol in rolsInMovies)
+            {
+                foreach(var actor in actorsInMovie)
+                {
+                    if( rol.ID_Actor == actor.ID_Actor)
+                    {
+                        actorNameByRolId = actor.Name;
+                    }
+                }
+            }
+
+            return actorNameByRolId;
+        }*/
+
+        public String GetActorNameByRolId(long rolId)
+        {
+            var role = rolsInStorage.FirstOrDefault(r => r.ID_Rol == rolId);
+            if (role != null) {
+                var actor = actorsInStorage.FirstOrDefault(a => a.ID_Actor == role.ID_Actor);
+                if (actor != null) {
+                    return actor.Name;
+                }
+            }
+
+            throw new System.InvalidOperationException("");
+            
+
         }
 
     }

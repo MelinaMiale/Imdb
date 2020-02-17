@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Proyect_Models
 {
@@ -29,11 +30,27 @@ namespace Proyect_Models
 			set;
 		}
 
+		public Actor Actor
+		{
+			get;
+			set;
+		}
+
+		public Actor Pelicula
+		{
+			get;
+			set;
+		}
+
+
+
 		public Rol(long Id, string character, long idPelicula){
 			this.ID_Rol = Id;
 			this.CharacterName = character;
 			this.ID_Pelicula = idPelicula;
 		}
+
+		public Rol() { }
 
 	}
 
