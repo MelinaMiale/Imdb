@@ -11,18 +11,21 @@ namespace Repository
 
     {
         //lista todos las peliculas
-        public List<Movie> GetAll();
+        public List<Movie> GetAllMovies();
 
-        public Movie GetById(long Id);
+        public Movie GetMovieById(long Id);
 
-        public Movie Update(Movie updatedMovie);
+        public Movie UpdateMovie(Movie updatedMovie);
 
-        public void Save(Movie editedMovie);
+        public void SaveMovie(Movie editedMovie);
 
         public void Delete(Movie deletedMovie);
 
-       
+        public List<Actor> GetAllActors();
 
+        public Actor GetActorbyId(long id);
+       
+                          
     }
 
 

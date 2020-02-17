@@ -33,6 +33,7 @@ namespace IMDB.Controllers
             movieViewDetails.FlyerUrl = movie.FlyerUrl;
             movieViewDetails.Nationality = movie.Nationality;
             movieViewDetails.ReleaseDate = movie.ReleaseDate;
+            movieViewDetails.Characters = movie.Characters;
 
             return movieViewDetails;
         }
@@ -43,6 +44,7 @@ namespace IMDB.Controllers
             movieModel.Name = movieViewDetails.Name;
             movieModel.FlyerUrl = movieViewDetails.FlyerUrl;
             movieModel.Nationality = movieViewDetails.Nationality;
+            movieModel.Characters = movieViewDetails.Characters;
             movieModel.ReleaseDate = movieViewDetails.ReleaseDate;
 
             return movieModel;
@@ -52,7 +54,7 @@ namespace IMDB.Controllers
         public ActionResult Index()
         {
             //obtengo lita de peliculas guardadas en storage
-            var movies = db.GetAll();
+            var movies = db.GetAllMovies();
 
             //crear una lista en base al modelo MovieViewModel
             var movieViewModel = new List<MovieViewModel>();
@@ -77,7 +79,7 @@ namespace IMDB.Controllers
         public ActionResult Details(long Id)
         {
             // traer pelicula >> metodo para buscar por id
-            var movieById = db.GetById(Id);
+            var movieById = db.GetMovieById(Id);
 
             //genero pelicula de tipo MovieDetailsView y le asigno la pelicula que obtuve x id
             MovieViewDetails movieViewDetailsByID = new MovieViewDetails();
@@ -90,7 +92,7 @@ namespace IMDB.Controllers
         // GET: Movie/Edit/{id}
         public ActionResult Edit(long Id)
         {
-            var movie = db.GetById(Id);
+            var movie = db.GetMovieById(Id);
             if (movie == null)
             {
                 return this.NotFound();
@@ -107,14 +109,14 @@ namespace IMDB.Controllers
         public ActionResult EditPost(MovieViewDetails editedMovie)
         {
             //tomo la pelicula que tengo en db, la q tiene el mismo id que viene de la pelicula editada
-            var editedMovieModel = db.GetById(editedMovie.ID);
+            var editedMovieModel = db.GetMovieById(editedMovie.ID);
 
             //paso esa pelicula de tipo MovieViewDetails a una pelicula de tipo MovieModel
             editedMovieModel = MapMovieDetailsModel_to_MovieModel(editedMovieModel, editedMovie);
 
             if (ModelState.IsValid)
             {
-                db.Update(editedMovieModel);
+                db.UpdateMovie(editedMovieModel);
             }
 
             return View(MapMovietoMovieViewModel_Details(editedMovieModel, new MovieViewDetails()));
@@ -136,7 +138,7 @@ namespace IMDB.Controllers
             var newModelMovie = new Movie();
             MapMovieDetailsModel_to_MovieModel(newModelMovie, newMovie);
 
-            db.Save(newModelMovie);  
+            db.SaveMovie(newModelMovie);  
 
             return View();
         }
@@ -146,7 +148,7 @@ namespace IMDB.Controllers
         public ActionResult Delete(long id)
         {
             //obtengo pelicula que quiero borrar
-            var movie = db.GetById(id);
+            var movie = db.GetMovieById(id);
             if (movie == null)
             {
                 return this.NotFound();
@@ -164,7 +166,7 @@ namespace IMDB.Controllers
         public ActionResult DeletePost(int id)
         {
             //tomo la pelicula que tengo en db, la q tiene el mismo id que viene de la pelicula que quiero borrar
-            var movieToDelete = db.GetById(id);
+            var movieToDelete = db.GetMovieById(id);
 
             //if (ModelState.IsValid)
             {
