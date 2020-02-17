@@ -29,9 +29,9 @@
         <dt><label asp-for="Characters"></label></dt>
         <dd>
             <ul>
-                @foreach (var character in Model.Characters)
+                @foreach (var rol in Model.Characters)
                 {
-                    <li>@character.CharacterName</li>
+                    <li>Personaje: @rol.CharacterName interpretador por @rol.Actor.Name @rol.Actor.LastName</li>
                 }
             </ul>
         </dd>

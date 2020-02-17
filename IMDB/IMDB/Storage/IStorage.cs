@@ -24,8 +24,11 @@ namespace Repository
         public List<Actor> GetAllActors();
 
         public Actor GetActorbyId(long id);
-       
-                          
+
+        public List<Rol> GetAllRols();
+
+        public String GetActorNameByRolId(long actorId);
+
     }
 
 
