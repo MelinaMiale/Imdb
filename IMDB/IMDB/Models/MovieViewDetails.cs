@@ -34,6 +34,12 @@ namespace IMDB.Models
 			set;
 		}
 
+		public List<Rol> Characters
+		{
+			get;
+			set;
+		}
+
 		public string FlyerUrl
 		{
 			get;

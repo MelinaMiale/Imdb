@@ -54,10 +54,13 @@ namespace Proyect_Models
 			this.Name = Name;
 			this.LastName = LastName;
 			this.Nationality = Nationality;
+			this.RolsPlayed = new List<Rol>();
 		}
-		
-	
-	}
+
+        public Actor()
+        {
+        }
+    }
 
 }
 

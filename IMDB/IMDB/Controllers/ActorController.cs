@@ -2,23 +2,75 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IMDB.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Proyect_Models;
+using Repository;
 
 namespace IMDB.Web.Controllers
 {
     public class ActorController : Controller
     {
-        // GET: Actor
+
+        IStorage db;
+
+        public ActorController (IStorage repository)
+        {
+            db = repository;
+        }
+
+        //metodo que copia la informacion de un objeto de tipo Actor a un objeto de tipo ActorViewModel, y devuelve este ultimo
+        private ActorViewModel MapActortoActorViewModel(Actor actor, ActorViewModel actorViewModel)
+        {
+            actorViewModel.ID_Actor = actor.ID_Actor;
+            actorViewModel.Name = actor.Name;
+            actorViewModel.LastName = actor.LastName;
+
+            return actorViewModel;
+        }
+
+        private ActorDetailModelView MapActorDetail_toActorDetailViewModel(Actor actor, ActorDetailModelView actorDetailVM)
+        {
+            actorDetailVM.Age = actor.Age;
+            actorDetailVM.ID_Actor = actor.ID_Actor;
+            actorDetailVM.Name = actor.Name;
+            actorDetailVM.LastName = actor.LastName;
+            actorDetailVM.Nationality = actor.Nationality;
+            actorDetailVM.ProfileFoto = actor.ProfileFoto;
+            actorDetailVM.RolsPlayed = actor.RolsPlayed;
+
+            return actorDetailVM;
+        }
+
+        // listar todos los actores
         public ActionResult Index()
         {
-            return View();
+            //obtengo lita de actores guardadas en storage
+            var actorsInStorage = db.GetAllActors();
+
+            //crear una lista en base al modelo MovieViewModel
+            var actorViewModelList = new List<ActorViewModel>();
+
+            //paso cada actor de la lista de actores a actor view model y lo agrego a la lista de ese tipo 
+            foreach(var actor in actorsInStorage)
+            {
+                actorViewModelList.Add(MapActortoActorViewModel(actor, new ActorViewModel()));
+            }
+
+            return View(actorViewModelList);
         }
 
         // GET: Actor/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            //obtener pelicula de la base de datos
+            var actorById = db.GetActorbyId(id);
+
+            //pasar esa pelicula a modelo de vista (crear actorDetailModelView)(crear metodo MapActorDetail_toActorDetailViewModel)
+            var actorByIdDetailsMV = MapActorDetail_toActorDetailViewModel(actorById, new ActorDetailModelView());
+
+            return View(actorByIdDetailsMV);
         }
 
         // GET: Actor/Create

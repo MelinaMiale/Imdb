@@ -11,6 +11,7 @@ namespace Repository
     {
 
         List<Movie> moviesInStorage = new List<Movie>();
+        List<Actor> actorsInStorage = new List<Actor>();
 
         public InMemoryStorage() {
 
@@ -37,51 +38,101 @@ namespace Repository
             movie3.ReleaseDate = Movie3ReleaseDate;
             movie3.FlyerUrl = @"img\HarrySallyPoster.jpg";
             movie3.Nationality = Nationality.american;
-           // movie3.Cast = CastMovie3;
+           // movie3.Characters = CastMovie3;
 
             moviesInStorage.Add(movie1); moviesInStorage.Add(movie2); moviesInStorage.Add(movie3);
             // ------------------------------------------------------------------------------------------------------------------------
-            //-------------------------------------------------------------------------------------------------------------------------
 
+            // instancio roles y actores
 
-            // instancio roles
+            //Pelicula 1: Bridget Jones's Diary
+
+            //roles
+            Rol rol1 = new Rol(1, "BridgetJones", 1);
+            Rol rol2 = new Rol(2, "Mark Darcy", 1);
+            Rol rol3 = new Rol(3, "Daniel Cleaver", 1);
+            Rol rol4 = new Rol(4, "Bridget's Mum", 1);
             
-            //Pelicula 2
-            Rol rol5 = new Rol(5, "Emil Rottmayer");
-            Rol rol6 = new Rol(6, "Ray Breslin");
-            Rol rol7 = new Rol(7, "Hobbes");
-            Rol rol8 = new Rol(8, "Dr. Kyrie");
-            List<Rol> CastMovie2 = new List<Rol>();
-            CastMovie2.Add(rol5); CastMovie2.Add(rol6); CastMovie2.Add(rol7); CastMovie2.Add(rol8);
+           //Actores
 
-             //Pelicula 1
-            Rol rol1 = new Rol(1, "BridgetJones");
-            Rol rol2 = new Rol(2, "Mark Darcy");
-            Rol rol3 = new Rol(3, "Daniel Cleaver");
-            Rol rol4 = new Rol(4, "Bridget's Mum");
-            List<Rol> CastMovie1 = new List<Rol>();
-            CastMovie1.Add(rol1); CastMovie1.Add(rol2); CastMovie1.Add(rol3); CastMovie1.Add(rol4);
+            var RenéeZellweger = new Actor(1, "Renée", "Zellweger", Nationality.american);
+            actorsInStorage.Add(RenéeZellweger);
+            RenéeZellweger.RolsPlayed.Add(rol1);
+            rol1.ID_Actor = RenéeZellweger.ID_Actor;
+            movie1.Characters.Add(rol1);
+
+            var ColinFirth = new Actor(2, "Colin", "Firth", Nationality.british);
+            actorsInStorage.Add(ColinFirth);
+            ColinFirth.RolsPlayed.Add(rol2);
+            rol2.ID_Actor = ColinFirth.ID_Actor;
+            movie1.Characters.Add(rol2);
+
+            var HughGrant = new Actor(3, "Hugh", "Grant", Nationality.british);
+            actorsInStorage.Add(HughGrant);
+            HughGrant.RolsPlayed.Add(rol3);
+            rol3.ID_Actor = HughGrant.ID_Actor;
+            movie1.Characters.Add(rol3);
+
+            var GemmaJones = new Actor(4, "Gemma", "Jones", Nationality.british);
+            actorsInStorage.Add(GemmaJones);
+            GemmaJones.RolsPlayed.Add(rol4);
+            rol4.ID_Actor = GemmaJones.ID_Actor;
+            movie1.Characters.Add(rol4);
+            //-------------------------------------------------------------------------
+
+            //pelicula 2: Escape Plan
+
+            //Roles
+            Rol rol6 = new Rol(5, "Emil Rottmayer", 2);
+            Rol rol5 = new Rol(6, "Ray Breslin", 2);
+            Rol rol7 = new Rol(7, "Hobbes", 2);
+            Rol rol8 = new Rol(8, "Dr. Kyrie", 2);
+
+            //Actores
+            var SylvesterStallone = new Actor(5, "Sylvester", "Stallone", Nationality.american);
+            actorsInStorage.Add(SylvesterStallone);
+            SylvesterStallone.RolsPlayed.Add(rol5);
+            rol5.ID_Actor = SylvesterStallone.ID_Actor;
+            movie2.Characters.Add(rol5);
+
+            var ArnoldSchwarzenegger = new Actor(6, "Arnold", "Schwarzenegger", Nationality.austrian);
+            actorsInStorage.Add(ArnoldSchwarzenegger);
+            ArnoldSchwarzenegger.RolsPlayed.Add(rol6);
+            rol6.ID_Actor = ArnoldSchwarzenegger.ID_Actor;
+            movie2.Characters.Add(rol6);
+
+            var JimCaviezel = new Actor(7, "Jim", "Caviezel", Nationality.american);
+            actorsInStorage.Add(JimCaviezel);
+            JimCaviezel.RolsPlayed.Add(rol7);
+            rol7.ID_Actor = JimCaviezel.ID_Actor;
+            movie2.Characters.Add(rol7);
+
+            var SamNeill = new Actor(7, "Sam", "Neill", Nationality.american);
+            actorsInStorage.Add(SamNeill);
+            SamNeill.RolsPlayed.Add(rol8);
+            rol8.ID_Actor = SamNeill.ID_Actor;
+            movie2.Characters.Add(rol8);
+
+
+            //-------------------------------------------------------------------------
 
             //Pelicula 3
-            Rol rol9 = new Rol(5, "Sally");
-            Rol rol10 = new Rol(6, "Harry");
-            Rol rol11 = new Rol(7, "Marie");
-            Rol rol12 = new Rol(8, "Jess");
-            List<Rol> CastMovie3 = new List<Rol>();
-            CastMovie3.Add(rol9); CastMovie3.Add(rol10); CastMovie3.Add(rol11); CastMovie3.Add(rol12);
-
-            // ------------------------------------------------------------------------------------------------------------------------
-            //------------------------------------------------------------------------------------------------------------------------- 
-
+            Rol rol9 = new Rol(5, "Sally", 3);
+            Rol rol10 = new Rol(6, "Harry", 3);
+            Rol rol11 = new Rol(7, "Marie", 3);
+            Rol rol12 = new Rol(8, "Jess", 3);
 
             //Actores
 
-            
+
+            //-------------------------------------------------------------------------------------------------------------------------
 
 
 
 
         }
+
+
 
         public long SetID ()
         {
@@ -90,14 +141,14 @@ namespace Repository
             return (maxID = maxID + 1);
         }
 
-        public List<Movie> GetAll()
+        public List<Movie> GetAllMovies()
         {
             return moviesInStorage;
         }
 
-        public Movie GetById(long Id)
+        public Movie GetMovieById(long Id)
         {
-            List<Movie> movies = GetAll();
+            List<Movie> movies = GetAllMovies();
             var movieById = new Movie();
 
             foreach (var movie in movies)
@@ -112,13 +163,13 @@ namespace Repository
             return movieById;
         }
 
-        public void Save(Movie editedMovie)
+        public void SaveMovie(Movie editedMovie)
         {
             editedMovie.ID_movie = SetID();
             moviesInStorage.Add(editedMovie);
         } 
         
-        public Movie Update(Movie editedMovie)
+        public Movie UpdateMovie(Movie editedMovie)
         {
             var newMovie = new Movie();
             if(editedMovie != null)
@@ -134,8 +185,29 @@ namespace Repository
 
         public void Delete(Movie deletedMovie)
         {
-            var movieTodelete = GetById(deletedMovie.ID_movie);
+            var movieTodelete = GetMovieById(deletedMovie.ID_movie);
             moviesInStorage.Remove(movieTodelete);
+        }
+
+        public List<Actor> GetAllActors()
+        {
+            return actorsInStorage;
+        }
+
+        public Actor GetActorbyId(long id)
+        {
+            List <Actor> actorsInStorage = GetAllActors();
+            var actorById = new Actor();
+
+            foreach(var actor in actorsInStorage)
+            {
+                if(actor.ID_Actor == id)
+                {
+                    actorById = actor;
+                }
+            }
+
+            return actorById;
         }
 
     }

@@ -11,7 +11,7 @@ namespace Proyect_Models
 			set;
         }
 
-		public string Character
+		public string CharacterName
         {
 			get;
 			set;
@@ -29,9 +29,10 @@ namespace Proyect_Models
 			set;
 		}
 
-		public Rol(long Id, string character){
+		public Rol(long Id, string character, long idPelicula){
 			this.ID_Rol = Id;
-			this.Character = character;
+			this.CharacterName = character;
+			this.ID_Pelicula = idPelicula;
 		}
 
 	}

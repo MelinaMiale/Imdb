@@ -5,6 +5,7 @@ namespace Proyect_Models
 
 	public enum Nationality
 	{
+		none,
 		spanish,
 		american,
 		british,
@@ -14,7 +15,8 @@ namespace Proyect_Models
 		korean,
 		russian,
 		german,
-		italian
+		italian,
+		austrian
 
 	}
 
