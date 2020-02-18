@@ -43,6 +43,20 @@ namespace IMDB.Web.Controllers
             return actorDetailVM;
         }
 
+        private Actor MapActorDetailViewModel_toActorDetail(Actor actor, ActorDetailModelView actorDetailVM)
+        {
+            actor.Age = actorDetailVM.Age;
+            actor.ID_Actor = actorDetailVM.ID_Actor;
+            actor.Name = actorDetailVM.Name;
+            actor.LastName = actorDetailVM.LastName;
+            actor.Nationality = actorDetailVM.Nationality;
+            actor.ProfileFoto = actorDetailVM.ProfileFoto;
+            actor.RolsPlayed = actorDetailVM.RolsPlayed;
+
+            return actor;
+        }
+
+
         // listar todos los actores
         public ActionResult Index()
         {
@@ -83,19 +97,16 @@ namespace IMDB.Web.Controllers
         // POST: Actor/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(ActorDetailModelView newActorVM)
         {
-            try
-            {
-                // TODO: Add insert logic here
+            var newActor = new Actor();
+            MapActorDetailViewModel_toActorDetail(newActor, newActorVM);
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            db.SaveActor(newActor);
+
+            return View();  
         }
+
 
         // GET: Actor/Edit/5
         public ActionResult Edit(int id)

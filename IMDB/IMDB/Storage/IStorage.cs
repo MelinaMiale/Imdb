@@ -29,6 +29,11 @@ namespace Repository
 
         public String GetActorNameByRolId(long actorId);
 
+        public void SaveActor(Actor editedOrNewActor);
+
+        public long SetActorID();
+
+
     }
 
 

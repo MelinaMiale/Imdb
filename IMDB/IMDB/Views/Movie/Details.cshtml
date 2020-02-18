@@ -31,7 +31,11 @@
             <ul>
                 @foreach (var rol in Model.Characters)
                 {
-                    <li>Personaje: @rol.CharacterName interpretador por @rol.Actor.Name @rol.Actor.LastName</li>
+                <li>@rol.CharacterName interpretado por <a asp-controller="Actor" asp-action="Details" asp-route-id="@rol.Actor.ID_Actor"> 
+                    @rol.Actor.Name</a> @rol.Actor.LastName </li>
+
+
+                    //<li>Personaje: @rol.CharacterName interpretador por @rol.Actor.Name @rol.Actor.LastName</li>
                 }
             </ul>
         </dd>

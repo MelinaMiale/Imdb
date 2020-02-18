@@ -18,17 +18,17 @@ namespace Proyect_Models
 			set;
         }
 
-		public long ID_Actor
-		{
-			get;
-			set;
-		}
+		//public long ID_Actor
+		//{
+		//	get;
+		//	set;
+		//}
 
-		public long ID_Pelicula
-		{
-			get;
-			set;
-		}
+		//public long ID_Pelicula
+		//{
+		//	get;
+		//	set;
+		//}
 
 		public Actor Actor
 		{
@@ -36,7 +36,7 @@ namespace Proyect_Models
 			set;
 		}
 
-		public Actor Pelicula
+		public Movie Movie
 		{
 			get;
 			set;
@@ -44,10 +44,10 @@ namespace Proyect_Models
 
 
 
-		public Rol(long Id, string character, long idPelicula){
+		public Rol(long Id, string character, Movie movie){
 			this.ID_Rol = Id;
 			this.CharacterName = character;
-			this.ID_Pelicula = idPelicula;
+			this.Movie = movie;
 		}
 
 		public Rol() { }
