@@ -33,6 +33,8 @@ namespace Repository
 
         public long SetActorID();
 
+        public void DeleteActor(Actor actorToDelete);
+
 
     }
 

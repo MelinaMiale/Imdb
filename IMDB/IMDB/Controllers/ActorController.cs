@@ -43,7 +43,7 @@ namespace IMDB.Web.Controllers
             return actorDetailVM;
         }
 
-        private Actor MapActorDetailViewModel_toActorDetail(Actor actor, ActorDetailModelView actorDetailVM)
+        private Actor MapActorDetailVM_toActorDetail(Actor actor, ActorDetailModelView actorDetailVM)
         {
             actor.Age = actorDetailVM.Age;
             actor.ID_Actor = actorDetailVM.ID_Actor;
@@ -100,11 +100,11 @@ namespace IMDB.Web.Controllers
         public ActionResult Create(ActorDetailModelView newActorVM)
         {
             var newActor = new Actor();
-            MapActorDetailViewModel_toActorDetail(newActor, newActorVM);
+            MapActorDetailVM_toActorDetail(newActor, newActorVM);
 
             db.SaveActor(newActor);
 
-            return View();  
+            return RedirectToAction(nameof(ActorController.Index), "Home");
         }
 
 
@@ -132,26 +132,35 @@ namespace IMDB.Web.Controllers
         }
 
         // GET: Actor/Delete/5
-        public ActionResult Delete(int id)
+        [Route("Actor/Delete/{actorId}")]
+        public ActionResult Delete(int actorId)
         {
-            return View();
+            //obtengo actor que quiero borrar
+            var actorTodelete = db.GetActorbyId(actorId);
+            if (actorTodelete == null)
+            {
+                return this.NotFound();
+            }
+
+            //paso el actor a borrar al modeloVista
+            return View(MapActorDetail_toActorDetailViewModel(actorTodelete, new ActorDetailModelView()));
         }
 
         // POST: Actor/Delete/5
         [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult DeletePost(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            var actorToDelete = db.GetActorbyId(id);
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
+            //if (ModelState.IsValid)
             {
-                return View();
+                db.DeleteActor(actorToDelete);
             }
+
+            return RedirectToAction(nameof(ActorController.Index), "Home");
+
         }
     }
 }

@@ -168,7 +168,7 @@ namespace IMDB.Controllers
             //tomo la pelicula que tengo en db, la q tiene el mismo id que viene de la pelicula que quiero borrar
             var movieToDelete = db.GetMovieById(id);
 
-            //if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 db.Delete(movieToDelete);
             }

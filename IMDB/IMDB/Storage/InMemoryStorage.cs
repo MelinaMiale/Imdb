@@ -182,7 +182,7 @@ namespace Repository
 
         public Actor GetActorbyId(long id)
         {
-            List <Actor> actorsInStorage = GetAllActors();
+            var actorsInStorage = GetAllActors();
             var actorById = new Actor();
 
             foreach(var actor in actorsInStorage)
@@ -249,6 +249,11 @@ namespace Repository
             return (maxID = maxID + 1);
         }
 
+        public void DeleteActor (Actor actor)
+        {
+            var actorToDelete = GetActorbyId(actor.ID_Actor);
+            actorsInStorage.Remove(actorToDelete);
+        }
 
 
     }

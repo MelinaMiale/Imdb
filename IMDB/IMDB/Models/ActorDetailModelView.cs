@@ -19,31 +19,26 @@ namespace IMDB.Web.Models
 			get;
 			set;
 		}
-		[Required]
 		public string Name
 		{
 			get;
 			set;
 		}
-		[Required]
 		public string LastName
 		{
 			get;
 			set;
 		}
-		[Required]
 		public Nationality Nationality
 		{
 			get;
 			set;
 		}
-		[Required]
 		public int Age
 		{
 			get;
 			set;
 		}
-
 		public List<Rol> RolsPlayed
 		{
 			get;
