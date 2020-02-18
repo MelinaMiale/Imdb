@@ -144,7 +144,7 @@ namespace IMDB.Controllers
         }
 
 
-        // GET: Student/Delete/5
+        // GET: Movie/Delete/5
         public ActionResult Delete(long id)
         {
             //obtengo pelicula que quiero borrar
@@ -159,7 +159,7 @@ namespace IMDB.Controllers
         }
 
 
-        // POST: Student/Delete/5
+        // POST: Movie/Delete/5
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -168,7 +168,7 @@ namespace IMDB.Controllers
             //tomo la pelicula que tengo en db, la q tiene el mismo id que viene de la pelicula que quiero borrar
             var movieToDelete = db.GetMovieById(id);
 
-            //if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 db.Delete(movieToDelete);
             }

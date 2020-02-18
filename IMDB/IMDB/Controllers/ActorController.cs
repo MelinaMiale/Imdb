@@ -43,6 +43,20 @@ namespace IMDB.Web.Controllers
             return actorDetailVM;
         }
 
+        private Actor MapActorDetailVM_toActorDetail(Actor actor, ActorDetailModelView actorDetailVM)
+        {
+            actor.Age = actorDetailVM.Age;
+            actor.ID_Actor = actorDetailVM.ID_Actor;
+            actor.Name = actorDetailVM.Name;
+            actor.LastName = actorDetailVM.LastName;
+            actor.Nationality = actorDetailVM.Nationality;
+            actor.ProfileFoto = actorDetailVM.ProfileFoto;
+            actor.RolsPlayed = actorDetailVM.RolsPlayed;
+
+            return actor;
+        }
+
+
         // listar todos los actores
         public ActionResult Index()
         {
@@ -83,19 +97,16 @@ namespace IMDB.Web.Controllers
         // POST: Actor/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(ActorDetailModelView newActorVM)
         {
-            try
-            {
-                // TODO: Add insert logic here
+            var newActor = new Actor();
+            MapActorDetailVM_toActorDetail(newActor, newActorVM);
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            db.SaveActor(newActor);
+
+            return RedirectToAction(nameof(ActorController.Index), "Home");
         }
+
 
         // GET: Actor/Edit/5
         public ActionResult Edit(int id)
@@ -121,26 +132,35 @@ namespace IMDB.Web.Controllers
         }
 
         // GET: Actor/Delete/5
-        public ActionResult Delete(int id)
+        [Route("Actor/Delete/{actorId}")]
+        public ActionResult Delete(int actorId)
         {
-            return View();
+            //obtengo actor que quiero borrar
+            var actorTodelete = db.GetActorbyId(actorId);
+            if (actorTodelete == null)
+            {
+                return this.NotFound();
+            }
+
+            //paso el actor a borrar al modeloVista
+            return View(MapActorDetail_toActorDetailViewModel(actorTodelete, new ActorDetailModelView()));
         }
 
         // POST: Actor/Delete/5
         [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult DeletePost(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            var actorToDelete = db.GetActorbyId(id);
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
+            //if (ModelState.IsValid)
             {
-                return View();
+                db.DeleteActor(actorToDelete);
             }
+
+            return RedirectToAction(nameof(ActorController.Index), "Home");
+
         }
     }
 }
