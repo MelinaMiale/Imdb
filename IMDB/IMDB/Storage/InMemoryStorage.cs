@@ -184,6 +184,19 @@ namespace Repository
         public void Delete(Movie deletedMovie)
         {
             var movieTodelete = GetMovieById(deletedMovie.ID_movie);
+            
+           //borrar los personajes de la pelicula de la lista de personajes del actor
+               foreach(var role in deletedMovie.Characters)
+                {
+                    foreach(var actor in actorsInStorage)
+                    {
+                        if(actor.ID_Actor == role.Actor.ID_Actor)
+                        {
+                            actor.RolsPlayed.Remove(role);
+                        }
+                    }
+                }
+
             moviesInStorage.Remove(movieTodelete);
         }
 

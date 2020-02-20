@@ -29,7 +29,6 @@
         <dd class="col-sm-10">@Html.DisplayFor(model => model.Age)</dd>
 
         <!-- asociates roles with actors -->
-
         <table class=" table table-striped">
             <tr>
                 <th><label asp-for="RolsPlayed"></label></th>
@@ -39,7 +38,7 @@
             {
                 <tr>
                     <td>
-                        As @role.CharacterName interpretado en
+                       as @role.CharacterName interpretado en
                         <a asp-controller="Movie" asp-action="Details" asp-route-Id="@role.Movie.ID_movie">
                             @role.Movie.Name
                         </a>
@@ -48,7 +47,6 @@
                         <a class="btn btn-danger" asp-controller="Movie" asp-action="DeleteRol" asp-route-movieId="@role.Movie.ID_movie" asp-route-rolId="@role.ID_Role">Delete</a>
                     </td>
                 </tr>
-
             }
         </table>
 
