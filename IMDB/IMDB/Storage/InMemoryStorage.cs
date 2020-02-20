@@ -26,7 +26,7 @@ namespace Repository
             Movie movie2 = new Movie(2, "Escape Plan");
             DateTime Movie2ReleaseDate = new DateTime(2013, 10, 31);
             movie2.ReleaseDate = Movie2ReleaseDate;
-            movie2.FlyerUrl = @"img\bridgetJonesPoster.jpg";
+            movie2.FlyerUrl = @"\img\EscapePlanPoster.jpg";
             movie2.Nationality = Nationality.american;
             
 
@@ -34,7 +34,7 @@ namespace Repository
             Movie movie1 = new Movie(1, "Bridget Jones Diary");
             DateTime Movie1ReleaseDate = new DateTime(2001, 4, 4);
             movie1.ReleaseDate = Movie1ReleaseDate;
-            movie1.FlyerUrl = @"\img\EscapePlanPoster.jpg";
+            movie1.FlyerUrl = @"\img\bridgetJonesPoster.jpg";
             movie1.Nationality = Nationality.american;
 
             

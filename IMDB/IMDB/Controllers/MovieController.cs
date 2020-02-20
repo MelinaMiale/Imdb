@@ -79,7 +79,7 @@ namespace IMDB.Controllers
             return View(movieViewModel);// envio la lista de tipo MovieViewModel que contiene las peliculas con ese modelo 
         }
 
-        public ActionResult Details(long Id)
+        public ActionResult Details(int Id)
         {
             // traer pelicula >> metodo para buscar por id
             var movieById = db.GetMovieById(Id);

@@ -11,7 +11,7 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">@Html.DisplayNameFor(model => model.ProfileFoto)</dt>
-        <dd class="col-sm-10"><img src= "@Html.DisplayFor(model => model.ProfileFoto)" width="250" height="250" /></dd>
+        <dd class="col-sm-10"><img src="@Html.DisplayFor(model => model.ProfileFoto)" width="250" height="250" /></dd>
 
         <dt class="col-sm-2">@Html.DisplayNameFor(model => model.ID_Actor)</dt>
         <dd class="col-sm-10">@Html.DisplayFor(model => model.ID_Actor)</dd>
@@ -28,15 +28,29 @@
         <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Age)</dt>
         <dd class="col-sm-10">@Html.DisplayFor(model => model.Age)</dd>
 
-        <dt><label asp-for="RolsPlayed"></label></dt>
-        <dd>
-            <ul>
-                @foreach (var rol in Model.RolsPlayed)
-                {
-                    <li>@rol.CharacterName</li>
-                }
-            </ul>
-        </dd>
+        <!-- asociates roles with actors -->
+
+        <table class=" table table-striped">
+            <tr>
+                <th><label asp-for="RolsPlayed"></label></th>
+                <th></th>
+            </tr>
+            @foreach (var role in Model.RolsPlayed)
+            {
+                <tr>
+                    <td>
+                        As @role.CharacterName interpretado en
+                        <a asp-controller="Movie" asp-action="Details" asp-route-Id="@role.Movie.ID_movie">
+                            @role.Movie.Name
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" asp-controller="Movie" asp-action="DeleteRol" asp-route-movieId="@role.Movie.ID_movie" asp-route-rolId="@role.ID_Role">Delete</a>
+                    </td>
+                </tr>
+
+            }
+        </table>
 
     </dl>
 </div>
