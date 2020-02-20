@@ -41,7 +41,7 @@ namespace Repository
             moviesInStorage.Add(movie1); moviesInStorage.Add(movie2);
             // ------------------------------------------------------------------------------------------------------------------------
 
-            // instancio roles y actores
+            // instancio roles y actores----------------------------------------------------------------------------------------------
 
             //Pelicula 1: Bridget Jones's Diary
 
@@ -51,30 +51,32 @@ namespace Repository
             Role rol3 = new Role(3, "Daniel Cleaver", movie1);
             Role rol4 = new Role(4, "Bridget's Mum", movie1);
             
-           //Actores
-
+       
             var RenéeZellweger = new Actor(1, "Renée", "Zellweger", Nationality.american);
-            actorsInStorage.Add(RenéeZellweger);
             RenéeZellweger.RolsPlayed.Add(rol1);
+            RenéeZellweger.ProfileFoto = @"\img\Renée_Zellweger.jpg";
+            actorsInStorage.Add(RenéeZellweger);
             rol1.Actor = RenéeZellweger; 
             movie1.Characters.Add(rol1);
             
-
             var ColinFirth = new Actor(2, "Colin", "Firth", Nationality.british);
-            actorsInStorage.Add(ColinFirth);
             ColinFirth.RolsPlayed.Add(rol2);
+            ColinFirth.ProfileFoto = @"\img\ColinFirth.jpg";
+            actorsInStorage.Add(ColinFirth);
             rol2.Actor = ColinFirth;
             movie1.Characters.Add(rol2);
 
             var HughGrant = new Actor(3, "Hugh", "Grant", Nationality.british);
-            actorsInStorage.Add(HughGrant);
+            HughGrant.ProfileFoto = @"\img\HughGrant.jpg";
             HughGrant.RolsPlayed.Add(rol3);
+            actorsInStorage.Add(HughGrant);         
             rol3.Actor = HughGrant;
             movie1.Characters.Add(rol3);
 
             var GemmaJones = new Actor(4, "Gemma", "Jones", Nationality.british);
-            actorsInStorage.Add(GemmaJones);
             GemmaJones.RolsPlayed.Add(rol4);
+            GemmaJones.ProfileFoto = @"\img\GemmaJones.jpg";
+            actorsInStorage.Add(GemmaJones);            
             rol4.Actor = GemmaJones;
             movie1.Characters.Add(rol4);
             //-------------------------------------------------------------------------
@@ -89,26 +91,30 @@ namespace Repository
 
             //Actores
             var SylvesterStallone = new Actor(5, "Sylvester", "Stallone", Nationality.american);
-            actorsInStorage.Add(SylvesterStallone);
             SylvesterStallone.RolsPlayed.Add(rol5);
+            SylvesterStallone.ProfileFoto = @"\img\SylvesterStallone.jpg";
+            actorsInStorage.Add(SylvesterStallone);
             rol5.Actor = SylvesterStallone;
             movie2.Characters.Add(rol5);
 
             var ArnoldSchwarzenegger = new Actor(6, "Arnold", "Schwarzenegger", Nationality.austrian);
-            actorsInStorage.Add(ArnoldSchwarzenegger);
             ArnoldSchwarzenegger.RolsPlayed.Add(rol6);
+            ArnoldSchwarzenegger.ProfileFoto = @"\img\ArnoldSchwarzenegger.jpg";
+            actorsInStorage.Add(ArnoldSchwarzenegger);
             rol6.Actor = ArnoldSchwarzenegger;
             movie2.Characters.Add(rol6);
 
             var JimCaviezel = new Actor(7, "Jim", "Caviezel", Nationality.american);
-            actorsInStorage.Add(JimCaviezel);
+            JimCaviezel.ProfileFoto = @"\img\JimCaviezel.jpg";
             JimCaviezel.RolsPlayed.Add(rol7);
+            actorsInStorage.Add(JimCaviezel);            
             rol7.Actor = JimCaviezel;
             movie2.Characters.Add(rol7);
 
             var SamNeill = new Actor(7, "Sam", "Neill", Nationality.american);
-            actorsInStorage.Add(SamNeill);
             SamNeill.RolsPlayed.Add(rol8);
+            SamNeill.ProfileFoto = @"\img\SamNeill.jpg";
+            actorsInStorage.Add(SamNeill);
             rol8.Actor = SamNeill;
             movie2.Characters.Add(rol8);
 

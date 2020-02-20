@@ -43,7 +43,7 @@ namespace Proyect_Models
 			set;
         }
 
-		public int ProfileFoto
+		public string ProfileFoto
         {
 			get;
 			set;

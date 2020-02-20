@@ -9,7 +9,7 @@ namespace IMDB.Web.Models
 {
     public class ActorDetailModelView
     {
-		public int ProfileFoto
+		public string ProfileFoto
 		{
 			get;
 			set;
