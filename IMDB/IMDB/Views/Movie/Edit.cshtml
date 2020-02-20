@@ -1,4 +1,4 @@
-﻿@model IMDB.Models.MovieViewDetails
+﻿@model IMDB.Web.ViewModels.MovieDetailsViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -30,7 +30,9 @@
                 <span asp-validation-for="ReleaseDate" class="text-danger"></span>
             </div>
 
-            
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
         </form>
     </div>
 </div>

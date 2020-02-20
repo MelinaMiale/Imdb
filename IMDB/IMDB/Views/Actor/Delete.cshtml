@@ -1,4 +1,4 @@
-﻿@model IMDB.Web.Models.ActorDetailModelView
+﻿@model IMDB.Web.ViewModels.ActorDetailViewModel
 
 @{
     ViewData["Title"] = "Delete";
@@ -11,25 +11,25 @@
     <h4>Details</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">@Html.DisplayNameFor(model => model.ProfileFoto)</dt>
-        <dd class = "col-sm-10">@Html.DisplayFor(model => model.ProfileFoto)</dd>
-        
-        <dt class = "col-sm-2">@Html.DisplayNameFor(model => model.ID_Actor)</dt>
-        <dd class = "col-sm-10">@Html.DisplayFor(model => model.ID_Actor)</dd>
-        
-        <dt class = "col-sm-2">@Html.DisplayNameFor(model => model.Name)</dt>
-        <dd class = "col-sm-10">@Html.DisplayFor(model => model.Name)</dd>
-        
-        <dt class = "col-sm-2">@Html.DisplayNameFor(model => model.LastName)</dt>
-        <dd class = "col-sm-10">@Html.DisplayFor(model => model.LastName)</dd>
-        
-        <dt class = "col-sm-2">@Html.DisplayNameFor(model => model.Nationality)</dt>
-        <dd class = "col-sm-10">@Html.DisplayFor(model => model.Nationality)</dd>
-        
-        <dt class = "col-sm-2">@Html.DisplayNameFor(model => model.Age)</dt>
-        <dd class = "col-sm-10">@Html.DisplayFor(model => model.Age)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.ProfileFoto)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.ProfileFoto)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Id)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Id)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.FirstName)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.FirstName)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.LastName)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.LastName)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Nationality)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Nationality)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Age)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Age)</dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
