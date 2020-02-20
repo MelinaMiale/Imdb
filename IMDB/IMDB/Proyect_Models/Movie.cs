@@ -23,7 +23,7 @@ namespace Proyect_Models
 			set;
         }
 
-		public List<Rol> Characters
+		public List<Role> Characters
         {
 			get;
 			set;
@@ -47,7 +47,7 @@ namespace Proyect_Models
 		{
 			this.ID_movie = Id;
 			this.Name = Name;
-			this.Characters = new List<Rol>();
+			this.Characters = new List<Role>();
 		}
 
 		public Movie() { }

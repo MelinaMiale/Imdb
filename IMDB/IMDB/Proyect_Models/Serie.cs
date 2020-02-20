@@ -23,7 +23,7 @@ namespace Proyect_Models
 			set;
         }
 
-		public List<Rol> Characters
+		public List<Role> Characters
         {
 			get;
 			set;

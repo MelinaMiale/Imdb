@@ -14,11 +14,12 @@ namespace IMDB.Controllers
         IStorage db;
         public MovieController(IStorage repository)
         {
-            db = repository;            
+            db = repository;
         }
 
+
         //metodo que copia la informacion de un objeto de tipo Movie a un objeto de tipo MovieViewModel, y devuelve este ultimo
-        private MovieViewModel MapMovietoMovieViewModel (Movie movie, MovieViewModel movieViewModel)
+        private MovieViewModel MapMovietoMovieViewModel(Movie movie, MovieViewModel movieViewModel)
         {
             movieViewModel.Id = movie.ID_movie;
             movieViewModel.Name = movie.Name;
@@ -34,11 +35,12 @@ namespace IMDB.Controllers
             movieViewDetails.Nationality = movie.Nationality;
             movieViewDetails.ReleaseDate = movie.ReleaseDate;
             movieViewDetails.Characters = movie.Characters;
-            
+            movieViewDetails.actorsInStorage = db.GetAllActors();
+
             return movieViewDetails;
         }
 
-        private Movie MapMovieDetailsModel_to_MovieModel (Movie movieModel, MovieViewDetails movieViewDetails)
+        private Movie MapMovieDetailsModel_to_MovieModel(Movie movieModel, MovieViewDetails movieViewDetails)
         {
             movieModel.ID_movie = movieViewDetails.ID;
             movieModel.Name = movieViewDetails.Name;
@@ -46,6 +48,7 @@ namespace IMDB.Controllers
             movieModel.Nationality = movieViewDetails.Nationality;
             movieModel.Characters = movieViewDetails.Characters;
             movieModel.ReleaseDate = movieViewDetails.ReleaseDate;
+            movieModel.Characters = movieViewDetails.Characters;
 
             return movieModel;
         }
@@ -60,7 +63,7 @@ namespace IMDB.Controllers
             var movieViewModel = new List<MovieViewModel>();
 
             //implemento metodo para cada pelicula en la lista: movies, y las agrego a la lista: movieViewModel
-            foreach(var movie in movies)
+            foreach (var movie in movies)
             {
                 movieViewModel.Add(MapMovietoMovieViewModel(movie, new MovieViewModel()));
             }
@@ -84,9 +87,11 @@ namespace IMDB.Controllers
             //genero pelicula de tipo MovieDetailsView y le asigno la pelicula que obtuve x id
             var movieViewDetailsByID = new MovieViewDetails();
             movieViewDetailsByID = MapMovietoMovieViewModel_Details(movieById, movieViewDetailsByID);
-            
+
             //enviarlos a la vista
             return View(movieViewDetailsByID);
+
+
         }
 
         // GET: Movie/Edit/{id}
@@ -97,7 +102,7 @@ namespace IMDB.Controllers
             {
                 return this.NotFound();
             }
-            
+
             return View(MapMovietoMovieViewModel_Details(movie, new MovieViewDetails()));
         }
 
@@ -125,8 +130,8 @@ namespace IMDB.Controllers
 
         // GET: Movie/Create
         public ActionResult Create()
-        {                                             
-           return View();
+        {
+            return View();
         }
 
         // POST: Movie/Create
@@ -137,8 +142,7 @@ namespace IMDB.Controllers
         {
             var newModelMovie = new Movie();
             MapMovieDetailsModel_to_MovieModel(newModelMovie, newMovie);
-
-            db.SaveMovie(newModelMovie);  
+            db.SaveMovie(newModelMovie);
 
             return View();
         }
@@ -177,6 +181,38 @@ namespace IMDB.Controllers
             return RedirectToAction(nameof(MovieController.Index), "Home");
 
         }
+
+        //Post: crear rol
+        [HttpPost]
+        [ActionName("CreateRol")]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateRolPost(int movieId, string characterName, int actorId)
+        {
+            var newRol = new Role();
+            newRol.CharacterName = characterName;
+            newRol.Movie = db.GetMovieById(movieId);
+            newRol.Actor = db.GetActorbyId(actorId);
+
+            db.SaveRol(newRol, movieId, actorId);
+
+            return RedirectToAction("Details", new { id = movieId });
+        }
+
+        //delete rol       
+        public ActionResult DeleteRol(int movieId, int rolId)
+        {
+            var rolToDelete = db.GetRolById(rolId);
+
+            if (ModelState.IsValid)
+            {
+                db.DeleteRol(rolToDelete, movieId);
+            }
+
+            return RedirectToAction("Details", new { id = movieId });
+        }
+
+
+
 
     }
 

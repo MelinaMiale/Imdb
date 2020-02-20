@@ -39,7 +39,7 @@ namespace IMDB.Web.Models
 			get;
 			set;
 		}
-		public List<Rol> RolsPlayed
+		public List<Role> RolsPlayed
 		{
 			get;
 			set;

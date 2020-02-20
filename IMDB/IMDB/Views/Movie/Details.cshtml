@@ -26,21 +26,67 @@
         <dt class="col-sm-2">@Html.DisplayNameFor(model => model.ReleaseDate)</dt>
         <dd class="col-sm-10">@String.Format("{0: dd/MM/yyyy}", Model.ReleaseDate)</dd>
 
-        <dt><label asp-for="Characters"></label></dt>
-        <dd>
-            <ul>
-                @foreach (var rol in Model.Characters)
-                {
-                <li>@rol.CharacterName interpretado por <a asp-controller="Actor" asp-action="Details" asp-route-id="@rol.Actor.ID_Actor"> 
-                    @rol.Actor.Name</a> @rol.Actor.LastName </li>
-
-
-                    //<li>Personaje: @rol.CharacterName interpretador por @rol.Actor.Name @rol.Actor.LastName</li>
-                }
-            </ul>
-        </dd>
-
     </dl>
+
+    <!-- asociates roles with actors -->
+
+    <table class=" table table-striped">
+        <tr>
+            <th><label asp-for="Characters"></label></th>
+            <th></th>
+        </tr>
+        @foreach (var role in Model.Characters)
+        {
+            <tr>
+                <td>
+                    @role.CharacterName interpretado por
+                    <a asp-controller="Actor" asp-action="Detail" asp-route-actorId="@role.Actor.ID_Actor">
+                        @role.Actor.Name @role.Actor.LastName
+                    </a>
+                </td>
+                <td>
+                    <a class="btn btn-danger" asp-controller="Movie" asp-action="DeleteRol" asp-route-movieId="@role.Movie.ID_movie" asp-route-rolId="@role.ID_Role">Delete</a>
+                </td>
+            </tr>
+
+        }
+    </table>
+
+
+    <!-- create new rol -->
+
+    <!-- add character name -->
+    <div class="form-group">
+        <form asp-action="CreateRol">
+            <div class="form-group">
+                <label asp-for="CharacterName" class="control-label"></label>
+                <input asp-for="CharacterName" class="form-control" placeholder="Character Name" />
+                <span asp-validation-for="Characters" class="text-danger"></span>
+            </div>
+
+            <!-- dropDown menu for actors -->
+            <div>
+                <p></p>
+                <p></p>
+                <h3>Add a new Rol</h3>
+                <p></p>
+                <h7>Select Actor</h7>
+                @Html.DropDownList("actorId", Model.actorsInStorage.Select(actor => new SelectListItem
+                                 {
+                                     Value = actor.ID_Actor.ToString(),
+                                     Text = (actor.Name)
+                             }), "------------")>
+
+            </div>
+
+
+            <input class="btn btn-primary" type="submit" value="CreateRol"
+                   asp-controller="Movie" asp-action="CreateRol" asp-route-movieId="@Model.ID" asp-route-characterName="@Model.CharacterName" />
+        </form>
+    </div>
+
+
+
 </div>
 <div>
     <a asp-action="Index">Back to List</a>

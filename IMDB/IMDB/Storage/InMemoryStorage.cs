@@ -12,8 +12,12 @@ namespace Repository
 
         List<Movie> moviesInStorage = new List<Movie>();
         List<Actor> actorsInStorage = new List<Actor>();
-        List<Rol> rolsInStorage = new List<Rol>();
-
+        // todo:
+        /**
+         * No duplicar colecciones de datos que ya estamos manteniendo como parte
+         * de otras entidades, en este caso los roles de las peliculas estan dentro de la entidad Movie
+         */
+        List<Role> rolsInStorage = new List<Role>();
         public InMemoryStorage() {
 
             //instancio peliculas
@@ -42,10 +46,10 @@ namespace Repository
             //Pelicula 1: Bridget Jones's Diary
 
             //roles
-            Rol rol1 = new Rol(1, "BridgetJones", movie1);
-            Rol rol2 = new Rol(2, "Mark Darcy", movie1);
-            Rol rol3 = new Rol(3, "Daniel Cleaver", movie1);
-            Rol rol4 = new Rol(4, "Bridget's Mum", movie1);
+            Role rol1 = new Role(1, "BridgetJones", movie1);
+            Role rol2 = new Role(2, "Mark Darcy", movie1);
+            Role rol3 = new Role(3, "Daniel Cleaver", movie1);
+            Role rol4 = new Role(4, "Bridget's Mum", movie1);
             
            //Actores
 
@@ -78,34 +82,34 @@ namespace Repository
             //pelicula 2: Escape Plan
 
             //Roles
-            Rol rol6 = new Rol(5, "Emil Rottmayer", movie2);
-            Rol rol5 = new Rol(6, "Ray Breslin", movie2);
-            Rol rol7 = new Rol(7, "Hobbes", movie2);
-            Rol rol8 = new Rol(8, "Dr. Kyrie", movie2);
+            Role rol6 = new Role(5, "Emil Rottmayer", movie2);
+            Role rol5 = new Role(6, "Ray Breslin", movie2);
+            Role rol7 = new Role(7, "Hobbes", movie2);
+            Role rol8 = new Role(8, "Dr. Kyrie", movie2);
 
             //Actores
             var SylvesterStallone = new Actor(5, "Sylvester", "Stallone", Nationality.american);
             actorsInStorage.Add(SylvesterStallone);
             SylvesterStallone.RolsPlayed.Add(rol5);
-          //  rol5.ID_Actor = SylvesterStallone.ID_Actor;
+            rol5.Actor = SylvesterStallone;
             movie2.Characters.Add(rol5);
 
             var ArnoldSchwarzenegger = new Actor(6, "Arnold", "Schwarzenegger", Nationality.austrian);
             actorsInStorage.Add(ArnoldSchwarzenegger);
             ArnoldSchwarzenegger.RolsPlayed.Add(rol6);
-          //  rol6.ID_Actor = ArnoldSchwarzenegger.ID_Actor;
+            rol6.Actor = ArnoldSchwarzenegger;
             movie2.Characters.Add(rol6);
 
             var JimCaviezel = new Actor(7, "Jim", "Caviezel", Nationality.american);
             actorsInStorage.Add(JimCaviezel);
             JimCaviezel.RolsPlayed.Add(rol7);
-          //  rol7.ID_Actor = JimCaviezel.ID_Actor;
+            rol7.Actor = JimCaviezel;
             movie2.Characters.Add(rol7);
 
             var SamNeill = new Actor(7, "Sam", "Neill", Nationality.american);
             actorsInStorage.Add(SamNeill);
             SamNeill.RolsPlayed.Add(rol8);
-          //  rol8.ID_Actor = SamNeill.ID_Actor;
+            rol8.Actor = SamNeill;
             movie2.Characters.Add(rol8);
 
 
@@ -137,13 +141,14 @@ namespace Repository
             List<Movie> movies = GetAllMovies();
             var movieById = new Movie();
 
+            //todo: simplificar con Linq
+            //var movie = movies.Find(movie => movie.ID_movie == Id);
             foreach (var movie in movies)
             {
                 if(movie.ID_movie == Id)
                 {
                     movieById = movie;
                 }
-                
             }
 
             return movieById;
@@ -164,6 +169,7 @@ namespace Repository
                 newMovie.Nationality = editedMovie.Nationality;
                 newMovie.ReleaseDate = editedMovie.ReleaseDate;
                 newMovie.FlyerUrl = editedMovie.FlyerUrl;
+                newMovie.Characters = editedMovie.Characters;
             }
 
             return newMovie;
@@ -196,45 +202,38 @@ namespace Repository
             return actorById;
         }
 
-        public List<Rol> GetAllRols()
+        public List<Role> GetAllRols()
         {
             return rolsInStorage;
         }
 
-        /*public String GetActorNameByRolId (long rolId)
-        {
-            String actorNameByRolId = "";
-            var actorsInMovie = GetAllActors();
-            var rolsInMovies = GetAllRols();
-            
-            foreach(var rol in rolsInMovies)
-            {
-                foreach(var actor in actorsInMovie)
-                {
-                    if( rol.ID_Actor == actor.ID_Actor)
-                    {
-                        actorNameByRolId = actor.Name;
-                    }
-                }
-            }
+        
+        public Role GetRolById(long id) {
+            var rolsInStorage = GetAllRols();
+            var role = rolsInStorage.FirstOrDefault(r => r.ID_Role == id);
 
-            return actorNameByRolId;
-        }*/
+            if (role == null)
+                throw new ArgumentNullException("id not found");
 
-        public String GetActorNameByRolId(long rolId)
-        {
-            var role = rolsInStorage.FirstOrDefault(r => r.ID_Rol == rolId);
-            if (role != null) {
-                var actor = actorsInStorage.FirstOrDefault(a => a.ID_Actor == role.Actor.ID_Actor);
-                if (actor != null) {
-                    return actor.Name;
-                }
-            }
-
-            throw new System.InvalidOperationException("");
-            
-
+            return role;
         }
+
+        
+
+        //public String GetActorNameByRolId(long rolId)
+        //{
+        //    var role = rolsInStorage.FirstOrDefault(r => r.ID_Role == rolId);
+        //    if (role != null) {
+        //        var actor = actorsInStorage.FirstOrDefault(a => a.ID_Actor == role.Actor.ID_Actor);
+        //        if (actor != null) {
+        //            return actor.Name;
+        //        }
+        //    }
+
+        //    throw new System.InvalidOperationException("");
+
+
+        //}
 
         public void SaveActor(Actor editedOrNewActor)
         {
@@ -255,6 +254,40 @@ namespace Repository
             actorsInStorage.Remove(actorToDelete);
         }
 
+        public long SetRolID()
+        {
+            var maxID = rolsInStorage.Max(rol => rol.ID_Role);
+            return (maxID + 1);
+        }
+        public void SaveRol(Role newRol, int movieId, int actorId)
+        {
+            //movie.Characters.Add(newRol);
+            newRol.ID_Role = SetRolID();
+            
+            Movie movie = GetMovieById(movieId);
+            movie.Characters.Add(newRol);
+            Actor actor = GetActorbyId(actorId);
+            
+            rolsInStorage.Add(newRol);
+            movie.Characters.Add(newRol);
+            actor.RolsPlayed.Add(newRol);
+
+        }
+        public void DeleteRol (Role rol, int movieId)
+        {
+            var movie = GetMovieById(movieId);
+            
+            foreach(var roleInMovie in movie.Characters)
+            {
+                if(rol.ID_Role == roleInMovie.ID_Role)
+                {
+                    rolsInStorage.Remove(rol);
+                    movie.Characters.Remove(rol);
+                    rol.Actor.RolsPlayed.Remove(rol);
+                    break;
+                }
+            }
+        }
 
     }
 

@@ -148,11 +148,12 @@ namespace IMDB.Web.Controllers
 
         // POST: Actor/Delete/5
         [HttpPost]
+        [Route("Actor/Delete/{actorId}")]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeletePost(int id)
+        public ActionResult DeletePost(int actorId)
         {
-            var actorToDelete = db.GetActorbyId(id);
+            var actorToDelete = db.GetActorbyId(actorId);
 
             //if (ModelState.IsValid)
             {

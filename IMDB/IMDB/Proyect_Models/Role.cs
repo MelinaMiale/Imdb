@@ -4,9 +4,9 @@ using System.Collections.Generic;
 namespace Proyect_Models
 {
 
-	public class Rol
+	public class Role
 	{
-		public long ID_Rol
+		public long ID_Role
         {
 			get;
 			set;
@@ -17,18 +17,6 @@ namespace Proyect_Models
 			get;
 			set;
         }
-
-		//public long ID_Actor
-		//{
-		//	get;
-		//	set;
-		//}
-
-		//public long ID_Pelicula
-		//{
-		//	get;
-		//	set;
-		//}
 
 		public Actor Actor
 		{
@@ -44,13 +32,13 @@ namespace Proyect_Models
 
 
 
-		public Rol(long Id, string character, Movie movie){
-			this.ID_Rol = Id;
+		public Role(long Id, string character, Movie movie){
+			this.ID_Role = Id;
 			this.CharacterName = character;
 			this.Movie = movie;
 		}
 
-		public Rol() { }
+		public Role() { }
 
 	}
 

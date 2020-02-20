@@ -25,7 +25,7 @@ namespace Proyect_Models
 			set;
         }
 
-		public List<Rol> RolsPlayed
+		public List<Role> RolsPlayed
         {
 			get;
 			set;
@@ -54,9 +54,8 @@ namespace Proyect_Models
 			this.Name = Name;
 			this.LastName = LastName;
 			this.Nationality = Nationality;
-			this.RolsPlayed = new List<Rol>();
+			this.RolsPlayed = new List<Role>();
 		}
-
         public Actor()
         {
         }
