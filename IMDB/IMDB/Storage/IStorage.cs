@@ -1,9 +1,5 @@
-﻿using Proyect_Models;
-using System;
+﻿using IMDB.Web.EntityModel;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Repository
 {
@@ -25,18 +21,20 @@ namespace Repository
 
         public Actor GetActorbyId(long id);
 
-        public List<Rol> GetAllRols();
-
-        public String GetActorNameByRolId(long actorId);
-
         public void SaveActor(Actor editedOrNewActor);
 
         public long SetActorID();
 
         public void DeleteActor(Actor actorToDelete);
 
+        public List<Character> GetAllRols();
 
+        public void SaveRol(Character newOrEditedRol, int movieId, int actorId);
+
+        public long SetRolID();
+
+        public Character GetRolById(long id);
+
+        public void DeleteRol(Character rol, int movieId);
     }
-
-
 }

@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace IMDB.Models
+namespace IMDB.Web.ViewModels
 {
     public class MovieViewModel
     {
-        //id, name, flyerUrl
         public long Id
         {
             get;
@@ -20,11 +16,10 @@ namespace IMDB.Models
             set;
         }
 
-        public string FlyerUrl
+        public string Poster
         {
             get;
             set;
         }
-
     }
 }

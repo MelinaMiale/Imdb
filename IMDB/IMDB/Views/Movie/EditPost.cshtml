@@ -1,4 +1,4 @@
-﻿@model IMDB.Models.MovieViewDetails
+﻿@model IMDB.Web.ViewModels.MovieDetailsViewModel
 
 @{
     ViewData["Title"] = "EditPost";
@@ -6,13 +6,13 @@
 
 <h1>EditPost</h1>
 
-<h4>MovieViewDetails</h4>
+<h4>MovieDetailsViewModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="EditPost">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
+
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -29,10 +29,19 @@
                 <span asp-validation-for="ReleaseDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FlyerUrl" class="control-label"></label>
-                <input asp-for="FlyerUrl" class="form-control" />
-                <span asp-validation-for="FlyerUrl" class="text-danger"></span>
+                <label asp-for="Poster" class="control-label"></label>
+                <input asp-for="Poster" class="form-control" />
+                <span asp-validation-for="Poster" class="text-danger"></span>
             </div>
+
+            @foreach (var rol in Model.Characters)
+            {
+                <div class="form-group">
+                    <label asp-for="Characters"></label>
+                    <input value="@rol.Name">
+                </div>
+            }
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
