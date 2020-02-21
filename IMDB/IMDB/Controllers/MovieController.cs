@@ -2,6 +2,7 @@
 using IMDB.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Repository;
+using System;
 using System.Collections.Generic;
 
 namespace IMDB.Controllers
@@ -47,11 +48,26 @@ namespace IMDB.Controllers
             return movieModel;
         }
 
+        //metodo que uso para ver el listado de personajes de una pelicula
         private MovieCharacterViewModel MapMovieCharactertoMovieCharacterViewModel(Movie movieEntity, MovieCharacterViewModel movieViewModel)
         {
             movieViewModel.Name = movieEntity.Name;
             movieViewModel.Characters = movieEntity.Characters;
+            movieViewModel.MovieId = Convert.ToInt32(movieEntity.Id);
             return movieViewModel;
+        }
+
+        //metodo que uso para trabajar un personaje en particular
+        private Character MapCharacterModelViewToCharacterEntity(Character characterEntity, CharacterViewModel characterViewModel)
+        {
+            characterEntity.Id = characterViewModel.Id;
+            //characterEntity.Movie = characterViewModel.Movie;
+            characterEntity.Actor = characterViewModel.Actor;
+            characterEntity.Name = characterViewModel.Name;
+            characterEntity.IdActor = Convert.ToInt32(characterViewModel.IdActor);
+            //   characterEntity.AvailableActors = db.GetAllActors();
+
+            return characterEntity;
         }
 
         public ActionResult Index()
@@ -203,6 +219,32 @@ namespace IMDB.Controllers
             return RedirectToAction("Details", new { id = movieId });
         }
 
-        // GET: Movie/Create
+        // [Route("Movie/Characters/CreateCharacter")]
+
+        [HttpGet]
+        public ActionResult CreateCharacter(int idMovie)
+        {
+            var NewModel = new CharacterViewModel();
+
+            NewModel.AvailableActors = db.GetAllActors();
+            NewModel.IdMovie = idMovie;
+
+            return View(NewModel);
+        }
+
+        //post: crear rol
+        [HttpPost]
+        //[ActionName("CreateCharacter")]
+        //[ValidateAntiForgeryToken]
+        public ActionResult CreateCharacter(CharacterViewModel newcharacter)
+        {
+            var movieid = newcharacter.IdMovie;
+            var character = new Character();
+            character = MapCharacterModelViewToCharacterEntity(character, newcharacter);
+
+            db.SaveRol(character, movieid, character.IdActor);
+
+            return RedirectToAction("Characters", new { id = movieid });
+        }
     }
 }

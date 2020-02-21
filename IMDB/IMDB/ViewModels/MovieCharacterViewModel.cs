@@ -31,5 +31,11 @@ namespace IMDB.Web.ViewModels
             get;
             set;
         }
+
+        public int MovieId
+        {
+            get;
+            set;
+        }
     }
 }

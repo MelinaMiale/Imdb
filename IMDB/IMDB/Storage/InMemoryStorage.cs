@@ -108,7 +108,7 @@ namespace Repository
             rol7.Actor = JimCaviezel;
             movie2.Characters.Add(rol7);
 
-            var SamNeill = new Actor { Id = 7, FirstName = "Sam", LastName = "Neill", Nationality = Nationality.American };
+            var SamNeill = new Actor { Id = 8, FirstName = "Sam", LastName = "Neill", Nationality = Nationality.American };
             SamNeill.Characters.Add(rol8);
             SamNeill.ProfileFoto = @"\img\SamNeill.jpg";
             actorsInStorage.Add(SamNeill);
@@ -272,15 +272,15 @@ namespace Repository
 
         public void SaveRol(Character newRol, int movieId, int actorId)
         {
-            //movie.Characters.Add(newRol);
+            //var character = new Character();
+            //character = newRol;
             newRol.Id = SetRolID();
-
+            newRol.Actor = GetActorbyId(newRol.IdActor);
+            newRol.Movie = GetMovieById(movieId);
             Movie movie = GetMovieById(movieId);
             movie.Characters.Add(newRol);
             Actor actor = GetActorbyId(actorId);
-
             rolsInStorage.Add(newRol);
-            movie.Characters.Add(newRol);
             actor.Characters.Add(newRol);
         }
 

@@ -25,5 +25,7 @@
             get;
             set;
         }
+
+        public int IdActor { get; set; }
     }
 }
