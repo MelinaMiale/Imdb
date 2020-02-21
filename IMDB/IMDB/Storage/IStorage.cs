@@ -36,5 +36,7 @@ namespace Repository
         public Character GetRolById(long id);
 
         public void DeleteRol(Character rol, int movieId);
+
+        public Actor UpdateActor(Actor editedActor);
     }
 }

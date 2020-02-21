@@ -34,7 +34,7 @@ namespace IMDB.Web.Controllers
             actorDetailVM.LastName = actor.LastName;
             actorDetailVM.Nationality = actor.Nationality;
             actorDetailVM.ProfileFoto = actor.ProfileFoto;
-            actorDetailVM.Characters = actor.Characters;
+            //  actorDetailVM.Characters = actor.Characters;
 
             return actorDetailVM;
         }
@@ -47,7 +47,7 @@ namespace IMDB.Web.Controllers
             actor.LastName = actorDetailVM.LastName;
             actor.Nationality = actorDetailVM.Nationality;
             actor.ProfileFoto = actorDetailVM.ProfileFoto;
-            actor.Characters = actorDetailVM.Characters;
+            // actor.Characters = actorDetailVM.Characters;
 
             return actor;
         }
@@ -104,24 +104,32 @@ namespace IMDB.Web.Controllers
         // GET: Actor/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var actor = db.GetActorbyId(id);
+            if (actor == null)
+            {
+                return this.NotFound();
+            }
+
+            return View(MapActorDetail_toActorDetailViewModel(actor, new ActorDetailViewModel()));
         }
 
         // POST: Actor/Edit/5
         [HttpPost]
+        [ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult EditPost(ActorDetailViewModel editedActor)
         {
-            try
-            {
-                // TODO: Add update logic here
+            var actor = db.GetActorbyId(editedActor.Id);
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
+            //paso actor de tipo VM a uno de tipo entity
+            actor = MapActorDetailVM_toActorDetail(actor, editedActor);
+
+            if (ModelState.IsValid)
             {
-                return View();
+                db.UpdateActor(actor);
             }
+
+            return View(MapActorDetail_toActorDetailViewModel(actor, new ActorDetailViewModel()));
         }
 
         // GET: Actor/Delete/5
