@@ -31,7 +31,6 @@ namespace IMDB.Controllers
             MovieDetailsViewModel.Poster = movie.Poster;
             MovieDetailsViewModel.Nationality = movie.Nationality;
             MovieDetailsViewModel.ReleaseDate = movie.ReleaseDate;
-            //MovieDetailsViewModel.Characters = movie.Characters;
             MovieDetailsViewModel.actorsInStorage = db.GetAllActors();
 
             return MovieDetailsViewModel;
@@ -43,10 +42,16 @@ namespace IMDB.Controllers
             movieModel.Name = movieDetailsViewModel.Name;
             movieModel.Poster = movieDetailsViewModel.Poster;
             movieModel.Nationality = movieDetailsViewModel.Nationality;
-            //movieModel.Characters = movieDetailsViewModel.Characters;
             movieModel.ReleaseDate = movieDetailsViewModel.ReleaseDate;
 
             return movieModel;
+        }
+
+        private MovieCharacterViewModel MapMovieCharactertoMovieCharacterViewModel(Movie movieEntity, MovieCharacterViewModel movieViewModel)
+        {
+            movieViewModel.Name = movieEntity.Name;
+            movieViewModel.Characters = movieEntity.Characters;
+            return movieViewModel;
         }
 
         public ActionResult Index()
@@ -169,5 +174,35 @@ namespace IMDB.Controllers
             //regresar a la pagina index de movies
             return RedirectToAction(nameof(MovieController.Index), "Home");
         }
+
+        //accion que lista personajes de una pelicula
+        [Route("Movie/Characters/{movieId}")]
+        [ActionName("Characters")]
+        public ActionResult Characters(int movieId)
+        {
+            //obtengo pelicula
+            var movie = db.GetMovieById(movieId);
+            // creo pelicula de tipo viewmodel
+            var movieViewModel = new MovieCharacterViewModel();
+            //copio entidad a viewmodel
+            movieViewModel = MapMovieCharactertoMovieCharacterViewModel(movie, movieViewModel);
+
+            return View(movieViewModel);
+        }
+
+        //delete rol
+        public ActionResult DeleteRol(int movieId, int rolId)
+        {
+            var rolToDelete = db.GetRolById(rolId);
+
+            if (ModelState.IsValid)
+            {
+                db.DeleteRol(rolToDelete, movieId);
+            }
+
+            return RedirectToAction("Details", new { id = movieId });
+        }
+
+        // GET: Movie/Create
     }
 }

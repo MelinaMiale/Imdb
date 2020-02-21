@@ -35,12 +35,6 @@ namespace IMDB.Web.ViewModels
             set;
         }
 
-        /* public List<Character> Characters
-         {
-             get;
-             set;
-         }*/
-
         public string Poster
         {
             get;
