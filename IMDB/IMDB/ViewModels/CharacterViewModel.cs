@@ -32,15 +32,12 @@ namespace IMDB.Web.ViewModels
             set;
         }
 
-        public Movie Movie
+        public int IdMovie
         {
             get;
             set;
         }
 
-        public CharacterViewModel()
-        {
-            AvailableActors = new List<Actor>();
-        }
+        public string IdActor { get; set; }
     }
 }

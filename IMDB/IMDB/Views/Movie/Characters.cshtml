@@ -1,4 +1,4 @@
-﻿@model IMDB.Web.ViewModels.MovieCharacterEditViewModel
+﻿@model IMDB.Web.ViewModels.MovieCharacterViewModel
 
 @{
     ViewData["Title"] = "Characters";
@@ -9,7 +9,7 @@
 <div>
 
     <p>
-        <a asp-action="CreateCharacter">Create New</a>
+        <a asp-action="CreateCharacter" asp-route-idMovie="@Model.MovieId">Create New</a>
     </p>
 
     <h2>
@@ -24,18 +24,21 @@
         </tr>
         @foreach (var role in Model.Characters)
         {
-            <tr>
-                <td>
-                    @role.Name interpretado por
-                    <a asp-controller="Actor" asp-action="Details" asp-route-id="@role.Actor.Id">
-                        @role.Actor.FirstName @role.Actor.LastName
-                    </a>
-                </td>
-                <td>
-                    <a class="btn btn-danger" asp-controller="Movie" asp-action="DeleteRol" asp-route-movieId="@role.Movie.Id" asp-route-rolId="@role.Id">Delete</a>
-                </td>
-            </tr>
+            @if (role.Actor != null)
+            {
+                <tr>
+                    <td>
 
+                        @role.Name interpretado por
+                        <a asp-controller="Actor" asp-action="Details" asp-route-Id="@role.Actor.Id">
+                            @role.Actor.FirstName @role.Actor.LastName
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" asp-controller="Movie" asp-action="DeleteRol" asp-route-movieId="@role.Movie.Id" asp-route-rolId="@role.Id">Delete</a>
+                    </td>
+                </tr>
+            }
         }
     </table>
 </div>
