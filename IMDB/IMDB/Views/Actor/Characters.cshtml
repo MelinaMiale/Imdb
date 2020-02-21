@@ -1,4 +1,4 @@
-﻿@model IMDB.Web.Controllers.ActorCharacterViewModel
+﻿@model IMDB.Web.Controllers.ActorCharacterInMovieViewModel
 
 @{
     ViewData["Title"] = "Characters";
@@ -6,8 +6,12 @@
 
 <h1>Characters</h1>
 
+<p>
+    <a asp-action="CreateCharacter" asp-route-idActor="@Model.ActorId">Create New</a>
+</p>
+
 <div>
-    <h4>ActorCharacterViewModel</h4>
+    <h4>ActorCharacterInMovieViewModel</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">

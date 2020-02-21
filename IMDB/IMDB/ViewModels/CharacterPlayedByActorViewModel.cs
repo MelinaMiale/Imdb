@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace IMDB.Web.ViewModels
 {
-    public class CharacterViewModel
+    public class CharacterPlayedByActorViewModel
     {
-        public long Id
+        public List<Movie> AvailableMovies
+        {
+            get;
+            set;
+        }
+
+        public int IdActor
         {
             get;
             set;
@@ -20,24 +26,21 @@ namespace IMDB.Web.ViewModels
             set;
         }
 
-        public Actor Actor
+        public int Id
         {
             get;
             set;
         }
 
-        public List<Actor> AvailableActors
+        public int MovieId
         {
             get;
             set;
         }
 
-        public int IdMovie
+        public CharacterPlayedByActorViewModel()
         {
-            get;
-            set;
+            AvailableMovies = new List<Movie>();
         }
-
-        public string IdActor { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace IMDB.Web.Controllers
 {
-    public class ActorCharacterViewModel
+    public class ActorCharacterInMovieViewModel
     {
         public long Id
         {
@@ -18,6 +18,12 @@ namespace IMDB.Web.Controllers
         }
 
         public string ProfileFoto
+        {
+            get;
+            set;
+        }
+
+        public string ActorId
         {
             get;
             set;

@@ -1,6 +1,5 @@
 ﻿using IMDB.Web.EntityModel;
 using IMDB.Web.ViewModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Repository;
 using System.Collections.Generic;
@@ -52,13 +51,19 @@ namespace IMDB.Web.Controllers
             return actor;
         }
 
-        private ActorCharacterViewModel MapActorEntityToActorCharacterViewModel(Actor actor, ActorCharacterViewModel actorCharacterViewModel)
+        private ActorCharacterInMovieViewModel MapActorEntityToActorCharacterInMovieViewModel(Actor actor, ActorCharacterInMovieViewModel actorCharacterInMovieViewModel)
         {
-            actorCharacterViewModel.Id = actor.Id;
-            actorCharacterViewModel.Characters = actor.Characters;
-            actorCharacterViewModel.ProfileFoto = actor.ProfileFoto;
+            actorCharacterInMovieViewModel.Id = actor.Id;
+            actorCharacterInMovieViewModel.Characters = actor.Characters;
+            actorCharacterInMovieViewModel.ProfileFoto = actor.ProfileFoto;
 
-            return actorCharacterViewModel;
+            return actorCharacterInMovieViewModel;
+        }
+
+        private Character MapCharacterViewModelToCharacterEntity(Character character, CharacterPlayedByActorViewModel characterViewModel)
+        {
+            //completar!
+            return character;
         }
 
         // listar todos los actores
@@ -181,12 +186,38 @@ namespace IMDB.Web.Controllers
             actor = db.GetActorbyId(actorId);
 
             // creo entidad viewmodel
-            ActorCharacterViewModel actorCharacterViewModel = new ActorCharacterViewModel();
+            ActorCharacterInMovieViewModel actorCharacterInMovieViewModel = new ActorCharacterInMovieViewModel();
 
             //paso el actor a esa viewmodel
             //paso view model a la vista
 
-            return View(MapActorEntityToActorCharacterViewModel(actor, actorCharacterViewModel));
+            return View(MapActorEntityToActorCharacterInMovieViewModel(actor, actorCharacterInMovieViewModel));
+        }
+
+        [HttpGet]
+        public ActionResult CreateCharacter(int idActor)
+        {
+            var character = new CharacterPlayedByActorViewModel();
+            character.AvailableMovies = db.GetAllMovies();
+
+            character.IdActor = idActor;
+
+            return View(character);
+        }
+
+        [HttpPost]
+        [ActionName("CreateCharacter")]
+        public ActionResult CreateCharacter(CharacterPlayedByActorViewModel newCharacter)
+        {
+            var actorId = newCharacter.Id;
+            var character = new Character();
+            character = MapCharacterViewModelToCharacterEntity(character, newCharacter);
+
+            db.SaveRol(character, movieid, character.IdActor);
+
+            return RedirectToAction("Characters", new { id = movieid });
+
+            return View();
         }
     }
 }
