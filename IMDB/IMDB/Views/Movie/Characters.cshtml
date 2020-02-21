@@ -1,0 +1,45 @@
+﻿@model IMDB.Web.ViewModels.MovieCharacterEditViewModel
+
+@{
+    ViewData["Title"] = "Characters";
+}
+
+<h1>Characters</h1>
+
+<div>
+
+    <p>
+        <a asp-action="CreateCharacter">Create New</a>
+    </p>
+
+    <h2>
+        @Html.DisplayFor(model => model.Name)
+    </h2>
+    <!-- asociates roles with actors -->
+
+    <table class=" table table-striped">
+        <tr>
+            <th><label asp-for="Characters"></label></th>
+            <th></th>
+        </tr>
+        @foreach (var role in Model.Characters)
+        {
+            <tr>
+                <td>
+                    @role.Name interpretado por
+                    <a asp-controller="Actor" asp-action="Details" asp-route-id="@role.Actor.Id">
+                        @role.Actor.FirstName @role.Actor.LastName
+                    </a>
+                </td>
+                <td>
+                    <a class="btn btn-danger" asp-controller="Movie" asp-action="DeleteRol" asp-route-movieId="@role.Movie.Id" asp-route-rolId="@role.Id">Delete</a>
+                </td>
+            </tr>
+
+        }
+    </table>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
