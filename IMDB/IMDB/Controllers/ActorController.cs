@@ -129,7 +129,7 @@ namespace IMDB.Web.Controllers
                 db.UpdateActor(actor);
             }
 
-            return View(MapActorDetail_toActorDetailViewModel(actor, new ActorDetailViewModel()));
+            return View(MapActorDetail_toActorDetailViewModel(actor, editedActor));
         }
 
         // GET: Actor/Delete/5
