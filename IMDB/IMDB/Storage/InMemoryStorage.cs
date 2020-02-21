@@ -174,6 +174,22 @@ namespace Repository
             return newMovie;
         }
 
+        public Actor UpdateActor(Actor editedActor)
+        {
+            var newActor = new Actor();
+            if (editedActor != null)
+            {
+                newActor.Age = editedActor.Age;
+                newActor.FirstName = editedActor.FirstName;
+                newActor.Id = editedActor.Id;
+                newActor.Nationality = editedActor.Nationality;
+                newActor.ProfileFoto = editedActor.ProfileFoto;
+                newActor.Characters = editedActor.Characters;
+            }
+
+            return newActor;
+        }
+
         public void Delete(Movie deletedMovie)
         {
             var movieTodelete = GetMovieById(deletedMovie.Id);
@@ -229,20 +245,6 @@ namespace Repository
 
             return role;
         }
-
-        //public String GetActorNameByRolId(long rolId)
-        //{
-        //    var role = rolsInStorage.FirstOrDefault(r => r.ID_Role == rolId);
-        //    if (role != null) {
-        //        var actor = actorsInStorage.FirstOrDefault(a => a.Id == role.Actor.Id);
-        //        if (actor != null) {
-        //            return actor.Name;
-        //        }
-        //    }
-
-        //    throw new System.InvalidOperationException("");
-
-        //}
 
         public void SaveActor(Actor editedOrNewActor)
         {

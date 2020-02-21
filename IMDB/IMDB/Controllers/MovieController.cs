@@ -24,28 +24,27 @@ namespace IMDB.Controllers
             return movieViewModel;
         }
 
-        private MovieDetailsViewModel MapMovietoMovieViewModel_Details(Movie movie, MovieDetailsViewModel MovieDetailsViewModel)
+        private MovieDetailsViewModel MapMovieDetailstoMovieDetailsViewModel(Movie movie, MovieDetailsViewModel MovieDetailsViewModel)
         {
             MovieDetailsViewModel.ID = movie.Id;
             MovieDetailsViewModel.Name = movie.Name;
             MovieDetailsViewModel.Poster = movie.Poster;
             MovieDetailsViewModel.Nationality = movie.Nationality;
             MovieDetailsViewModel.ReleaseDate = movie.ReleaseDate;
-            MovieDetailsViewModel.Characters = movie.Characters;
+            //MovieDetailsViewModel.Characters = movie.Characters;
             MovieDetailsViewModel.actorsInStorage = db.GetAllActors();
 
             return MovieDetailsViewModel;
         }
 
-        private Movie MapMovieDetailsModelToMovieModel(Movie movieModel, MovieDetailsViewModel MovieDetailsViewModel)
+        private Movie MapMovieDetailsViewModelToMovieModel(Movie movieModel, MovieDetailsViewModel movieDetailsViewModel)
         {
-            movieModel.Id = MovieDetailsViewModel.ID;
-            movieModel.Name = MovieDetailsViewModel.Name;
-            movieModel.Poster = MovieDetailsViewModel.Poster;
-            movieModel.Nationality = MovieDetailsViewModel.Nationality;
-            movieModel.Characters = MovieDetailsViewModel.Characters;
-            movieModel.ReleaseDate = MovieDetailsViewModel.ReleaseDate;
-            movieModel.Characters = MovieDetailsViewModel.Characters;
+            movieModel.Id = movieDetailsViewModel.ID;
+            movieModel.Name = movieDetailsViewModel.Name;
+            movieModel.Poster = movieDetailsViewModel.Poster;
+            movieModel.Nationality = movieDetailsViewModel.Nationality;
+            //movieModel.Characters = movieDetailsViewModel.Characters;
+            movieModel.ReleaseDate = movieDetailsViewModel.ReleaseDate;
 
             return movieModel;
         }
@@ -82,7 +81,7 @@ namespace IMDB.Controllers
 
             //genero pelicula de tipo MovieDetailsView y le asigno la pelicula que obtuve x id
             var MovieDetailsViewModelByID = new MovieDetailsViewModel();
-            MovieDetailsViewModelByID = MapMovietoMovieViewModel_Details(movieById, MovieDetailsViewModelByID);
+            MovieDetailsViewModelByID = MapMovieDetailstoMovieDetailsViewModel(movieById, MovieDetailsViewModelByID);
 
             //enviarlos a la vista
             return View(MovieDetailsViewModelByID);
@@ -97,7 +96,7 @@ namespace IMDB.Controllers
                 return this.NotFound();
             }
 
-            return View(MapMovietoMovieViewModel_Details(movie, new MovieDetailsViewModel()));
+            return View(MapMovieDetailstoMovieDetailsViewModel(movie, new MovieDetailsViewModel()));
         }
 
         // POST: Movie/Edit/{id}
@@ -110,14 +109,14 @@ namespace IMDB.Controllers
             var editedMovieModel = db.GetMovieById(editedMovie.ID);
 
             //paso esa pelicula de tipo MovieDetailsViewModel a una pelicula de tipo MovieModel
-            editedMovieModel = MapMovieDetailsModelToMovieModel(editedMovieModel, editedMovie);
+            editedMovieModel = MapMovieDetailsViewModelToMovieModel(editedMovieModel, editedMovie);
 
             if (ModelState.IsValid)
             {
                 db.UpdateMovie(editedMovieModel);
             }
 
-            return View(MapMovietoMovieViewModel_Details(editedMovieModel, new MovieDetailsViewModel()));
+            return View(MapMovieDetailstoMovieDetailsViewModel(editedMovieModel, new MovieDetailsViewModel()));
         }
 
         // GET: Movie/Create
@@ -133,7 +132,7 @@ namespace IMDB.Controllers
         public ActionResult CreatePost(MovieDetailsViewModel newMovie)
         {
             var newModelMovie = new Movie();
-            MapMovieDetailsModelToMovieModel(newModelMovie, newMovie);
+            MapMovieDetailsViewModelToMovieModel(newModelMovie, newMovie);
             db.SaveMovie(newModelMovie);
 
             return View();
@@ -150,7 +149,7 @@ namespace IMDB.Controllers
             }
 
             //paso la pelicula a borrar al modeloVista
-            return View(MapMovietoMovieViewModel_Details(movie, new MovieDetailsViewModel()));
+            return View(MapMovieDetailstoMovieDetailsViewModel(movie, new MovieDetailsViewModel()));
         }
 
         // POST: Movie/Delete/5
@@ -169,93 +168,6 @@ namespace IMDB.Controllers
 
             //regresar a la pagina index de movies
             return RedirectToAction(nameof(MovieController.Index), "Home");
-        }
-
-        //Post: crear rol
-        [HttpPost]
-        [ActionName("CreateRol")]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateRolPost(int movieId, string characterName, int actorId)
-        {
-            var newRol = new Character();
-            newRol.Name = characterName;
-            newRol.Movie = db.GetMovieById(movieId);
-            newRol.Actor = db.GetActorbyId(actorId);
-
-            db.SaveRol(newRol, movieId, actorId);
-
-            return RedirectToAction("Details", new { id = movieId });
-        }
-
-        //delete rol
-        public ActionResult DeleteRol(int movieId, int rolId)
-        {
-            var rolToDelete = db.GetRolById(rolId);
-
-            if (ModelState.IsValid)
-            {
-                db.DeleteRol(rolToDelete, movieId);
-            }
-
-            return RedirectToAction("Details", new { id = movieId });
-        }
-
-        [Route("Movie/{movieId}/Characters")]
-        public ActionResult Characters(int movieId)
-        {
-            return null;
-            // traer pelicula del storage
-            // convertir a cual view model
-            // - de la pelicula el nombre y id
-            // - ademas por cada character nombre y el actor
-            // invocar a la vista con ese model
-        }
-
-        public class MovieCharacterEditViewModel
-        {
-            public string Name
-            {
-                get;
-                set;
-            }
-
-            public int ActorId
-            {
-                get;
-                set;
-            }
-
-            public List<ActorViewModel> AvailableActor
-            {
-                get;
-                set;
-            }
-        }
-
-        [Route("Movie/{movieId}/Characters/{characterId}")]
-        public ActionResult CharacterEdit(int movieId, int characterId)
-        {
-            // traer character del storage
-            // convertir a cual view model de edicion
-            var viewModel = new MovieCharacterEditViewModel();
-            return View(viewModel);
-        }
-
-        [HttpPost]
-        [Route("Movie/{movieId}/Characters/{characterId}")]
-        [ActionName("CharacterEdit")]
-        public ActionResult CharacterEditPost(int movieId, int characterId, MovieCharacterEditViewModel viewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                // traer character entity del storage
-                // vuelco los datos del character view model en el entity
-                // actualizar lo que haga falta en el storage
-
-                return RedirectToAction("Characters", new { movieId = movieId });
-            }
-
-            return View(viewModel);
         }
     }
 }
