@@ -52,6 +52,15 @@ namespace IMDB.Web.Controllers
             return actor;
         }
 
+        private ActorCharacterViewModel MapActorEntityToActorCharacterViewModel(Actor actor, ActorCharacterViewModel actorCharacterViewModel)
+        {
+            actorCharacterViewModel.Id = actor.Id;
+            actorCharacterViewModel.Characters = actor.Characters;
+            actorCharacterViewModel.ProfileFoto = actor.ProfileFoto;
+
+            return actorCharacterViewModel;
+        }
+
         // listar todos los actores
         public ActionResult Index()
         {
@@ -162,6 +171,22 @@ namespace IMDB.Web.Controllers
             }
 
             return RedirectToAction(nameof(ActorController.Index), "Home");
+        }
+
+        [Route("Actor/Characters/{actorId}")]
+        [ActionName("Characters")]
+        public ActionResult Characters(int actorId)
+        {
+            var actor = new Actor();
+            actor = db.GetActorbyId(actorId);
+
+            // creo entidad viewmodel
+            ActorCharacterViewModel actorCharacterViewModel = new ActorCharacterViewModel();
+
+            //paso el actor a esa viewmodel
+            //paso view model a la vista
+
+            return View(MapActorEntityToActorCharacterViewModel(actor, actorCharacterViewModel));
         }
     }
 }
