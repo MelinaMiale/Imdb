@@ -275,13 +275,14 @@ namespace Repository
             //var character = new Character();
             //character = newRol;
             newRol.Id = SetRolID();
-            newRol.Actor = GetActorbyId(newRol.IdActor);
+            newRol.Actor = GetActorbyId(actorId);
             newRol.Movie = GetMovieById(movieId);
             Movie movie = GetMovieById(movieId);
             movie.Characters.Add(newRol);
             Actor actor = GetActorbyId(actorId);
             rolsInStorage.Add(newRol);
             actor.Characters.Add(newRol);
+            rolsInStorage.Add(newRol);
         }
 
         public void DeleteRol(Character rol, int movieId)

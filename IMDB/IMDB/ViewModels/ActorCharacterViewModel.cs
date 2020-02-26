@@ -23,7 +23,7 @@ namespace IMDB.Web.Controllers
             set;
         }
 
-        public string ActorId
+        public int ActorId
         {
             get;
             set;

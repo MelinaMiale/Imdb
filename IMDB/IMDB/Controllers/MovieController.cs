@@ -61,11 +61,8 @@ namespace IMDB.Controllers
         private Character MapCharacterViewModelToCharacterEntity(Character characterEntity, CharacterInMovieViewModel CharacterInMovieViewModel)
         {
             characterEntity.Id = CharacterInMovieViewModel.Id;
-            //characterEntity.Movie = CharacterInMovieViewModel.Movie;
-            characterEntity.Actor = CharacterInMovieViewModel.Actor;
-            characterEntity.Name = CharacterInMovieViewModel.Name;
             characterEntity.IdActor = Convert.ToInt32(CharacterInMovieViewModel.IdActor);
-            //   characterEntity.AvailableActors = db.GetAllActors();
+            characterEntity.Name = CharacterInMovieViewModel.Name;
 
             return characterEntity;
         }
@@ -239,10 +236,10 @@ namespace IMDB.Controllers
         public ActionResult CreateCharacter(CharacterInMovieViewModel newcharacter)
         {
             var movieid = newcharacter.IdMovie;
-            var character = new Character();
-            character = MapCharacterViewModelToCharacterEntity(character, newcharacter);
+            var characterEntity = new Character();
+            characterEntity = MapCharacterViewModelToCharacterEntity(characterEntity, newcharacter);
 
-            db.SaveRol(character, movieid, character.IdActor);
+            db.SaveRol(characterEntity, movieid, characterEntity.IdActor);
 
             return RedirectToAction("Characters", new { id = movieid });
         }
