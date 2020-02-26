@@ -38,5 +38,7 @@ namespace Repository
         public void DeleteRol(Character rol, int movieId);
 
         public Actor UpdateActor(Actor editedActor);
+
+        public List<Serie> GetAllSeries();
     }
 }

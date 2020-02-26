@@ -1,6 +1,12 @@
-﻿namespace IMDB.Web.EntityModel
+﻿using IMDB.Web.EntityModel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace IMDB.Web.ViewModels
 {
-    public class Character
+    public class SerieViewModel
     {
         public long Id
         {
@@ -14,26 +20,22 @@
             set;
         }
 
-        public Actor Actor
+        public Nationality Nationality
         {
             get;
             set;
         }
 
-        public Movie Movie
+        public string Poster
         {
             get;
             set;
         }
 
-        public Serie Serie
+        public DateTime ReleaseDate
         {
             get;
             set;
         }
-
-        public int IdActor { get; set; }
-
-        public int IdMovie { get; set; }
     }
 }
