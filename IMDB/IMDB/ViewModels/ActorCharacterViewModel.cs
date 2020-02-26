@@ -1,23 +1,11 @@
 ﻿using IMDB.Web.EntityModel;
 using System.Collections.Generic;
 
-namespace IMDB.Web.ViewModels
+namespace IMDB.Web.Controllers
 {
-    public class MovieCharacterInMovieViewModel
+    public class ActorCharacterInMovieViewModel
     {
         public long Id
-        {
-            get;
-            set;
-        }
-
-        public string Name
-        {
-            get;
-            set;
-        }
-
-        public int Actorid
         {
             get;
             set;
@@ -29,7 +17,13 @@ namespace IMDB.Web.ViewModels
             set;
         }
 
-        public int MovieId
+        public string ProfileFoto
+        {
+            get;
+            set;
+        }
+
+        public int ActorId
         {
             get;
             set;
