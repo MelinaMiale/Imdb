@@ -14,7 +14,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ProfileFoto" class="control-label"></label>
-                <input asp-for="ProfileFoto" class="form-control" />
+                <input type="file" asp-for="ProfileFoto" class="form-control" accept="image/jpeg" />
                 <span asp-validation-for="ProfileFoto" class="text-danger"></span>
             </div>
 
