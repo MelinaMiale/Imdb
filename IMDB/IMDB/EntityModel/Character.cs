@@ -27,7 +27,5 @@
         }
 
         public int IdActor { get; set; }
-
-        public int IdMovie { get; set; }
     }
 }

@@ -49,7 +49,7 @@ namespace IMDB.Controllers
         }
 
         //metodo que uso para ver el listado de personajes de una pelicula
-        private MovieCharacterInMovieViewModel MapMovieCharactertoMovieCharacterInMovieViewModel(Movie movieEntity, MovieCharacterInMovieViewModel movieViewModel)
+        private MovieCharacterViewModel MapMovieCharactertoMovieCharacterViewModel(Movie movieEntity, MovieCharacterViewModel movieViewModel)
         {
             movieViewModel.Name = movieEntity.Name;
             movieViewModel.Characters = movieEntity.Characters;
@@ -58,11 +58,14 @@ namespace IMDB.Controllers
         }
 
         //metodo que uso para trabajar un personaje en particular
-        private Character MapCharacterViewModelToCharacterEntity(Character characterEntity, CharacterInMovieViewModel CharacterInMovieViewModel)
+        private Character MapCharacterModelViewToCharacterEntity(Character characterEntity, CharacterViewModel characterViewModel)
         {
-            characterEntity.Id = CharacterInMovieViewModel.Id;
-            characterEntity.IdActor = Convert.ToInt32(CharacterInMovieViewModel.IdActor);
-            characterEntity.Name = CharacterInMovieViewModel.Name;
+            characterEntity.Id = characterViewModel.Id;
+            //characterEntity.Movie = characterViewModel.Movie;
+            characterEntity.Actor = characterViewModel.Actor;
+            characterEntity.Name = characterViewModel.Name;
+            characterEntity.IdActor = Convert.ToInt32(characterViewModel.IdActor);
+            //   characterEntity.AvailableActors = db.GetAllActors();
 
             return characterEntity;
         }
@@ -196,9 +199,9 @@ namespace IMDB.Controllers
             //obtengo pelicula
             var movie = db.GetMovieById(movieId);
             // creo pelicula de tipo viewmodel
-            var movieViewModel = new MovieCharacterInMovieViewModel();
+            var movieViewModel = new MovieCharacterViewModel();
             //copio entidad a viewmodel
-            movieViewModel = MapMovieCharactertoMovieCharacterInMovieViewModel(movie, movieViewModel);
+            movieViewModel = MapMovieCharactertoMovieCharacterViewModel(movie, movieViewModel);
 
             return View(movieViewModel);
         }
@@ -221,7 +224,7 @@ namespace IMDB.Controllers
         [HttpGet]
         public ActionResult CreateCharacter(int idMovie)
         {
-            var NewModel = new CharacterInMovieViewModel();
+            var NewModel = new CharacterViewModel();
 
             NewModel.AvailableActors = db.GetAllActors();
             NewModel.IdMovie = idMovie;
@@ -233,13 +236,13 @@ namespace IMDB.Controllers
         [HttpPost]
         //[ActionName("CreateCharacter")]
         //[ValidateAntiForgeryToken]
-        public ActionResult CreateCharacter(CharacterInMovieViewModel newcharacter)
+        public ActionResult CreateCharacter(CharacterViewModel newcharacter)
         {
             var movieid = newcharacter.IdMovie;
-            var characterEntity = new Character();
-            characterEntity = MapCharacterViewModelToCharacterEntity(characterEntity, newcharacter);
+            var character = new Character();
+            character = MapCharacterModelViewToCharacterEntity(character, newcharacter);
 
-            db.SaveRol(characterEntity, movieid, characterEntity.IdActor);
+            db.SaveRol(character, movieid, character.IdActor);
 
             return RedirectToAction("Characters", new { id = movieid });
         }

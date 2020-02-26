@@ -1,11 +1,14 @@
 ﻿using IMDB.Web.EntityModel;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace IMDB.Web.ViewModels
 {
-    public class CharacterPlayedByActorViewModel
+    public class CharacterViewModel
     {
-        public List<Movie> AvailableMovies
+        public long Id
         {
             get;
             set;
@@ -17,33 +20,24 @@ namespace IMDB.Web.ViewModels
             set;
         }
 
-        public int Id
+        public Actor Actor
         {
             get;
             set;
         }
 
-        public Movie Movie
+        public List<Actor> AvailableActors
         {
             get;
             set;
         }
 
-        public string MovieId
+        public int IdMovie
         {
             get;
             set;
         }
 
-        public int IdActor
-        {
-            get;
-            set;
-        }
-
-        /* public CharacterPlayedByActorViewModel()
-         {
-             AvailableMovies = new List<Movie>();
-         }*/
+        public string IdActor { get; set; }
     }
 }
