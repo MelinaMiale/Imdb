@@ -1,9 +1,12 @@
 ﻿using IMDB.Web.EntityModel;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace IMDB.Web.ViewModels
 {
-    public class MovieCharacterInMovieViewModel
+    public class MovieCharacterViewModel
     {
         public long Id
         {
