@@ -1,9 +1,11 @@
 ﻿using IMDB.Web.EntityModel;
 using IMDB.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using NHibernate;
 using Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IMDB.Web.Controllers
 {
