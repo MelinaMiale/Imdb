@@ -4,19 +4,19 @@ namespace IMDB.Web.EntityModel
 {
     public class Chapter
     {
-        public long Id
+        public virtual long Id
         {
             get;
             set;
         }
 
-        public DateTime ReleaseDate
+        public virtual DateTime ReleaseDate
         {
             get;
             set;
         }
 
-        public float duration
+        public virtual float Duration
         {
             get;
             set;

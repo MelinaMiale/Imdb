@@ -5,37 +5,37 @@ namespace IMDB.Web.EntityModel
 {
     public class Movie
     {
-        public long Id
+        public virtual long Id
         {
             get;
             set;
         }
 
-        public string Name
+        public virtual string Name
         {
             get;
             set;
         }
 
-        public Nationality Nationality
+        public virtual Nationality Nationality
         {
             get;
             set;
         }
 
-        public List<Character> Characters
+        public virtual List<Character> Characters
         {
             get;
             set;
         }
 
-        public DateTime ReleaseDate
+        public virtual DateTime ReleaseDate
         {
             get;
             set;
         }
 
-        public string Poster
+        public virtual string Poster
         {
             get;
             set;

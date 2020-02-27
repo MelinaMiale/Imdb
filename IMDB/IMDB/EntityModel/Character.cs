@@ -2,30 +2,38 @@
 {
     public class Character
     {
-        public long Id
+        public virtual long Id
         {
             get;
             set;
         }
 
-        public string Name
+        public virtual string Name
         {
             get;
             set;
         }
 
-        public Actor Actor
+        public virtual Actor Actor
         {
             get;
             set;
         }
 
-        public Movie Movie
+        public virtual Movie Movie
         {
             get;
             set;
         }
 
-        public int IdActor { get; set; }
+        public virtual Serie Serie
+        {
+            get;
+            set;
+        }
+
+        public virtual int IdActor { get; set; }
+
+        public virtual int IdMovie { get; set; }
     }
 }
