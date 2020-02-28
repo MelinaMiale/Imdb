@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace IMDB.Web.EntityModel
+namespace IMDB.EntityModels
 {
     public class Actor
     {

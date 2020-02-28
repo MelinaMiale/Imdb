@@ -1,11 +1,8 @@
-﻿using IMDB.Web.EntityModel;
+﻿using IMDB.EntityModels;
 using IMDB.Web.ViewModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NHibernate;
 using Repository;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace IMDB.Web.Controllers
 {
@@ -19,7 +16,7 @@ namespace IMDB.Web.Controllers
         }
 
         //metodo que copia la informacion de un objeto de tipo Actor a un objeto de tipo ActorViewModel, y devuelve este ultimo
-        private ActorViewModel MapActortoActorViewModel(Actor actor, ActorViewModel actorViewModel)
+        public ActorViewModel MapActortoActorViewModel(Actor actor, ActorViewModel actorViewModel)
         {
             actorViewModel.Id = actor.Id;
             actorViewModel.FirstName = actor.FirstName;
@@ -28,7 +25,7 @@ namespace IMDB.Web.Controllers
             return actorViewModel;
         }
 
-        private ActorDetailViewModel MapActorDetail_toActorDetailViewModel(Actor actor, ActorDetailViewModel actorDetailVM)
+        public ActorDetailViewModel MapActorDetail_toActorDetailViewModel(Actor actor, ActorDetailViewModel actorDetailVM)
         {
             actorDetailVM.Age = actor.Age;
             actorDetailVM.Id = actor.Id;
@@ -41,7 +38,7 @@ namespace IMDB.Web.Controllers
             return actorDetailVM;
         }
 
-        private Actor MapActorDetailVM_toActorDetail(Actor actor, ActorDetailViewModel actorDetailVM)
+        public Actor MapActorDetailVM_toActorDetail(Actor actor, ActorDetailViewModel actorDetailVM)
         {
             actor.Age = actorDetailVM.Age;
             actor.Id = actorDetailVM.Id;

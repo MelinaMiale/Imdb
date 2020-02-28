@@ -1,4 +1,4 @@
-﻿using IMDB.Web.EntityModel;
+﻿using IMDB.EntityModels;
 using IMDB.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Repository;
