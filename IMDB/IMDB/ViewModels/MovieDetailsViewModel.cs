@@ -1,4 +1,4 @@
-﻿using IMDB.Web.EntityModel;
+﻿using IMDB.EntityModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

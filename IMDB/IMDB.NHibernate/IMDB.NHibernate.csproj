@@ -6,13 +6,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.2" />
     <PackageReference Include="NHibernate" Version="5.2.7" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\IMDB.EntityModels\IMDB.EntityModels.csproj" />
     <ProjectReference Include="..\NHibernate.Support\NHibernate.Support.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

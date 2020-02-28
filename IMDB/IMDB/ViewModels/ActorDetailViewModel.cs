@@ -1,4 +1,4 @@
-﻿using IMDB.Web.EntityModel;
+﻿using IMDB.EntityModels;
 using System.Collections.Generic;
 
 namespace IMDB.Web.ViewModels

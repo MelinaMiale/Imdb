@@ -1,4 +1,4 @@
-﻿namespace IMDB.Web.EntityModel
+﻿namespace IMDB.EntityModels
 {
     public enum Nationality
     {

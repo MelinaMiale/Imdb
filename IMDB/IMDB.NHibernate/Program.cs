@@ -12,16 +12,16 @@ namespace IMDB.NHibernate
         private static void Main(string[] args)
         {
             var configuration = new ConfigurationBuilder()
-              .AddJsonFile("appsettings.json", true, true)
+              .AddJsonFile("appsettings.json", false, true)
               .Build();
 
             var hibernateConfiguration = new Configuration()
-                .SetupConnection(configuration.GetConnectionString("ContosoUniversity"), new MsSql2012Dialect())
+                .SetupConnection(configuration.GetConnectionString("IMDB"), new MsSql2012Dialect())
                 .AddClassMappingAssemblies(typeof(AssemblyLocator).Assembly);
 
             string schemaPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, configuration["outputPath"]);
 
-            SchemaExporter.ExportSchema(hibernateConfiguration, new FileInfo(schemaPath));
+            SchemaExporter.ExportSchema(hibernateConfiguration, new FileInfo(schemaPath), "\nGO\n");
         }
     }
 }

@@ -1,3 +1,4 @@
+using IMDB.NHibernate;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -7,9 +8,9 @@ using Microsoft.Extensions.Hosting;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Dialect;
-using System;
 using NHibernate.Support;
-using IMDB.NHibernate;
+using Repository;
+using System;
 
 namespace IMDB
 {
@@ -45,6 +46,8 @@ namespace IMDB
             });
 
             services.AddControllersWithViews();
+
+            services.AddSingleton<IStorage, InMemoryStorage>();
 
             // data access services configuration
             services.AddSingleton(provider =>

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using IMDB.Web.EntityModel;
+﻿using IMDB.EntityModels;
 using IMDB.Web.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Repository;
+using System.Collections.Generic;
 
 namespace IMDB.Web.Controllers
 {

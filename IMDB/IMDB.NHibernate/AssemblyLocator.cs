@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace IMDB.NHibernate
+﻿namespace IMDB.NHibernate
 {
     public class AssemblyLocator
     {
