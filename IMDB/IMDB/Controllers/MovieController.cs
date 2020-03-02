@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IMDB.Controllers
 {
@@ -72,27 +73,16 @@ namespace IMDB.Controllers
 
         public ActionResult Index()
         {
-            //obtengo lita de peliculas guardadas en storage
             var movies = db.GetAllMovies();
 
-            //crear una lista en base al modelo MovieViewModel
-            var movieViewModel = new List<MovieViewModel>();
-
-            //implemento metodo para cada pelicula en la lista: movies, y las agrego a la lista: movieViewModel
-            foreach (var movie in movies)
+            var movieViewModel = movies.Select(m => new MovieViewModel
             {
-                movieViewModel.Add(MapMovietoMovieViewModel(movie, new MovieViewModel()));
-            }
-            /*
-             * otra forma de hacerlo es usando LinQ (similar al stream en Java)
+                Id = m.Id,
+                Poster = m.Poster,
+                Name = m.Name
+            }).ToList();
 
-                      var movieViewModels = movies.Select(m => new MovieViewModel {
-                           Id = m.Id,
-                           Poster = m.Poster,
-                           Name = m.Name
-                      }).ToList();
-             */
-            return View(movieViewModel);// envio la lista de tipo MovieViewModel que contiene las peliculas con ese modelo
+            return View(movieViewModel);
         }
 
         public ActionResult Details(int Id)

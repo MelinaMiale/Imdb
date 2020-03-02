@@ -26,14 +26,14 @@
             set;
         }
 
-        public virtual Serie Serie
+        public Serie Serie
         {
             get;
             set;
         }
 
-        public virtual int IdActor { get; set; }
+        public int IdActor { get; set; }
 
-        public virtual int IdMovie { get; set; }
+        public int IdMovie { get; set; }
     }
 }
