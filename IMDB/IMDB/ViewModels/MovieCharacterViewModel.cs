@@ -23,7 +23,7 @@ namespace IMDB.Web.ViewModels
             set;
         }
 
-        public List<Character> Characters
+        public IList<Character> Characters
         {
             get;
             set;

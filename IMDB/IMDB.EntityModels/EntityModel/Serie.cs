@@ -17,7 +17,7 @@ namespace IMDB.EntityModels
             set;
         }
 
-        public Nationality Nationality
+        public string Nationality
         {
             get;
             set;

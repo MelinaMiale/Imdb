@@ -1,5 +1,4 @@
-﻿using IMDB.EntityModels;
-using System;
+﻿using System;
 
 namespace IMDB.Web.ViewModels
 {
@@ -17,7 +16,7 @@ namespace IMDB.Web.ViewModels
             set;
         }
 
-        public Nationality Nationality
+        public string Nationality
         {
             get;
             set;

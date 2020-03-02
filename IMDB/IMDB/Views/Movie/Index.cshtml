@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<IMDB.Web.ViewModels.MovieViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Movies";
 }
 
 <h1>Movies</h1>
@@ -16,16 +16,16 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var movie in Model)
         {
             <tr>
-                <td>@Html.DisplayFor(modelItem => item.Id)</td>
-                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => movie.Id)</td>
+                <td>@Html.DisplayFor(modelItem => movie.Name)</td>
                 <td>
-                    <a asp-action="Characters" asp-route-id="@item.Id">Characters</a> |
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Characters" asp-route-id="@movie.Id">Characters</a> |
+                    <a asp-action="Edit" asp-route-id="@movie.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@movie.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@movie.Id">Delete</a>
                 </td>
             </tr>
         }

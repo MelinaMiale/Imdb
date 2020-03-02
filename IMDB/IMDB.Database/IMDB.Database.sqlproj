@@ -65,6 +65,9 @@
     <None Include="Publish Profiles\Debug.publish.xml" />
   </ItemGroup>
   <ItemGroup>
+    <PostDeploy Include="Scripts\Post-Deployment\Script.PostDeployment1.sql" />
+  </ItemGroup>
+  <ItemGroup>
     <Build Include="Scripts\schema.sql" />
   </ItemGroup>
 </Project>

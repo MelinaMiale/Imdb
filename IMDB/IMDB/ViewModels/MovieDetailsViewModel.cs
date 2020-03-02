@@ -1,13 +1,11 @@
-﻿using IMDB.EntityModels;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace IMDB.Web.ViewModels
 {
     public class MovieDetailsViewModel
     {
-        public long ID
+        public long Id
         {
             get;
             set;
@@ -20,7 +18,7 @@ namespace IMDB.Web.ViewModels
             set;
         }
 
-        public Nationality Nationality
+        public string Nationality
         {
             get;
             set;
@@ -41,6 +39,7 @@ namespace IMDB.Web.ViewModels
             set;
         }
 
+        /*
         public String CharacterName
         {
             get;
@@ -58,14 +57,16 @@ namespace IMDB.Web.ViewModels
             get;
             set;
         }
+        */
 
         public MovieDetailsViewModel()
         {
         }
 
+        /*
         public MovieDetailsViewModel(List<Actor> allActors)
         {
             actorsInStorage = new List<Actor>();
-        }
+        }*/
     }
 }

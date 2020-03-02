@@ -9,7 +9,8 @@ using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Dialect;
 using NHibernate.Support;
-using Repository;
+
+//using Repository;
 using System;
 
 namespace IMDB
@@ -47,7 +48,7 @@ namespace IMDB
 
             services.AddControllersWithViews();
 
-            services.AddSingleton<IStorage, InMemoryStorage>();
+            // services.AddSingleton<IStorage, InMemoryStorage>();
 
             // data access services configuration
             services.AddSingleton(provider =>

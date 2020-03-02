@@ -22,13 +22,13 @@ namespace IMDB.EntityModels
             set;
         }
 
-        public virtual List<Character> Characters
+        public virtual IList<Character> Characters
         {
             get;
             set;
         }
 
-        public virtual Nationality Nationality
+        public virtual string Nationality
         {
             get;
             set;

@@ -2,8 +2,9 @@
 	Id BIGINT IDENTITY NOT NULL,
 	FirstName NVARCHAR(128) not null,
 	LastName NVARCHAR(128) not null,
-	Nationality INT not null,
-	ProfileFoto NVARCHAR(255) not null unique,
+	Nationality NVARCHAR(128) null,
+	Age INT not null,
+	ProfileFoto NVARCHAR(255) null unique,
 	primary key (Id)
 )
 GO
@@ -13,6 +14,7 @@ create table dbo.Characters (
 	Id BIGINT IDENTITY NOT NULL,
 	ActorId BIGINT not null,
 	MovieId BIGINT not null,
+	idx INT null,
 	primary key (Id)
 )
 GO
@@ -21,7 +23,7 @@ GO
 create table dbo.Movies (
 	Id BIGINT IDENTITY NOT NULL,
 	Title NVARCHAR(128) not null unique,
-	NAtionality INT not null,
+	Nationality NVARCHAR(128) null,
 	ReleaseDate DATETIME2 not null,
 	Poster NVARCHAR(255) not null unique,
 	primary key (Id)

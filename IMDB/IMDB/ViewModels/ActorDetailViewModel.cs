@@ -29,7 +29,7 @@ namespace IMDB.Web.ViewModels
             set;
         }
 
-        public Nationality Nationality
+        public string Nationality
         {
             get;
             set;
