@@ -1,9 +1,6 @@
 ﻿using IMDB.EntityModels;
 using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace IMDB.NHibernate
 {

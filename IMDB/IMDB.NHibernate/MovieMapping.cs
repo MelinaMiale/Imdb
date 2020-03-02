@@ -1,9 +1,6 @@
 ﻿using IMDB.EntityModels;
 using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace IMDB.NHibernate
 {
@@ -36,9 +33,10 @@ namespace IMDB.NHibernate
                 e => e.Nationality,
                 m =>
                 {
-                    m.Column("NAtionality");
-                    m.NotNullable(true);
+                    m.Column("Nationality");
+                    m.NotNullable(false);
                     m.Unique(false);
+                    m.Length(128);
                 });
 
             this.Property(
@@ -60,7 +58,7 @@ namespace IMDB.NHibernate
                 });
 
             //one to many
-            this.Bag(
+            this.List(
                  e => e.Characters,
                  cm =>
                  {

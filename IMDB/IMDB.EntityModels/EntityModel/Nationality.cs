@@ -1,6 +1,6 @@
-﻿namespace IMDB.EntityModels
+﻿/*namespace IMDB.EntityModels
 {
-    public enum Nationality
+    public virtual enum Nationality
     {
         None,
         Spanish,
@@ -16,3 +16,4 @@
         Austrian
     }
 }
+*/

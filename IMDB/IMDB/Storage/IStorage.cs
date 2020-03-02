@@ -1,4 +1,4 @@
-﻿using IMDB.EntityModels;
+﻿/*using IMDB.EntityModels;
 using System.Collections.Generic;
 
 namespace Repository
@@ -42,3 +42,4 @@ namespace Repository
         public List<Serie> GetAllSeries();
     }
 }
+*/

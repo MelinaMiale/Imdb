@@ -1,9 +1,6 @@
 ﻿using IMDB.EntityModels;
 using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace IMDB.NHibernate
 {
@@ -46,7 +43,7 @@ namespace IMDB.NHibernate
                 e => e.Age,
                 m =>
                 {
-                    m.Column("LastName");
+                    m.Column("Age");
                     m.NotNullable(true);
                     m.Unique(false);
                 });
@@ -56,8 +53,9 @@ namespace IMDB.NHibernate
                m =>
                {
                    m.Column("Nationality");
-                   m.NotNullable(true);
+                   m.NotNullable(false);
                    m.Unique(false);
+                   m.Length(128);
                });
 
             this.Property(
@@ -65,7 +63,7 @@ namespace IMDB.NHibernate
                m =>
                {
                    m.Column("ProfileFoto");
-                   m.NotNullable(true);
+                   m.NotNullable(false);
                    m.Unique(true);
                });
 

@@ -1,5 +1,4 @@
-﻿using IMDB.EntityModels;
-using IMDB.Web.ViewModels;
+﻿using IMDB.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;

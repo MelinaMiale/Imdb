@@ -1,4 +1,4 @@
-﻿using IMDB.EntityModels;
+﻿/*using IMDB.EntityModels;
 using IMDB.Web.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -121,3 +121,4 @@ namespace IMDB.Web.Controllers
         }
     }
 }
+*/

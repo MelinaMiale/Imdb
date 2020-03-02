@@ -1,13 +1,10 @@
-﻿using System;
+﻿using global::NHibernate.Cfg;
+using global::NHibernate.Tool.hbm2ddl;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
-
-using global::NHibernate.Cfg;
-using global::NHibernate.Tool.hbm2ddl;
-
-using ConfigurationManager = System.Configuration.ConfigurationManager;
 
 namespace NHibernate.Support
 {
