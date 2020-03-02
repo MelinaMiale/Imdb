@@ -1,18 +1,19 @@
-﻿/*using IMDB.EntityModels;
+﻿using IMDB.EntityModels;
 using IMDB.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Repository;
+using NHibernate;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IMDB.Web.Controllers
 {
     public class ActorController : Controller
     {
-        private IStorage db;
+        private ISession session;
 
-        public ActorController(IStorage repository)
+        public ActorController(ISession session)
         {
-            db = repository;
+            this.session = session;
         }
 
         //metodo que copia la informacion de un objeto de tipo Actor a un objeto de tipo ActorViewModel, y devuelve este ultimo
@@ -38,7 +39,7 @@ namespace IMDB.Web.Controllers
             return actorDetailVM;
         }
 
-        public Actor MapActorDetailVM_toActorDetail(Actor actor, ActorDetailViewModel actorDetailVM)
+        public Actor MapActorDetailViewModelToActorDetail(Actor actor, ActorDetailViewModel actorDetailVM)
         {
             actor.Age = actorDetailVM.Age;
             actor.Id = actorDetailVM.Id;
@@ -52,28 +53,30 @@ namespace IMDB.Web.Controllers
         }
 
         // listar todos los actores
-        public ActionResult Index()
+        public ViewResult Index()
         {
-            //obtengo lita de actores guardadas en storage
-            var actorsInStorage = db.GetAllActors();
+            var actorsInStorage = this.session.Query<Actor>().ToList();
 
-            //crear una lista en base al modelo MovieViewModel
-            var actorViewModelList = new List<ActorViewModel>();
-
-            //paso cada actor de la lista de actores a actor view model y lo agrego a la lista de ese tipo
-            foreach (var actor in actorsInStorage)
+            var actors = actorsInStorage.Select(a => new ActorViewModel
             {
-                actorViewModelList.Add(MapActortoActorViewModel(actor, new ActorViewModel()));
-            }
+                Id = a.Id,
+                FirstName = a.FirstName,
+                LastName = a.LastName
+            }).ToList();
 
-            return View(actorViewModelList);
+            return View(actors);
         }
 
         // GET: Actor/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(long Id)
         {
             //obtener pelicula de la base de datos
-            var actorById = db.GetActorbyId(id);
+            var actorById = this.session.Get<Actor>(Id);
+
+            if (actorById == null)
+            {
+                return this.NotFound();
+            }
 
             //pasar esa pelicula a modelo de vista (crear ActorDetailViewModel)(crear metodo MapActorDetail_toActorDetailViewModel)
             var actorByIdDetailsMV = MapActorDetail_toActorDetailViewModel(actorById, new ActorDetailViewModel());
@@ -92,14 +95,67 @@ namespace IMDB.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(ActorDetailViewModel newActorVM)
         {
-            var newActor = new Actor();
-            MapActorDetailVM_toActorDetail(newActor, newActorVM);
+            if (newActorVM == null)
+            {
+                return this.NotFound();
+            }
 
-            db.SaveActor(newActor);
+            using (var transaction = this.session.BeginTransaction())
+            {
+                if (ModelState.IsValid)
+                {
+                    var newActor = MapActorDetailViewModelToActorDetail(new Actor(), newActorVM);
+
+                    this.session.Save(newActor);
+                    this.session.Transaction.Commit();
+                }
+            }
 
             return RedirectToAction(nameof(ActorController.Index), "Home");
         }
 
+        // GET: Actor/Delete/5
+        [Route("Actor/Delete/{actorId}")]
+        public ActionResult Delete(long actorId)
+        {
+            //obtengo actor que quiero borrar
+            var actorTodelete = this.session.Get<Actor>(actorId);
+
+            if (actorTodelete == null)
+            {
+                return this.NotFound();
+            }
+
+            //paso el actor a borrar al modeloVista
+            return View(MapActorDetail_toActorDetailViewModel(actorTodelete, new ActorDetailViewModel()));
+        }
+
+        // POST: Actor/Delete/5
+        [HttpPost]
+        [Route("Actor/Delete/{actorId}")]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeletePost(long actorId)
+        {
+            using (var transaction = this.session.BeginTransaction())
+            {
+                var actorToDelete = this.session.Get<Actor>(actorId);
+
+                if (actorToDelete == null)
+                {
+                    return this.NotFound();
+                }
+
+                if (ModelState.IsValid)
+                {
+                    this.session.Delete(actorToDelete);
+                    transaction.Commit();
+                }
+            }
+            return RedirectToAction(nameof(ActorController.Index), "Home");
+        }
+
+        /*
         // GET: Actor/Edit/5
         public ActionResult Edit(int id)
         {
@@ -131,37 +187,45 @@ namespace IMDB.Web.Controllers
             return View(MapActorDetail_toActorDetailViewModel(actor, new ActorDetailViewModel()));
         }
 
-        // GET: Actor/Delete/5
-        [Route("Actor/Delete/{actorId}")]
-        public ActionResult Delete(int actorId)
+        [Route("Actor/Characters/{actorId}")]
+        [ActionName("Characters")]
+        public ActionResult Characters(int actorId)
         {
-            //obtengo actor que quiero borrar
-            var actorTodelete = db.GetActorbyId(actorId);
-            if (actorTodelete == null)
-            {
-                return this.NotFound();
-            }
+            var actor = db.GetActorbyId(actorId);
 
-            //paso el actor a borrar al modeloVista
-            return View(MapActorDetail_toActorDetailViewModel(actorTodelete, new ActorDetailViewModel()));
+            actor.Id = actorId;
+            // creo entidad viewmodel
+            var actorCharacterInMovieViewModel = new ActorCharacterInMovieViewModel();
+
+            //paso el actor a esa viewmodel
+            actorCharacterInMovieViewModel = MapActorEntityToActorCharacterInMovieViewModel(actor, actorCharacterInMovieViewModel);
+            //paso view model a la vista
+
+            return View(actorCharacterInMovieViewModel);
         }
 
-        // POST: Actor/Delete/5
+        [HttpGet]
+        public ActionResult CreateCharacter(int id)
+        {
+            var characterViewModel = new CharacterPlayedByActorViewModel();
+            characterViewModel.AvailableMovies = db.GetAllMovies();
+
+            characterViewModel.IdActor = id;
+
+            return View(characterViewModel);
+        }
+
         [HttpPost]
-        [Route("Actor/Delete/{actorId}")]
-        [ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeletePost(int actorId)
+        // [ActionName("CreateCharacter")]
+        public ActionResult CreateCharacter(CharacterPlayedByActorViewModel newCharacter)
         {
-            var actorToDelete = db.GetActorbyId(actorId);
+            var actorId = newCharacter.IdActor;
+            var characterEntity = new Character();
+            characterEntity = MapCharacterViewModelToCharacterEntity(characterEntity, newCharacter);
+            db.SaveRol(characterEntity, characterEntity.IdMovie, actorId);
 
-            //if (ModelState.IsValid)
-            {
-                db.DeleteActor(actorToDelete);
-            }
-
-            return RedirectToAction(nameof(ActorController.Index), "Home");
+            return RedirectToAction("Characters", new { id = actorId });
         }
+        */
     }
 }
-*/

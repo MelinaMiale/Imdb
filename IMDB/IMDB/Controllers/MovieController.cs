@@ -11,7 +11,6 @@ namespace IMDB.Controllers
 {
     public class MovieController : Controller
     {
-        //  private IStorage db;
         private ISession session;
 
         public MovieController(ISession session)
