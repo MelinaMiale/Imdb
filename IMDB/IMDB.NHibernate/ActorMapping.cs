@@ -7,12 +7,12 @@ using System.Text;
 
 namespace IMDB.NHibernate
 {
-    public class MovieMapping : ClassMapping<Movie>
+    internal class ActorMapping : ClassMapping<Actor>
     {
-        public MovieMapping()
+        public ActorMapping()
         {
             this.Schema("dbo");
-            this.Table("Movies");
+            this.Table("Actors");
 
             this.Id(
                 e => e.Id,
@@ -23,41 +23,51 @@ namespace IMDB.NHibernate
                 });
 
             this.Property(
-                e => e.Name,
+                e => e.FirstName,
                 m =>
                 {
-                    m.Column("Title");
+                    m.Column("FirstName");
                     m.NotNullable(true);
-                    m.Unique(true);
+                    m.Unique(false);
                     m.Length(128);
                 });
 
             this.Property(
-                e => e.Nationality,
+                e => e.LastName,
                 m =>
                 {
-                    m.Column("NAtionality");
+                    m.Column("LastName");
+                    m.NotNullable(true);
+                    m.Unique(false);
+                    m.Length(128);
+                });
+
+            this.Property(
+                e => e.Age,
+                m =>
+                {
+                    m.Column("LastName");
                     m.NotNullable(true);
                     m.Unique(false);
                 });
 
             this.Property(
-                e => e.Poster,
-                m =>
-                {
-                    m.Column("Poster");
-                    m.NotNullable(true);
-                    m.Unique(true);
-                });
+               e => e.Nationality,
+               m =>
+               {
+                   m.Column("Nationality");
+                   m.NotNullable(true);
+                   m.Unique(false);
+               });
 
             this.Property(
-                e => e.ReleaseDate,
-                m =>
-                {
-                    m.Column("ReleaseDate");
-                    m.NotNullable(true);
-                    m.Unique(false);
-                });
+               e => e.ProfileFoto,
+               m =>
+               {
+                   m.Column("ProfileFoto");
+                   m.NotNullable(true);
+                   m.Unique(true);
+               });
 
             //one to many
             this.Bag(
@@ -67,7 +77,7 @@ namespace IMDB.NHibernate
                      cm.Inverse(true);
                      cm.Lazy(CollectionLazy.Lazy);
                      cm.Cascade(Cascade.All | Cascade.DeleteOrphans);
-                     cm.Key(k => k.Column(col => col.Name("MovieId")));
+                     cm.Key(k => k.Column(col => col.Name("ActorId")));
                  },
                  m => m.OneToMany());
         }
