@@ -2,6 +2,7 @@
 using IMDB.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using NHibernate;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -155,11 +156,10 @@ namespace IMDB.Web.Controllers
             return RedirectToAction(nameof(ActorController.Index), "Home");
         }
 
-        /*
         // GET: Actor/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(long id)
         {
-            var actor = db.GetActorbyId(id);
+            var actor = this.session.Get<Actor>(id);
             if (actor == null)
             {
                 return this.NotFound();
@@ -174,19 +174,33 @@ namespace IMDB.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditPost(ActorDetailViewModel editedActor)
         {
-            var actor = db.GetActorbyId(editedActor.Id);
-
-            //paso actor de tipo VM a uno de tipo entity
-            actor = MapActorDetailVM_toActorDetail(actor, editedActor);
-
-            if (ModelState.IsValid)
+            using (var transaction = this.session.BeginTransaction())
             {
-                db.UpdateActor(actor);
-            }
+                var actor = this.session.Get<Actor>(editedActor.Id);
 
-            return View(MapActorDetail_toActorDetailViewModel(actor, new ActorDetailViewModel()));
+                if (editedActor == null)
+                {
+                    throw new ArgumentNullException(nameof(editedActor));
+                }
+
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        actor = MapActorDetailViewModelToActorDetail(actor, editedActor);
+                        transaction.Commit();
+                        //   return RedirectToAction(nameof(ActorController.Index), "Actor");
+                    }
+                    catch (Exception ex)
+                    {
+                        this.ModelState.AddModelError("", "Error updating movie: " + ex.Message);
+                    }
+                }
+            }
+            return RedirectToAction(nameof(ActorController.Index), "Actor");
         }
 
+        /*
         [Route("Actor/Characters/{actorId}")]
         [ActionName("Characters")]
         public ActionResult Characters(int actorId)
