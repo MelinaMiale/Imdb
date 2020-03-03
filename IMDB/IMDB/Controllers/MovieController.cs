@@ -2,8 +2,6 @@
 using IMDB.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using NHibernate;
-
-//using Repository;
 using System;
 using System.Linq;
 
@@ -51,24 +49,24 @@ namespace IMDB.Controllers
         }
 
         //metodo que uso para ver el listado de personajes de una pelicula
-        private MovieCharacterViewModel MapMovieCharactertoMovieCharacterViewModel(Movie movieEntity, MovieCharacterViewModel movieViewModel)
+        private MovieCharacterInMovieViewModel MapMovieCharactertoMovieCharacterInMovieViewModel(Movie movieEntity, MovieCharacterInMovieViewModel movieViewModel)
         {
             movieViewModel.Name = movieEntity.Name;
             movieViewModel.Characters = movieEntity.Characters;
-            movieViewModel.MovieId = Convert.ToInt32(movieEntity.Id);
+            movieViewModel.Id = movieEntity.Id;
+
             return movieViewModel;
         }
 
         //metodo que uso para trabajar un personaje en particular
-        private Character MapCharacterModelViewToCharacterEntity(Character characterEntity, CharacterViewModel characterViewModel)
+        private Character MapCharacterModelViewToCharacterEntity(Character characterEntity, CharacterInMovieViewModel CharacterInMovieViewModel)
         {
-            characterEntity.Id = characterViewModel.Id;
-            //characterEntity.Movie = characterViewModel.Movie;
-            characterEntity.Actor = characterViewModel.Actor;
-            characterEntity.Name = characterViewModel.Name;
-            // characterEntity.IdActor = Convert.ToInt32(characterViewModel.IdActor);
-            //   characterEntity.AvailableActors = db.GetAllActors();
-
+            characterEntity.Id = CharacterInMovieViewModel.Id;
+            characterEntity.Movie = CharacterInMovieViewModel.Movie;
+            characterEntity.Actor = CharacterInMovieViewModel.Actor;
+            characterEntity.Name = CharacterInMovieViewModel.Name;
+            // characterEntity.IdActor = Convert.ToInt32(CharacterInMovieViewModel.IdActor);
+            // characterEntity.AvailableActors = db.GetAllActors();
             return characterEntity;
         }
 
@@ -226,62 +224,5 @@ namespace IMDB.Controllers
 
             return View(editedMovie);
         }
-
-        /*
-        //accion que lista personajes de una pelicula
-        [Route("Movie/Characters/{movieId}")]
-        [ActionName("Characters")]
-        public ActionResult Characters(int movieId)
-        {
-            //obtengo pelicula
-            var movie = db.GetMovieById(movieId);
-            // creo pelicula de tipo viewmodel
-            var movieViewModel = new MovieCharacterViewModel();
-            //copio entidad a viewmodel
-            movieViewModel = MapMovieCharactertoMovieCharacterViewModel(movie, movieViewModel);
-
-            return View(movieViewModel);
-        }
-
-        //delete rol
-        public ActionResult DeleteRol(int movieId, int rolId)
-        {
-            var rolToDelete = db.GetRolById(rolId);
-
-            if (ModelState.IsValid)
-            {
-                db.DeleteRol(rolToDelete, movieId);
-            }
-
-            return RedirectToAction("Details", new { id = movieId });
-        }
-
-        // [Route("Movie/Characters/CreateCharacter")]
-
-        [HttpGet]
-        public ActionResult CreateCharacter(int idMovie)
-        {
-            var NewModel = new CharacterViewModel();
-
-            NewModel.AvailableActors = db.GetAllActors();
-            NewModel.IdMovie = idMovie;
-
-            return View(NewModel);
-        }
-
-        //post: crear rol
-        [HttpPost]
-        //[ActionName("CreateCharacter")]
-        //[ValidateAntiForgeryToken]
-        public ActionResult CreateCharacter(CharacterViewModel newcharacter)
-        {
-            var movieid = newcharacter.IdMovie;
-            var character = new Character();
-            character = MapCharacterModelViewToCharacterEntity(character, newcharacter);
-
-            db.SaveRol(character, movieid, character.IdActor);
-
-            return RedirectToAction("Characters", new { id = movieid });
-        }*/
     }
 }

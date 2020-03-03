@@ -1,3 +1,1 @@
-﻿IF NOT EXISTS(SELECT * FROM Actors)
-
-INSERT INTO Actors (FirstName, LastName, Age )VALUES ('Colin', 'Firth', 49);
+﻿Insert into Characters (CharacterName, ActorId, MovieId) values ('Daniel Cleaver g', 1, 2);

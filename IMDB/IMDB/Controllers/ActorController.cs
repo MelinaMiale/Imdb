@@ -3,7 +3,6 @@ using IMDB.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using NHibernate;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace IMDB.Web.Controllers
@@ -51,6 +50,26 @@ namespace IMDB.Web.Controllers
             // actor.Characters = actorDetailVM.Characters;
 
             return actor;
+        }
+
+        public ActorCharacterInMovieViewModel MapActorEntityToActorCharacterInMovieViewModel(Actor actor, ActorCharacterInMovieViewModel actorCharacterInMovieViewModel)
+        {
+            actorCharacterInMovieViewModel.Id = actor.Id;
+            actorCharacterInMovieViewModel.Characters = actor.Characters;
+            actorCharacterInMovieViewModel.FirstName = actor.FirstName;
+            actorCharacterInMovieViewModel.LastName = actor.LastName;
+
+            return actorCharacterInMovieViewModel;
+        }
+
+        private Character MapCharacterViewModelToCharacterEntity(Character characterEntity, CharacterPlayedByActorViewModel characterViewModel)
+        {
+            characterEntity.Id = characterViewModel.Id;
+            characterEntity.Movie = characterViewModel.Movie;
+            characterEntity.Actor = characterViewModel.Actor;
+            characterEntity.Name = characterViewModel.Name;
+
+            return characterEntity;
         }
 
         // listar todos los actores
@@ -200,14 +219,12 @@ namespace IMDB.Web.Controllers
             return RedirectToAction(nameof(ActorController.Index), "Actor");
         }
 
-        /*
         [Route("Actor/Characters/{actorId}")]
         [ActionName("Characters")]
-        public ActionResult Characters(int actorId)
+        public ActionResult Characters(long actorId)
         {
-            var actor = db.GetActorbyId(actorId);
+            var actor = this.session.Get<Actor>(actorId);
 
-            actor.Id = actorId;
             // creo entidad viewmodel
             var actorCharacterInMovieViewModel = new ActorCharacterInMovieViewModel();
 
@@ -219,12 +236,13 @@ namespace IMDB.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult CreateCharacter(int id)
+        public ActionResult CreateCharacter(long id)
         {
             var characterViewModel = new CharacterPlayedByActorViewModel();
-            characterViewModel.AvailableMovies = db.GetAllMovies();
 
-            characterViewModel.IdActor = id;
+            characterViewModel.AvailableMovies = this.session.Query<Movie>().ToList();
+
+            characterViewModel.Actor = this.session.Get<Actor>(id);
 
             return View(characterViewModel);
         }
@@ -233,13 +251,30 @@ namespace IMDB.Web.Controllers
         // [ActionName("CreateCharacter")]
         public ActionResult CreateCharacter(CharacterPlayedByActorViewModel newCharacter)
         {
-            var actorId = newCharacter.IdActor;
-            var characterEntity = new Character();
-            characterEntity = MapCharacterViewModelToCharacterEntity(characterEntity, newCharacter);
-            db.SaveRol(characterEntity, characterEntity.IdMovie, actorId);
+            if (newCharacter == null)
+            {
+                throw new ArgumentNullException(nameof(newCharacter));
+            }
 
-            return RedirectToAction("Characters", new { id = actorId });
+            using (var transaction = this.session.BeginTransaction())
+            {
+                try
+                {
+                    if (ModelState.IsValid)
+                    {
+                        var newRoleEntity = new Character();
+                        newRoleEntity = MapCharacterViewModelToCharacterEntity(newRoleEntity, newCharacter);
+                        this.session.Save(newRoleEntity);
+                        this.session.Transaction.Commit();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    this.ModelState.AddModelError("", "Error updating movie: " + ex.Message);
+                }
+            }
+
+            return RedirectToAction("Characters", new { id = newCharacter.Actor.Id });
         }
-        */
     }
 }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace IMDB.Web.ViewModels
 {
-    public class MovieCharacterInMovieViewModel
+    public class CharacterPlayedByActorViewModel
     {
-        public long Id
+        public IList<Movie> AvailableMovies
         {
             get;
             set;
@@ -17,22 +17,22 @@ namespace IMDB.Web.ViewModels
             set;
         }
 
-        //public int Actorid
-        //{
-        //    get;
-        //    set;
-        //}
-
-        public IList<Character> Characters
+        public int Id
         {
             get;
             set;
         }
 
-        //public int MovieId
-        //{
-        //    get;
-        //    set;
-        //}
+        public Movie Movie
+        {
+            get;
+            set;
+        }
+
+        public Actor Actor
+        {
+            get;
+            set;
+        }
     }
 }

@@ -1,0 +1,53 @@
+﻿@model IMDB.Web.Controllers.ActorCharacterInMovieViewModel
+
+@{
+    ViewData["Title"] = "Characters";
+}
+
+<h1>Characters</h1>
+
+<p>
+    <a asp-action="CreateCharacter" asp-route-id="@Model.Id">Create New</a>
+</p>
+
+<div>
+    <h4>ActorCharacterInMovieViewModel</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+    </dl>
+
+    <table class=" table table-striped">
+        <tr>
+            <th><label asp-for="Characters"></label></th>
+            <th></th>
+        </tr>
+        @foreach (var role in Model.Characters)
+        {
+            @if (role.Actor != null)
+            {
+                <tr>
+                    <td>
+
+                        @role.Name interpretado en
+                        <a asp-controller="Movie" asp-action="Characters" asp-route-movieId="@role.Movie.Id">
+                            @role.Movie.Name
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" asp-controller="Movie" asp-action="DeleteRol" asp-route-movieId="@role.Movie.Id" asp-route-rolId="@role.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

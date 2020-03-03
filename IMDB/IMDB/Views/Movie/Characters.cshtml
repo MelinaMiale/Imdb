@@ -1,34 +1,33 @@
-﻿@model IMDB.Web.ViewModels.MovieCharacterViewModel
+﻿@model IMDB.Web.ViewModels.MovieCharacterInMovieViewModel
 
 @{
     ViewData["Title"] = "Characters";
 }
 
-<h1>Characters</h1>
+<h1>@Html.DisplayFor(model => model.Name)</h1>
 
 <div>
 
     <p>
-        <a asp-action="CreateCharacter" asp-route-idMovie="@Model.MovieId">Create New</a>
+        <a asp-action="CreateCharacter" asp-route-idMovie="@Model.Id">Create New</a>
     </p>
 
     <h2>
-        @Html.DisplayFor(model => model.Name)
+        Characters
     </h2>
     <!-- asociates roles with actors -->
-
     <table class=" table table-striped">
         <tr>
             <th><label asp-for="Characters"></label></th>
             <th></th>
         </tr>
-        @foreach (var role in Model.Characters)
+
+        @if (Model.Characters != null)
         {
-            @if (role.Actor != null)
+            @foreach (var role in Model.Characters)
             {
                 <tr>
                     <td>
-
                         @role.Name interpretado por
                         <a asp-controller="Actor" asp-action="Details" asp-route-Id="@role.Actor.Id">
                             @role.Actor.FirstName @role.Actor.LastName
@@ -40,6 +39,7 @@
                 </tr>
             }
         }
+    </table>
     </table>
 </div>
 <div>
