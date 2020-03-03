@@ -10,11 +10,21 @@
 GO
 
 
+create table dbo.Chapters (
+	Id BIGINT IDENTITY NOT NULL,
+	CharacterName DATETIME2 null unique,
+	SerieId BIGINT not null,
+	primary key (Id)
+)
+GO
+
+
 create table dbo.Characters (
 	Id BIGINT IDENTITY NOT NULL,
-	CharacterName NVARCHAR(30) null unique,
+	CharacterName NVARCHAR(50) null unique,
 	ActorId BIGINT not null,
 	MovieId BIGINT not null,
+	SerieId BIGINT not null,
 	primary key (Id)
 )
 GO
@@ -31,6 +41,22 @@ create table dbo.Movies (
 GO
 
 
+create table dbo.Series (
+	Id BIGINT IDENTITY NOT NULL,
+	Name NVARCHAR(30) null unique,
+	Nationality NVARCHAR(30) null unique,
+	primary key (Id)
+)
+GO
+
+
+alter table dbo.Chapters 
+add constraint FK_5C740B6B 
+foreign key (SerieId) 
+references dbo.Series
+GO
+
+
 alter table dbo.Characters 
 add constraint FK_1291E7CF 
 foreign key (ActorId) 
@@ -42,5 +68,12 @@ alter table dbo.Characters
 add constraint FK_6CB7AD18 
 foreign key (MovieId) 
 references dbo.Movies
+GO
+
+
+alter table dbo.Characters 
+add constraint FK_F8237507 
+foreign key (SerieId) 
+references dbo.Series
 GO
 

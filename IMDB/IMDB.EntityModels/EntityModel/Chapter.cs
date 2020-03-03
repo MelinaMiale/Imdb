@@ -22,6 +22,18 @@ namespace IMDB.EntityModels
             set;
         }
 
+        public string Name
+        {
+            get;
+            set;
+        }
+
+        public Serie Serie
+        {
+            get;
+            set;
+        }
+
         public Chapter()
         {
         }

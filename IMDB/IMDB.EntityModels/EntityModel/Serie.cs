@@ -5,44 +5,44 @@ namespace IMDB.EntityModels
 {
     public class Serie
     {
-        public long Id
+        public virtual long Id
         {
             get;
             set;
         }
 
-        public string Name
+        public virtual string Name
         {
             get;
             set;
         }
 
-        public string Nationality
+        public virtual string Nationality
         {
             get;
             set;
         }
 
-        public List<Character> Characters
+        public virtual IList<Character> Characters
         {
             get;
             set;
         }
 
         //poster caps
-        public List<Chapter> Chapters
+        public virtual IList<Chapter> Chapters
         {
             get;
             set;
         }
 
-        public string Poster
+        public virtual string Poster
         {
             get;
             set;
         }
 
-        public DateTime ReleaseDate
+        public virtual DateTime ReleaseDate
         {
             get;
             set;
