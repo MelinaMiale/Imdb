@@ -19,8 +19,17 @@ namespace IMDB.NHibernate
                     m.Generator(Generators.Native);
                 });
 
-            // many-to-one
+            this.Property(
+                e => e.Name,
+                m =>
+                {
+                    m.Column("CharacterName");
+                    m.NotNullable(false);
+                    m.Unique(true);
+                    m.Length(30);
+                });
 
+            // many-to-one
             this.ManyToOne(
                 e => e.Movie,
                 m =>

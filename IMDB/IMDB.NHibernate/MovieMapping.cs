@@ -44,7 +44,7 @@ namespace IMDB.NHibernate
                 m =>
                 {
                     m.Column("Poster");
-                    m.NotNullable(true);
+                    m.NotNullable(false);
                     m.Unique(true);
                 });
 
@@ -53,12 +53,12 @@ namespace IMDB.NHibernate
                 m =>
                 {
                     m.Column("ReleaseDate");
-                    m.NotNullable(true);
+                    m.NotNullable(false);
                     m.Unique(false);
                 });
 
             //one to many
-            this.List(
+            this.Bag(
                  e => e.Characters,
                  cm =>
                  {
