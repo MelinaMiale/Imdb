@@ -26,6 +26,12 @@
             set;
         }
 
+        public virtual Serie Serie
+        {
+            get;
+            set;
+        }
+
         //public Serie Serie
         //{
         //    get;

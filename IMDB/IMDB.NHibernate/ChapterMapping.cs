@@ -1,15 +1,18 @@
 ﻿using IMDB.EntityModels;
 using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace IMDB.NHibernate
 {
-    public class CharacterMapping : ClassMapping<Character>
+    public class ChapterMapping : ClassMapping<Chapter>
     {
-        public CharacterMapping()
+        public ChapterMapping()
         {
             this.Schema("dbo");
-            this.Table("Characters");
+            this.Table("Chapters");
 
             this.Id(
                 e => e.Id,
@@ -29,29 +32,16 @@ namespace IMDB.NHibernate
                     m.Length(50);
                 });
 
+            this.Property(
+                e => e.ReleaseDate,
+                m =>
+                {
+                    m.Column("CharacterName");
+                    m.NotNullable(false);
+                    m.Unique(true);
+                });
+
             // many-to-one
-            this.ManyToOne(
-                e => e.Movie,
-                m =>
-                {
-                    m.Update(true);
-                    m.NotNullable(true);
-                    m.Column("MovieId");
-                    m.Unique(false);
-                    m.Cascade(Cascade.None);
-                });
-
-            this.ManyToOne(
-                e => e.Actor,
-                m =>
-                {
-                    m.Update(true);
-                    m.NotNullable(true);
-                    m.Column("ActorId");
-                    m.Unique(false);
-                    m.Cascade(Cascade.None);
-                });
-
             this.ManyToOne(
                 e => e.Serie,
                 m =>

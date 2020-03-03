@@ -1,1 +1,2 @@
-﻿Insert into Characters (CharacterName, ActorId, MovieId) values ('Daniel Cleaver g', 1, 2);
+﻿
+
