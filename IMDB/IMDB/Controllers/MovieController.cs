@@ -224,5 +224,85 @@ namespace IMDB.Controllers
 
             return View(editedMovie);
         }
+
+        //accion que lista personajes de una pelicula
+        [Route("Movie/Characters/{movieId}")]
+        [ActionName("Characters")]
+        public ActionResult Characters(long movieId)
+        {
+            //obtengo pelicula
+            var movie = this.session.Get<Movie>(movieId);
+
+            // creo pelicula de tipo viewmodel
+            var movieViewModel = new MovieCharacterInMovieViewModel();
+
+            //copio entidad a viewmodel
+            movieViewModel = MapMovieCharactertoMovieCharacterInMovieViewModel(movie, movieViewModel);
+
+            return View(movieViewModel);
+        }
+
+        // [Route("Movie/Characters/CreateCharacter")]
+        [HttpGet]
+        public ActionResult CreateCharacter(long idMovie)
+        {
+            var newCharacter = new CharacterInMovieViewModel();
+
+            newCharacter.AvailableActors = this.session.Query<Actor>().ToList();
+            newCharacter.Movie = this.session.Get<Movie>(idMovie);
+
+            return View(newCharacter);
+        }
+
+        [HttpPost]
+        public ActionResult CreateCharacter(CharacterInMovieViewModel newcharacter)
+        {
+            if (newcharacter == null)
+            {
+                throw new ArgumentNullException(nameof(newcharacter));
+            }
+
+            using (var transaction = this.session.BeginTransaction())
+            {
+                try
+                {
+                    if (ModelState.IsValid)
+                    {
+                        //var movieid = newcharacter.IdMovie;
+                        var newRoleEntity = new Character();
+                        newRoleEntity = MapCharacterModelViewToCharacterEntity(newRoleEntity, newcharacter);
+                        this.session.Save(newRoleEntity);
+                        this.session.Transaction.Commit();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    this.ModelState.AddModelError("", "Error updating movie: " + ex.Message);
+                }
+            }
+
+            return RedirectToAction("Characters", new { id = newcharacter.Movie.Id });
+        }
+
+        //delete rol
+        public ActionResult DeleteRol(int movieId, long rolId)
+        {
+            using (var transaction = this.session.BeginTransaction())
+            {
+                var rolToDelete = this.session.Get<Character>(rolId);
+
+                if (rolToDelete == null)
+                {
+                    return this.NotFound();
+                }
+
+                if (ModelState.IsValid)
+                {
+                    this.session.Delete(rolToDelete);
+                    transaction.Commit();
+                }
+            }
+            return RedirectToAction("Details", new { id = movieId });
+        }
     }
 }
