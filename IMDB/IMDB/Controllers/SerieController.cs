@@ -1,40 +1,33 @@
-﻿/*using IMDB.EntityModels;
+﻿using IMDB.EntityModels;
 using IMDB.Web.ViewModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Repository;
-using System.Collections.Generic;
+using NHibernate;
+using System;
+using System.Linq;
 
 namespace IMDB.Web.Controllers
 {
     public class SerieController : Controller
     {
-        private IStorage db;
+        private ISession session;
 
-        public SerieController(IStorage repository)
+        public SerieController(ISession session)
         {
-            db = repository;
+            this.session = session;
         }
 
-        public ActionResult Index()
+        public Serie MapSerieDetailsViewModelToSerieModel(Serie serie, SerieDetailViewModel serieDetailViewModel)
         {
-            //obtengo lita de series guardadas en storage
+            serie.Id = serieDetailViewModel.Id;
+            serie.Name = serieDetailViewModel.Name;
+            serie.Nationality = serieDetailViewModel.Nationality;
+            serie.Poster = serieDetailViewModel.Poster;
+            serie.ReleaseDate = serieDetailViewModel.ReleaseDate;
 
-            var seriesInStorage = db.GetAllSeries();
-
-            //crear una lista en base al modelo MovieViewModel
-            var serieViewModelList = new List<SerieViewModel>();
-
-            //paso cada actor de la lista de actores a actor view model y lo agrego a la lista de ese tipo
-            foreach (var serie in seriesInStorage)
-            {
-                serieViewModelList.Add(MapSerietoSerieViewModel(serie, new SerieViewModel()));
-            }
-
-            return View(serieViewModelList);
+            return serie;
         }
 
-        public SerieViewModel MapSerietoSerieViewModel(Serie serie, SerieViewModel serieViewModel)
+        public SerieDetailViewModel MapSerieDetailsToSerieDetailsViewModel(Serie serie, SerieDetailViewModel serieViewModel)
         {
             serieViewModel.Id = serie.Id;
             serieViewModel.Name = serie.Name;
@@ -45,80 +38,153 @@ namespace IMDB.Web.Controllers
             return serieViewModel;
         }
 
-        // GET: Serie/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Index()
         {
-            return View();
+            //obtengo lita de series guardadas en storage
+            var seriesInStorage = this.session.Query<Serie>().ToList();
+
+            var serieViewModelList = seriesInStorage.Select(m => new SerieViewModel
+            {
+                Id = m.Id,
+                Name = m.Name
+            }).ToList();
+
+            return View(serieViewModelList);
         }
 
         // GET: Serie/Create
-        public ActionResult Create()
+        public ViewResult Create()
         {
             return View();
         }
 
-        // POST: Serie/Create
+        // POST: Movie/Create
         [HttpPost]
+        [ActionName("Create")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult CreatePost(SerieDetailViewModel newSerieViewModel)
         {
-            try
+            if (newSerieViewModel == null)
             {
-                // TODO: Add insert logic here
+                throw new ArgumentNullException(nameof(newSerieViewModel));
+            }
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
+            using (var transaction = this.session.BeginTransaction())
             {
-                return View();
+                if (ModelState.IsValid)
+                {
+                    var newEntitySerie = MapSerieDetailsViewModelToSerieModel(new Serie(), newSerieViewModel);
+
+                    this.session.Save(newEntitySerie);
+
+                    this.session.Transaction.Commit();
+
+                    this.TempData["Message"] = "Movie saved succsessfully!";
+                }
             }
+
+            return RedirectToAction(nameof(SerieController.Index), "Home");
         }
 
-        // GET: Serie/Edit/5
-        public ActionResult Edit(int id)
+        // GET: Serie/Details/5
+        public ActionResult Details(long Id)
         {
-            return View();
-        }
+            var serieById = this.session.Get<Serie>(Id);
 
-        // POST: Serie/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
+            if (serieById == null)
             {
-                // TODO: Add update logic here
+                return this.NotFound();
+            }
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var serieDetailViewModel = MapSerieDetailsToSerieDetailsViewModel(serieById, new SerieDetailViewModel());
+
+            return View(serieDetailViewModel);
         }
 
         // GET: Serie/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(long Id)
         {
-            return View();
+            var serieToDelete = this.session.Get<Serie>(Id);
+
+            if (serieToDelete == null)
+            {
+                return this.NotFound();
+            }
+
+            return View(MapSerieDetailsToSerieDetailsViewModel(serieToDelete, new SerieDetailViewModel()));
         }
 
         // POST: Serie/Delete/5
         [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult DeletePost(long Id)
         {
-            try
+            using (var transaction = this.session.BeginTransaction())
             {
-                // TODO: Add delete logic here
+                var serieToDelete = this.session.Get<Serie>(Id);
 
-                return RedirectToAction(nameof(Index));
+                if (serieToDelete == null)
+                {
+                    return this.NotFound();
+                }
+
+                if (ModelState.IsValid)
+                {
+                    this.session.Delete(serieToDelete);
+
+                    transaction.Commit();
+                }
             }
-            catch
+
+            return RedirectToAction(nameof(SerieController.Index), "Serie");
+        }
+
+        // GET: Serie/Edit/5
+        public ActionResult Edit(long Id)
+        {
+            var serie = this.session.Get<Serie>(Id);
+            if (serie == null)
             {
-                return View();
+                return this.NotFound();
             }
+
+            return View(MapSerieDetailsToSerieDetailsViewModel(serie, new SerieDetailViewModel()));
+        }
+
+        [HttpPost]
+        [ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPost(SerieDetailViewModel editedSerie)
+        {
+            using (var transaction = this.session.BeginTransaction())
+            {
+                //tomo la pelicula que tengo en db, la q tiene el mismo id que viene de la pelicula editada
+                var serieEntity = this.session.Get<Serie>(editedSerie.Id);
+
+                if (editedSerie == null)
+                {
+                    throw new ArgumentNullException(nameof(editedSerie));
+                }
+
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        //paso esa pelicula de tipo ViewModel a una pelicula de tipo MovieEntity
+                        serieEntity = MapSerieDetailsViewModelToSerieModel(serieEntity, editedSerie);
+
+                        transaction.Commit();
+                        return this.RedirectToAction();
+                    }
+                    catch (Exception ex)
+                    {
+                        this.ModelState.AddModelError("", "Error updating movie: " + ex.Message);
+                    }
+                }
+            }
+
+            return View(editedSerie);
         }
     }
 }
-*/
