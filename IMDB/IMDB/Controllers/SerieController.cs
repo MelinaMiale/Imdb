@@ -38,7 +38,28 @@ namespace IMDB.Web.Controllers
             return serieViewModel;
         }
 
+        public SerieCharacters MapSerieCharactertoSerieCharacterInSerieViewModel(Serie serie, SerieCharacters serieCharactersViewModel)
+        {
+            serieCharactersViewModel.Id = serie.Id;
+            serieCharactersViewModel.Name = serie.Name;
+            serieCharactersViewModel.Characters = serie.Characters;
+
+            return serieCharactersViewModel;
+        }
+
+        //metodo que uso para trabajar un personaje en particular
+        private Character MapCharacterModelViewToCharacterEntity(Character characterEntity, CharacterInSerieViewModel characterInSerieViewModel)
+        {
+            characterEntity.Id = characterInSerieViewModel.Id;
+            characterEntity.Serie = characterInSerieViewModel.Serie;
+            characterEntity.Actor = characterInSerieViewModel.Actor;
+            characterEntity.Name = characterInSerieViewModel.Name;
+
+            return characterEntity;
+        }
+
         public ActionResult Index()
+
         {
             //obtengo lita de series guardadas en storage
             var seriesInStorage = this.session.Query<Serie>().ToList();
@@ -185,6 +206,84 @@ namespace IMDB.Web.Controllers
             }
 
             return View(editedSerie);
+        }
+
+        //accion que lista personajes de una pelicula
+        [Route("Serie/Characters/{Id}")]
+        [ActionName("Characters")]
+        public ActionResult Characters(long Id)
+        {
+            //obtengo serie
+            var serie = this.session.Get<Serie>(Id);
+
+            // creo serie de tipo viewmodel
+            var serieViewModel = new SerieCharacters();
+
+            //copio entidad a viewmodel
+            serieViewModel = MapSerieCharactertoSerieCharacterInSerieViewModel(serie, serieViewModel);
+
+            return View(serieViewModel);
+        }
+
+        // [Route("Serie/Characters/CreateCharacter")]
+        [HttpGet]
+        public ActionResult CreateCharacter(long idSerie)
+        {
+            var newCharacter = new CharacterInSerieViewModel();
+
+            newCharacter.AvailableActors = this.session.Query<Actor>().ToList();
+            newCharacter.Serie = this.session.Get<Serie>(idSerie);
+
+            return View(newCharacter);
+        }
+
+        [HttpPost]
+        public ActionResult CreateCharacter(CharacterInSerieViewModel newcharacter)
+        {
+            if (newcharacter == null)
+            {
+                throw new ArgumentNullException(nameof(newcharacter));
+            }
+
+            using (var transaction = this.session.BeginTransaction())
+            {
+                try
+                {
+                    if (ModelState.IsValid)
+                    {
+                        var newRoleEntity = new Character();
+                        newRoleEntity = MapCharacterModelViewToCharacterEntity(newRoleEntity, newcharacter);
+                        this.session.Save(newRoleEntity);
+                        this.session.Transaction.Commit();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    this.ModelState.AddModelError("", "Error updating role: " + ex.Message);
+                }
+            }
+
+            return RedirectToAction("Characters", new { id = newcharacter.Serie.Id });
+        }
+
+        public ActionResult DeleteRol(int serieId, long rolId)
+        {
+            using (var transaction = this.session.BeginTransaction())
+            {
+                var rolToDelete = this.session.Get<Character>(rolId);
+
+                if (rolToDelete == null)
+                {
+                    return this.NotFound();
+                }
+
+                if (ModelState.IsValid)
+                {
+                    this.session.Delete(rolToDelete);
+                    transaction.Commit();
+                }
+            }
+            return RedirectToAction("Characters", new { id = serieId });
         }
     }
 }

@@ -1,0 +1,42 @@
+﻿@model IMDB.Web.ViewModels.CharacterInSerieViewModel
+
+@{
+    ViewData["Title"] = "CreateCharacter";
+}
+
+<h1>CreateCharacter</h1>
+
+<h4>CharacterInSerieViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateCharacter">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group" hidden>
+                <label asp-for="Serie.Id" class="control-label"></label>
+                <input asp-for="Serie.Id" class="form-control" />
+                <span asp-validation-for="Serie.Id" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <select class="form-control" asp-for="Actor.Id" asp-items="@Model.AvailableActors.Select(m => new SelectListItem {Value = m.Id.ToString(), Text = m.FirstName})">
+                </select>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

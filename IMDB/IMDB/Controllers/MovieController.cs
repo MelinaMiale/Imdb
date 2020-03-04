@@ -302,7 +302,7 @@ namespace IMDB.Controllers
                     transaction.Commit();
                 }
             }
-            return RedirectToAction("Details", new { id = movieId });
+            return RedirectToAction("Characters", new { id = movieId });
         }
     }
 }

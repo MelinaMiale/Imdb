@@ -29,6 +29,7 @@
                 <td>@Html.DisplayFor(modelItem => serie.Name)</td>
                 <td>
                     <a asp-action="Characters" asp-route-id="@serie.Id">Characters</a> |
+                    <a asp-action="Characters" asp-route-id="@serie.Id">Chapters</a> |
                     <a asp-action="Edit" asp-route-id="@serie.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@serie.Id">Details</a> |
                     <a asp-action="Delete" asp-route-id="@serie.Id">Delete</a>
