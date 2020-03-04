@@ -22,13 +22,13 @@ namespace IMDB.EntityModels
             set;
         }
 
-        public string Name
+        public virtual string Name
         {
             get;
             set;
         }
 
-        public Serie Serie
+        public virtual Serie Serie
         {
             get;
             set;

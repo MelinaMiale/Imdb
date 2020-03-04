@@ -26,7 +26,7 @@ namespace IMDB.NHibernate
                 e => e.Name,
                 m =>
                 {
-                    m.Column("CharacterName");
+                    m.Column("ChapterName");
                     m.NotNullable(false);
                     m.Unique(true);
                     m.Length(50);
@@ -36,7 +36,7 @@ namespace IMDB.NHibernate
                 e => e.ReleaseDate,
                 m =>
                 {
-                    m.Column("CharacterName");
+                    m.Column("ReleaseDate");
                     m.NotNullable(false);
                     m.Unique(true);
                 });

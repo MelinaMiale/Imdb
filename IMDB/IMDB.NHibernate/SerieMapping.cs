@@ -35,7 +35,7 @@ namespace IMDB.NHibernate
                 {
                     m.Column("Nationality");
                     m.NotNullable(false);
-                    m.Unique(true);
+                    m.Unique(false);
                     m.Length(30);
                 });
 
@@ -43,7 +43,7 @@ namespace IMDB.NHibernate
                 e => e.Poster,
                 m =>
                 {
-                    m.Column("Nationality");
+                    m.Column("Poster");
                     m.NotNullable(false);
                     m.Unique(true);
                 });
@@ -52,9 +52,9 @@ namespace IMDB.NHibernate
                 e => e.ReleaseDate,
                 m =>
                 {
-                    m.Column("Nationality");
+                    m.Column("ReleaseDate");
                     m.NotNullable(false);
-                    m.Unique(true);
+                    m.Unique(false);
                 });
 
             //one to many

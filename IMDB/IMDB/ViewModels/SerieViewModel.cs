@@ -15,23 +15,5 @@ namespace IMDB.Web.ViewModels
             get;
             set;
         }
-
-        public string Nationality
-        {
-            get;
-            set;
-        }
-
-        public string Poster
-        {
-            get;
-            set;
-        }
-
-        public DateTime ReleaseDate
-        {
-            get;
-            set;
-        }
     }
 }
