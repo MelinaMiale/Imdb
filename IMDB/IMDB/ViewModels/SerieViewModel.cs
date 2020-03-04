@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace IMDB.Web.ViewModels
+﻿namespace IMDB.Web.ViewModels
 {
     public class SerieViewModel
     {

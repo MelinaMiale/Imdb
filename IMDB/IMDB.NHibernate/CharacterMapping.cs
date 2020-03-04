@@ -35,7 +35,7 @@ namespace IMDB.NHibernate
                 m =>
                 {
                     m.Update(true);
-                    m.NotNullable(true);
+                    m.NotNullable(false);
                     m.Column("MovieId");
                     m.Unique(false);
                     m.Cascade(Cascade.None);
@@ -57,7 +57,7 @@ namespace IMDB.NHibernate
                 m =>
                 {
                     m.Update(true);
-                    m.NotNullable(true);
+                    m.NotNullable(false);
                     m.Column("SerieId");
                     m.Unique(false);
                     m.Cascade(Cascade.None);
