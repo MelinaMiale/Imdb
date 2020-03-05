@@ -50,7 +50,7 @@
     }
 
     function onError(error, inputElement) {  // 'this' is the form element
-        var container = $(this).find("[data-valmsg-for='" + escapeAttributeValue(inputElement[0].name) + "']"),
+        var container = $(this).find("[data-valmsg-for='" + escapeAttributeValue(inputElement[0].Name) + "']"),
             replaceAttrValue = container.attr("data-valmsg-replace"),
             replace = replaceAttrValue ? $.parseJSON(replaceAttrValue) !== false : null;
 
@@ -126,8 +126,8 @@
             result = $form.data(data_validation),
             onResetProxy = $.proxy(onReset, form),
             defaultOptions = $jQval.unobtrusive.options || {},
-            execInContext = function (name, args) {
-                var func = defaultOptions[name];
+            execInContext = function (Name, args) {
+                var func = defaultOptions[Name];
                 func && $.isFunction(func) && func.apply(form, args);
             };
 
@@ -175,8 +175,8 @@
             /// <summary>
             /// Parses a single HTML element for unobtrusive validation attributes.
             /// </summary>
-            /// <param name="element" domElement="true">The HTML element to be parsed.</param>
-            /// <param name="skipAttach" type="Boolean">[Optional] true to skip attaching the
+            /// <param Name="element" domElement="true">The HTML element to be parsed.</param>
+            /// <param Name="skipAttach" type="Boolean">[Optional] true to skip attaching the
             /// validation to the form. If parsing just this single element, you should specify true.
             /// If parsing several elements, you should specify false, and manually attach the validation
             /// to the form when you are finished. The default is false.</param>
@@ -189,11 +189,11 @@
             }
 
             valInfo = validationInfo(form);
-            valInfo.options.rules[element.name] = rules = {};
-            valInfo.options.messages[element.name] = messages = {};
+            valInfo.options.rules[element.Name] = rules = {};
+            valInfo.options.messages[element.Name] = messages = {};
 
             $.each(this.adapters, function () {
-                var prefix = "data-val-" + this.name,
+                var prefix = "data-val-" + this.Name,
                     message = $element.attr(prefix),
                     paramValues = {};
 
@@ -228,7 +228,7 @@
             /// with the [data-val=true] attribute value and enables validation according to the data-val-*
             /// attribute values.
             /// </summary>
-            /// <param name="selector" type="String">Any valid jQuery selector.</param>
+            /// <param Name="selector" type="String">Any valid jQuery selector.</param>
 
             // $forms includes all forms in selector's DOM hierarchy (parent, children and self) that have at least one
             // element with data-val=true
@@ -256,28 +256,28 @@
 
     adapters.add = function (adapterName, params, fn) {
         /// <summary>Adds a new adapter to convert unobtrusive HTML into a jQuery Validate validation.</summary>
-        /// <param name="adapterName" type="String">The name of the adapter to be added. This matches the name used
-        /// in the data-val-nnnn HTML attribute (where nnnn is the adapter name).</param>
-        /// <param name="params" type="Array" optional="true">[Optional] An array of parameter names (strings) that will
-        /// be extracted from the data-val-nnnn-mmmm HTML attributes (where nnnn is the adapter name, and
-        /// mmmm is the parameter name).</param>
-        /// <param name="fn" type="Function">The function to call, which adapts the values from the HTML
+        /// <param Name="adapterName" type="String">The Name of the adapter to be added. This matches the Name used
+        /// in the data-val-nnnn HTML attribute (where nnnn is the adapter Name).</param>
+        /// <param Name="params" type="Array" optional="true">[Optional] An array of parameter Names (strings) that will
+        /// be extracted from the data-val-nnnn-mmmm HTML attributes (where nnnn is the adapter Name, and
+        /// mmmm is the parameter Name).</param>
+        /// <param Name="fn" type="Function">The function to call, which adapts the values from the HTML
         /// attributes into jQuery Validate rules and/or messages.</param>
         /// <returns type="jQuery.validator.unobtrusive.adapters" />
         if (!fn) {  // Called with no params, just a function
             fn = params;
             params = [];
         }
-        this.push({ name: adapterName, params: params, adapt: fn });
+        this.push({ Name: adapterName, params: params, adapt: fn });
         return this;
     };
 
     adapters.addBool = function (adapterName, ruleName) {
         /// <summary>Adds a new adapter to convert unobtrusive HTML into a jQuery Validate validation, where
         /// the jQuery Validate validation rule has no parameter values.</summary>
-        /// <param name="adapterName" type="String">The name of the adapter to be added. This matches the name used
-        /// in the data-val-nnnn HTML attribute (where nnnn is the adapter name).</param>
-        /// <param name="ruleName" type="String" optional="true">[Optional] The name of the jQuery Validate rule. If not provided, the value
+        /// <param Name="adapterName" type="String">The Name of the adapter to be added. This matches the Name used
+        /// in the data-val-nnnn HTML attribute (where nnnn is the adapter Name).</param>
+        /// <param Name="ruleName" type="String" optional="true">[Optional] The Name of the jQuery Validate rule. If not provided, the value
         /// of adapterName will be used instead.</param>
         /// <returns type="jQuery.validator.unobtrusive.adapters" />
         return this.add(adapterName, function (options) {
@@ -288,18 +288,18 @@
     adapters.addMinMax = function (adapterName, minRuleName, maxRuleName, minMaxRuleName, minAttribute, maxAttribute) {
         /// <summary>Adds a new adapter to convert unobtrusive HTML into a jQuery Validate validation, where
         /// the jQuery Validate validation has three potential rules (one for min-only, one for max-only, and
-        /// one for min-and-max). The HTML parameters are expected to be named -min and -max.</summary>
-        /// <param name="adapterName" type="String">The name of the adapter to be added. This matches the name used
-        /// in the data-val-nnnn HTML attribute (where nnnn is the adapter name).</param>
-        /// <param name="minRuleName" type="String">The name of the jQuery Validate rule to be used when you only
+        /// one for min-and-max). The HTML parameters are expected to be Named -min and -max.</summary>
+        /// <param Name="adapterName" type="String">The Name of the adapter to be added. This matches the Name used
+        /// in the data-val-nnnn HTML attribute (where nnnn is the adapter Name).</param>
+        /// <param Name="minRuleName" type="String">The Name of the jQuery Validate rule to be used when you only
         /// have a minimum value.</param>
-        /// <param name="maxRuleName" type="String">The name of the jQuery Validate rule to be used when you only
+        /// <param Name="maxRuleName" type="String">The Name of the jQuery Validate rule to be used when you only
         /// have a maximum value.</param>
-        /// <param name="minMaxRuleName" type="String">The name of the jQuery Validate rule to be used when you
+        /// <param Name="minMaxRuleName" type="String">The Name of the jQuery Validate rule to be used when you
         /// have both a minimum and maximum value.</param>
-        /// <param name="minAttribute" type="String" optional="true">[Optional] The name of the HTML attribute that
+        /// <param Name="minAttribute" type="String" optional="true">[Optional] The Name of the HTML attribute that
         /// contains the minimum value. The default is "min".</param>
-        /// <param name="maxAttribute" type="String" optional="true">[Optional] The name of the HTML attribute that
+        /// <param Name="maxAttribute" type="String" optional="true">[Optional] The Name of the HTML attribute that
         /// contains the maximum value. The default is "max".</param>
         /// <returns type="jQuery.validator.unobtrusive.adapters" />
         return this.add(adapterName, [minAttribute || "min", maxAttribute || "max"], function (options) {
@@ -321,11 +321,11 @@
     adapters.addSingleVal = function (adapterName, attribute, ruleName) {
         /// <summary>Adds a new adapter to convert unobtrusive HTML into a jQuery Validate validation, where
         /// the jQuery Validate validation rule has a single value.</summary>
-        /// <param name="adapterName" type="String">The name of the adapter to be added. This matches the name used
-        /// in the data-val-nnnn HTML attribute(where nnnn is the adapter name).</param>
-        /// <param name="attribute" type="String">[Optional] The name of the HTML attribute that contains the value.
+        /// <param Name="adapterName" type="String">The Name of the adapter to be added. This matches the Name used
+        /// in the data-val-nnnn HTML attribute(where nnnn is the adapter Name).</param>
+        /// <param Name="attribute" type="String">[Optional] The Name of the HTML attribute that contains the value.
         /// The default is "val".</param>
-        /// <param name="ruleName" type="String" optional="true">[Optional] The name of the jQuery Validate rule. If not provided, the value
+        /// <param Name="ruleName" type="String" optional="true">[Optional] The Name of the jQuery Validate rule. If not provided, the value
         /// of adapterName will be used instead.</param>
         /// <returns type="jQuery.validator.unobtrusive.adapters" />
         return this.add(adapterName, [attribute || "val"], function (options) {
@@ -371,10 +371,10 @@
     adapters.addMinMax("length", "minlength", "maxlength", "rangelength").addMinMax("range", "min", "max", "range");
     adapters.addMinMax("minlength", "minlength").addMinMax("maxlength", "minlength", "maxlength");
     adapters.add("equalto", ["other"], function (options) {
-        var prefix = getModelPrefix(options.element.name),
+        var prefix = getModelPrefix(options.element.Name),
             other = options.params.other,
             fullOtherName = appendModelPrefix(other, prefix),
-            element = $(options.form).find(":input").filter("[name='" + escapeAttributeValue(fullOtherName) + "']")[0];
+            element = $(options.form).find(":input").filter("[Name='" + escapeAttributeValue(fullOtherName) + "']")[0];
 
         setValidationValues(options, "equalTo", element);
     });
@@ -390,12 +390,12 @@
             type: options.params.type || "GET",
             data: {}
         },
-            prefix = getModelPrefix(options.element.name);
+            prefix = getModelPrefix(options.element.Name);
 
-        $.each(splitAndTrim(options.params.additionalfields || options.element.name), function (i, fieldName) {
+        $.each(splitAndTrim(options.params.additionalfields || options.element.Name), function (i, fieldName) {
             var paramName = appendModelPrefix(fieldName, prefix);
             value.data[paramName] = function () {
-                var field = $(options.form).find(":input").filter("[name='" + escapeAttributeValue(paramName) + "']");
+                var field = $(options.form).find(":input").filter("[Name='" + escapeAttributeValue(paramName) + "']");
                 // For checkboxes and radio buttons, only pick up values from checked fields.
                 if (field.is(":checkbox")) {
                     return field.filter(":checked").val() || field.filter(":hidden").val() || '';

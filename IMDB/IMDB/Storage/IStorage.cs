@@ -1,7 +1,7 @@
 ﻿/*using IMDB.EntityModels;
 using System.Collections.Generic;
 
-namespace Repository
+Namespace Repository
 {
     public interface IStorage
 

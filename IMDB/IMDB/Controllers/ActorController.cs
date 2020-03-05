@@ -72,6 +72,15 @@ namespace IMDB.Web.Controllers
             return characterEntity;
         }
 
+        public SerieCharacters MapSerieCharactertoSerieCharacterInSerieViewModel(Serie serie, SerieCharacters serieCharactersViewModel)
+        {
+            serieCharactersViewModel.Id = serie.Id;
+            serieCharactersViewModel.Name = serie.Name;
+            serieCharactersViewModel.Characters = serie.Characters;
+
+            return serieCharactersViewModel;
+        }
+
         // listar todos los actores
         public ViewResult Index()
         {
@@ -208,7 +217,7 @@ namespace IMDB.Web.Controllers
                     {
                         actor = MapActorDetailViewModelToActorDetail(actor, editedActor);
                         transaction.Commit();
-                        //   return RedirectToAction(nameof(ActorController.Index), "Actor");
+                        //   return RedirectToAction(Nameof(ActorController.Index), "Actor");
                     }
                     catch (Exception ex)
                     {

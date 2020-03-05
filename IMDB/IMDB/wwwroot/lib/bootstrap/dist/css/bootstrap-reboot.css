@@ -53,8 +53,8 @@ p {
     margin-bottom: 1rem;
 }
 
-abbr[title],
-abbr[data-original-title] {
+abbr[Name],
+abbr[data-original-Name] {
     text-decoration: underline;
     -webkit-text-decoration: underline dotted;
     text-decoration: underline dotted;

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Repository
+Namespace Repository
 {
     //aqui implemento mi interfaz reposity
     public class InMemoryStorage : IStorage

@@ -1,11 +1,23 @@
 ﻿using IMDB.EntityModels;
-using System.Collections.Generic;
+using System;
 
 namespace IMDB.Web.ViewModels
 {
-    public class SerieCharacters
+    public class ChapterViewModel
     {
         public long Id
+        {
+            get;
+            set;
+        }
+
+        public DateTime ReleaseDate
+        {
+            get;
+            set;
+        }
+
+        public float Duration
         {
             get;
             set;
@@ -17,7 +29,7 @@ namespace IMDB.Web.ViewModels
             set;
         }
 
-        public IList<Character> Characters
+        public Serie Serie
         {
             get;
             set;

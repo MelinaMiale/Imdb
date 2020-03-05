@@ -58,6 +58,37 @@ namespace IMDB.Web.Controllers
             return characterEntity;
         }
 
+        private ChapterViewModel MapChaptertoChapterViewModel(Chapter chapter, ChapterViewModel chapterViewModel)
+        {
+            chapterViewModel.Id = chapter.Id;
+            chapterViewModel.Name = chapter.Name;
+            chapterViewModel.ReleaseDate = chapter.ReleaseDate;
+            chapterViewModel.Serie = chapter.Serie;
+            chapterViewModel.Duration = chapter.Duration;
+
+            return chapterViewModel;
+        }
+
+        private SerieChapter MapSerieChaptertoSerieChapterInSerieViewModel(Serie serie, SerieChapter serieChapter)
+        {
+            serieChapter.Id = serie.Id;
+            serieChapter.Name = serie.Name;
+            serieChapter.Chapters = serie.Chapters;
+
+            return serieChapter;
+        }
+
+        public Chapter MapChapterViewModelToChapterEntity(Chapter chapter, ChapterViewModel chapterViewModel)
+        {
+            chapter.Id = chapterViewModel.Id;
+            chapter.Name = chapterViewModel.Name;
+            chapter.ReleaseDate = chapterViewModel.ReleaseDate;
+            chapter.Serie = chapterViewModel.Serie;
+            chapter.Duration = chapterViewModel.Duration;
+
+            return chapter;
+        }
+
         public ActionResult Index()
 
         {
@@ -284,6 +315,102 @@ namespace IMDB.Web.Controllers
                 }
             }
             return RedirectToAction("Characters", new { id = serieId });
+        }
+
+        //accion que lista caputulos de una pelicula
+        [Route("Serie/Chapters/{Id}")]
+        [ActionName("Chapters")]
+        public ActionResult Chapters(long Id)
+        {
+            //obtengo serie
+            var serie = this.session.Get<Serie>(Id);
+
+            // creo serie de tipo viewmodel
+            var serieViewModel = new SerieChapter();
+
+            //copio entidad a viewmodel
+            serieViewModel = MapSerieChaptertoSerieChapterInSerieViewModel(serie, serieViewModel);
+
+            return View(serieViewModel);
+        }
+
+        [HttpGet]
+        public ActionResult DeleteChapter(long chapterId)
+        {
+            var chapterToDelete = this.session.Get<Chapter>(chapterId);
+
+            if (chapterToDelete == null)
+            {
+                return this.NotFound();
+            }
+
+            return View(MapChaptertoChapterViewModel(chapterToDelete, new ChapterViewModel()));
+        }
+
+        [HttpPost]
+        [ActionName("DeleteChapterPost")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteChapterPost(long chapterId, long serieId)
+        {
+            var chapter = this.session.Get<Chapter>(chapterId);
+
+            using (var transaction = this.session.BeginTransaction())
+            {
+                if (chapter == null)
+                {
+                    return this.NotFound();
+                }
+
+                if (ModelState.IsValid)
+                {
+                    this.session.Delete(chapter);
+                    transaction.Commit();
+                }
+            }
+
+            return RedirectToAction("Chapters", new { id = serieId });
+        }
+
+        [HttpGet]
+        public ActionResult CreateChapter(long serieId)
+        {
+            var newChapter = new ChapterViewModel();
+
+            newChapter.Serie = this.session.Get<Serie>(serieId);
+
+            return View(newChapter);
+        }
+
+        [HttpPost]
+        [ActionName("CreateChapterPost")]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateChapter(ChapterViewModel newChapterViewModel, long serieId)
+        {
+            if (newChapterViewModel == null)
+            {
+                throw new ArgumentNullException(nameof(newChapterViewModel));
+            }
+
+            using (var transaction = this.session.BeginTransaction())
+            {
+                try
+                {
+                    if (ModelState.IsValid)
+                    {
+                        var newChapterEntity = MapChapterViewModelToChapterEntity(new Chapter(), newChapterViewModel);
+
+                        this.session.Save(newChapterEntity);
+
+                        this.session.Transaction.Commit();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    this.ModelState.AddModelError("", "Error updating role: " + ex.Message);
+                }
+            }
+
+            return RedirectToAction("Chapters", new { id = serieId });
         }
     }
 }

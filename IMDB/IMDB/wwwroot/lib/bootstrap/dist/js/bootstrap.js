@@ -224,12 +224,12 @@
    * ------------------------------------------------------------------------
    */
 
-  var NAME = 'alert';
+  var Name = 'alert';
   var VERSION = '4.3.1';
   var DATA_KEY = 'bs.alert';
   var EVENT_KEY = "." + DATA_KEY;
   var DATA_API_KEY = '.data-api';
-  var JQUERY_NO_CONFLICT = $.fn[NAME];
+  var JQUERY_NO_CONFLICT = $.fn[Name];
   var Selector = {
     DISMISS: '[data-dismiss="alert"]'
   };
@@ -372,11 +372,11 @@
    * ------------------------------------------------------------------------
    */
 
-  $.fn[NAME] = Alert._jQueryInterface;
-  $.fn[NAME].Constructor = Alert;
+  $.fn[Name] = Alert._jQueryInterface;
+  $.fn[Name].Constructor = Alert;
 
-  $.fn[NAME].noConflict = function () {
-    $.fn[NAME] = JQUERY_NO_CONFLICT;
+  $.fn[Name].noConflict = function () {
+    $.fn[Name] = JQUERY_NO_CONFLICT;
     return Alert._jQueryInterface;
   };
 
@@ -386,12 +386,12 @@
    * ------------------------------------------------------------------------
    */
 
-  var NAME$1 = 'button';
+  var Name$1 = 'button';
   var VERSION$1 = '4.3.1';
   var DATA_KEY$1 = 'bs.button';
   var EVENT_KEY$1 = "." + DATA_KEY$1;
   var DATA_API_KEY$1 = '.data-api';
-  var JQUERY_NO_CONFLICT$1 = $.fn[NAME$1];
+  var JQUERY_NO_CONFLICT$1 = $.fn[Name$1];
   var ClassName$1 = {
     ACTIVE: 'active',
     BUTTON: 'btn',
@@ -523,11 +523,11 @@
    * ------------------------------------------------------------------------
    */
 
-  $.fn[NAME$1] = Button._jQueryInterface;
-  $.fn[NAME$1].Constructor = Button;
+  $.fn[Name$1] = Button._jQueryInterface;
+  $.fn[Name$1].Constructor = Button;
 
-  $.fn[NAME$1].noConflict = function () {
-    $.fn[NAME$1] = JQUERY_NO_CONFLICT$1;
+  $.fn[Name$1].noConflict = function () {
+    $.fn[Name$1] = JQUERY_NO_CONFLICT$1;
     return Button._jQueryInterface;
   };
 
@@ -537,12 +537,12 @@
    * ------------------------------------------------------------------------
    */
 
-  var NAME$2 = 'carousel';
+  var Name$2 = 'carousel';
   var VERSION$2 = '4.3.1';
   var DATA_KEY$2 = 'bs.carousel';
   var EVENT_KEY$2 = "." + DATA_KEY$2;
   var DATA_API_KEY$2 = '.data-api';
-  var JQUERY_NO_CONFLICT$2 = $.fn[NAME$2];
+  var JQUERY_NO_CONFLICT$2 = $.fn[Name$2];
   var ARROW_LEFT_KEYCODE = 37; // KeyboardEvent.which value for left arrow key
 
   var ARROW_RIGHT_KEYCODE = 39; // KeyboardEvent.which value for right arrow key
@@ -736,7 +736,7 @@
 
     _proto._getConfig = function _getConfig(config) {
       config = _objectSpread({}, Default, config);
-      Util.typeCheckConfig(NAME$2, config, DefaultType);
+      Util.typeCheckConfig(Name$2, config, DefaultType);
       return config;
     };
 
@@ -1042,7 +1042,7 @@
           data.to(config);
         } else if (typeof action === 'string') {
           if (typeof data[action] === 'undefined') {
-            throw new TypeError("No method named \"" + action + "\"");
+            throw new TypeError("No method Named \"" + action + "\"");
           }
 
           data[action]();
@@ -1119,11 +1119,11 @@
    * ------------------------------------------------------------------------
    */
 
-  $.fn[NAME$2] = Carousel._jQueryInterface;
-  $.fn[NAME$2].Constructor = Carousel;
+  $.fn[Name$2] = Carousel._jQueryInterface;
+  $.fn[Name$2].Constructor = Carousel;
 
-  $.fn[NAME$2].noConflict = function () {
-    $.fn[NAME$2] = JQUERY_NO_CONFLICT$2;
+  $.fn[Name$2].noConflict = function () {
+    $.fn[Name$2] = JQUERY_NO_CONFLICT$2;
     return Carousel._jQueryInterface;
   };
 
@@ -1133,12 +1133,12 @@
    * ------------------------------------------------------------------------
    */
 
-  var NAME$3 = 'collapse';
+  var Name$3 = 'collapse';
   var VERSION$3 = '4.3.1';
   var DATA_KEY$3 = 'bs.collapse';
   var EVENT_KEY$3 = "." + DATA_KEY$3;
   var DATA_API_KEY$3 = '.data-api';
-  var JQUERY_NO_CONFLICT$3 = $.fn[NAME$3];
+  var JQUERY_NO_CONFLICT$3 = $.fn[Name$3];
   var Default$1 = {
     toggle: true,
     parent: ''
@@ -1361,7 +1361,7 @@
       config = _objectSpread({}, Default$1, config);
       config.toggle = Boolean(config.toggle); // Coerce string values
 
-      Util.typeCheckConfig(NAME$3, config, DefaultType$1);
+      Util.typeCheckConfig(Name$3, config, DefaultType$1);
       return config;
     };
 
@@ -1425,7 +1425,7 @@
 
         if (typeof config === 'string') {
           if (typeof data[config] === 'undefined') {
-            throw new TypeError("No method named \"" + config + "\"");
+            throw new TypeError("No method Named \"" + config + "\"");
           }
 
           data[config]();
@@ -1476,11 +1476,11 @@
    * ------------------------------------------------------------------------
    */
 
-  $.fn[NAME$3] = Collapse._jQueryInterface;
-  $.fn[NAME$3].Constructor = Collapse;
+  $.fn[Name$3] = Collapse._jQueryInterface;
+  $.fn[Name$3].Constructor = Collapse;
 
-  $.fn[NAME$3].noConflict = function () {
-    $.fn[NAME$3] = JQUERY_NO_CONFLICT$3;
+  $.fn[Name$3].noConflict = function () {
+    $.fn[Name$3] = JQUERY_NO_CONFLICT$3;
     return Collapse._jQueryInterface;
   };
 
@@ -1490,12 +1490,12 @@
    * ------------------------------------------------------------------------
    */
 
-  var NAME$4 = 'dropdown';
+  var Name$4 = 'dropdown';
   var VERSION$4 = '4.3.1';
   var DATA_KEY$4 = 'bs.dropdown';
   var EVENT_KEY$4 = "." + DATA_KEY$4;
   var DATA_API_KEY$4 = '.data-api';
-  var JQUERY_NO_CONFLICT$4 = $.fn[NAME$4];
+  var JQUERY_NO_CONFLICT$4 = $.fn[Name$4];
   var ESCAPE_KEYCODE = 27; // KeyboardEvent.which value for Escape (Esc) key
 
   var SPACE_KEYCODE = 32; // KeyboardEvent.which value for space key
@@ -1731,7 +1731,7 @@
 
     _proto._getConfig = function _getConfig(config) {
       config = _objectSpread({}, this.constructor.Default, $(this._element).data(), config);
-      Util.typeCheckConfig(NAME$4, config, this.constructor.DefaultType);
+      Util.typeCheckConfig(Name$4, config, this.constructor.DefaultType);
       return config;
     };
 
@@ -1826,7 +1826,7 @@
 
         if (typeof config === 'string') {
           if (typeof data[config] === 'undefined') {
-            throw new TypeError("No method named \"" + config + "\"");
+            throw new TypeError("No method Named \"" + config + "\"");
           }
 
           data[config]();
@@ -1994,11 +1994,11 @@
    * ------------------------------------------------------------------------
    */
 
-  $.fn[NAME$4] = Dropdown._jQueryInterface;
-  $.fn[NAME$4].Constructor = Dropdown;
+  $.fn[Name$4] = Dropdown._jQueryInterface;
+  $.fn[Name$4].Constructor = Dropdown;
 
-  $.fn[NAME$4].noConflict = function () {
-    $.fn[NAME$4] = JQUERY_NO_CONFLICT$4;
+  $.fn[Name$4].noConflict = function () {
+    $.fn[Name$4] = JQUERY_NO_CONFLICT$4;
     return Dropdown._jQueryInterface;
   };
 
@@ -2008,12 +2008,12 @@
    * ------------------------------------------------------------------------
    */
 
-  var NAME$5 = 'modal';
+  var Name$5 = 'modal';
   var VERSION$5 = '4.3.1';
   var DATA_KEY$5 = 'bs.modal';
   var EVENT_KEY$5 = "." + DATA_KEY$5;
   var DATA_API_KEY$5 = '.data-api';
-  var JQUERY_NO_CONFLICT$5 = $.fn[NAME$5];
+  var JQUERY_NO_CONFLICT$5 = $.fn[Name$5];
   var ESCAPE_KEYCODE$1 = 27; // KeyboardEvent.which value for Escape (Esc) key
 
   var Default$3 = {
@@ -2207,7 +2207,7 @@
 
     _proto._getConfig = function _getConfig(config) {
       config = _objectSpread({}, Default$3, config);
-      Util.typeCheckConfig(NAME$5, config, DefaultType$3);
+      Util.typeCheckConfig(Name$5, config, DefaultType$3);
       return config;
     };
 
@@ -2506,7 +2506,7 @@
 
         if (typeof config === 'string') {
           if (typeof data[config] === 'undefined') {
-            throw new TypeError("No method named \"" + config + "\"");
+            throw new TypeError("No method Named \"" + config + "\"");
           }
 
           data[config](relatedTarget);
@@ -2573,11 +2573,11 @@
    * ------------------------------------------------------------------------
    */
 
-  $.fn[NAME$5] = Modal._jQueryInterface;
-  $.fn[NAME$5].Constructor = Modal;
+  $.fn[Name$5] = Modal._jQueryInterface;
+  $.fn[Name$5].Constructor = Modal;
 
-  $.fn[NAME$5].noConflict = function () {
-    $.fn[NAME$5] = JQUERY_NO_CONFLICT$5;
+  $.fn[Name$5].noConflict = function () {
+    $.fn[Name$5] = JQUERY_NO_CONFLICT$5;
     return Modal._jQueryInterface;
   };
 
@@ -2592,7 +2592,7 @@
   var DefaultWhitelist = {
     // Global attributes allowed on any supplied element below.
     '*': ['class', 'dir', 'id', 'lang', 'role', ARIA_ATTRIBUTE_PATTERN],
-    a: ['target', 'href', 'title', 'rel'],
+    a: ['target', 'href', 'Name', 'rel'],
     area: [],
     b: [],
     br: [],
@@ -2608,7 +2608,7 @@
     h5: [],
     h6: [],
     i: [],
-    img: ['src', 'alt', 'title', 'width', 'height'],
+    img: ['src', 'alt', 'Name', 'width', 'height'],
     li: [],
     ol: [],
     p: [],
@@ -2707,18 +2707,18 @@
    * ------------------------------------------------------------------------
    */
 
-  var NAME$6 = 'tooltip';
+  var Name$6 = 'tooltip';
   var VERSION$6 = '4.3.1';
   var DATA_KEY$6 = 'bs.tooltip';
   var EVENT_KEY$6 = "." + DATA_KEY$6;
-  var JQUERY_NO_CONFLICT$6 = $.fn[NAME$6];
+  var JQUERY_NO_CONFLICT$6 = $.fn[Name$6];
   var CLASS_PREFIX = 'bs-tooltip';
   var BSCLS_PREFIX_REGEX = new RegExp("(^|\\s)" + CLASS_PREFIX + "\\S+", 'g');
   var DISALLOWED_ATTRIBUTES = ['sanitize', 'whiteList', 'sanitizeFn'];
   var DefaultType$4 = {
     animation: 'boolean',
     template: 'string',
-    title: '(string|element|function)',
+    Name: '(string|element|function)',
     trigger: 'string',
     delay: '(number|object)',
     html: 'boolean',
@@ -2743,7 +2743,7 @@
     animation: true,
     template: '<div class="tooltip" role="tooltip">' + '<div class="arrow"></div>' + '<div class="tooltip-inner"></div></div>',
     trigger: 'hover focus',
-    title: '',
+    Name: '',
     delay: 0,
     html: false,
     selector: false,
@@ -2909,7 +2909,7 @@
         }
 
         var tip = this.getTipElement();
-        var tipId = Util.getUID(this.constructor.NAME);
+        var tipId = Util.getUID(this.constructor.Name);
         tip.setAttribute('id', tipId);
         this.element.setAttribute('aria-describedby', tipId);
         this.setContent();
@@ -3049,7 +3049,7 @@
     ;
 
     _proto.isWithContent = function isWithContent() {
-      return Boolean(this.getTitle());
+      return Boolean(this.getName());
     };
 
     _proto.addAttachmentClass = function addAttachmentClass(attachment) {
@@ -3063,7 +3063,7 @@
 
     _proto.setContent = function setContent() {
       var tip = this.getTipElement();
-      this.setElementContent($(tip.querySelectorAll(Selector$6.TOOLTIP_INNER)), this.getTitle());
+      this.setElementContent($(tip.querySelectorAll(Selector$6.TOOLTIP_INNER)), this.getName());
       $(tip).removeClass(ClassName$6.FADE + " " + ClassName$6.SHOW);
     };
 
@@ -3092,14 +3092,14 @@
       }
     };
 
-    _proto.getTitle = function getTitle() {
-      var title = this.element.getAttribute('data-original-title');
+    _proto.getName = function getName() {
+      var Name = this.element.getAttribute('data-original-Name');
 
-      if (!title) {
-        title = typeof this.config.title === 'function' ? this.config.title.call(this.element) : this.config.title;
+      if (!Name) {
+        Name = typeof this.config.Name === 'function' ? this.config.Name.call(this.element) : this.config.Name;
       }
 
-      return title;
+      return Name;
     } // Private
     ;
 
@@ -3167,16 +3167,16 @@
           selector: ''
         });
       } else {
-        this._fixTitle();
+        this._fixName();
       }
     };
 
-    _proto._fixTitle = function _fixTitle() {
-      var titleType = typeof this.element.getAttribute('data-original-title');
+    _proto._fixName = function _fixName() {
+      var NameType = typeof this.element.getAttribute('data-original-Name');
 
-      if (this.element.getAttribute('title') || titleType !== 'string') {
-        this.element.setAttribute('data-original-title', this.element.getAttribute('title') || '');
-        this.element.setAttribute('title', '');
+      if (this.element.getAttribute('Name') || NameType !== 'string') {
+        this.element.setAttribute('data-original-Name', this.element.getAttribute('Name') || '');
+        this.element.setAttribute('Name', '');
       }
     };
 
@@ -3271,15 +3271,15 @@
         };
       }
 
-      if (typeof config.title === 'number') {
-        config.title = config.title.toString();
+      if (typeof config.Name === 'number') {
+        config.Name = config.Name.toString();
       }
 
       if (typeof config.content === 'number') {
         config.content = config.content.toString();
       }
 
-      Util.typeCheckConfig(NAME$6, config, this.constructor.DefaultType);
+      Util.typeCheckConfig(Name$6, config, this.constructor.DefaultType);
 
       if (config.sanitize) {
         config.template = sanitizeHtml(config.template, config.whiteList, config.sanitizeFn);
@@ -3353,7 +3353,7 @@
 
         if (typeof config === 'string') {
           if (typeof data[config] === 'undefined') {
-            throw new TypeError("No method named \"" + config + "\"");
+            throw new TypeError("No method Named \"" + config + "\"");
           }
 
           data[config]();
@@ -3372,9 +3372,9 @@
         return Default$4;
       }
     }, {
-      key: "NAME",
+      key: "Name",
       get: function get() {
-        return NAME$6;
+        return Name$6;
       }
     }, {
       key: "DATA_KEY",
@@ -3406,11 +3406,11 @@
    * ------------------------------------------------------------------------
    */
 
-  $.fn[NAME$6] = Tooltip._jQueryInterface;
-  $.fn[NAME$6].Constructor = Tooltip;
+  $.fn[Name$6] = Tooltip._jQueryInterface;
+  $.fn[Name$6].Constructor = Tooltip;
 
-  $.fn[NAME$6].noConflict = function () {
-    $.fn[NAME$6] = JQUERY_NO_CONFLICT$6;
+  $.fn[Name$6].noConflict = function () {
+    $.fn[Name$6] = JQUERY_NO_CONFLICT$6;
     return Tooltip._jQueryInterface;
   };
 
@@ -3420,11 +3420,11 @@
    * ------------------------------------------------------------------------
    */
 
-  var NAME$7 = 'popover';
+  var Name$7 = 'popover';
   var VERSION$7 = '4.3.1';
   var DATA_KEY$7 = 'bs.popover';
   var EVENT_KEY$7 = "." + DATA_KEY$7;
-  var JQUERY_NO_CONFLICT$7 = $.fn[NAME$7];
+  var JQUERY_NO_CONFLICT$7 = $.fn[Name$7];
   var CLASS_PREFIX$1 = 'bs-popover';
   var BSCLS_PREFIX_REGEX$1 = new RegExp("(^|\\s)" + CLASS_PREFIX$1 + "\\S+", 'g');
 
@@ -3444,7 +3444,7 @@
     SHOW: 'show'
   };
   var Selector$7 = {
-    TITLE: '.popover-header',
+    Name: '.popover-header',
     CONTENT: '.popover-body'
   };
   var Event$7 = {
@@ -3478,7 +3478,7 @@
 
     // Overrides
     _proto.isWithContent = function isWithContent() {
-      return this.getTitle() || this._getContent();
+      return this.getName() || this._getContent();
     };
 
     _proto.addAttachmentClass = function addAttachmentClass(attachment) {
@@ -3493,7 +3493,7 @@
     _proto.setContent = function setContent() {
       var $tip = $(this.getTipElement()); // We use append for html objects to maintain js events
 
-      this.setElementContent($tip.find(Selector$7.TITLE), this.getTitle());
+      this.setElementContent($tip.find(Selector$7.Name), this.getName());
 
       var content = this._getContent();
 
@@ -3537,7 +3537,7 @@
 
         if (typeof config === 'string') {
           if (typeof data[config] === 'undefined') {
-            throw new TypeError("No method named \"" + config + "\"");
+            throw new TypeError("No method Named \"" + config + "\"");
           }
 
           data[config]();
@@ -3557,9 +3557,9 @@
         return Default$5;
       }
     }, {
-      key: "NAME",
+      key: "Name",
       get: function get() {
-        return NAME$7;
+        return Name$7;
       }
     }, {
       key: "DATA_KEY",
@@ -3591,11 +3591,11 @@
    * ------------------------------------------------------------------------
    */
 
-  $.fn[NAME$7] = Popover._jQueryInterface;
-  $.fn[NAME$7].Constructor = Popover;
+  $.fn[Name$7] = Popover._jQueryInterface;
+  $.fn[Name$7].Constructor = Popover;
 
-  $.fn[NAME$7].noConflict = function () {
-    $.fn[NAME$7] = JQUERY_NO_CONFLICT$7;
+  $.fn[Name$7].noConflict = function () {
+    $.fn[Name$7] = JQUERY_NO_CONFLICT$7;
     return Popover._jQueryInterface;
   };
 
@@ -3605,12 +3605,12 @@
    * ------------------------------------------------------------------------
    */
 
-  var NAME$8 = 'scrollspy';
+  var Name$8 = 'scrollspy';
   var VERSION$8 = '4.3.1';
   var DATA_KEY$8 = 'bs.scrollspy';
   var EVENT_KEY$8 = "." + DATA_KEY$8;
   var DATA_API_KEY$6 = '.data-api';
-  var JQUERY_NO_CONFLICT$8 = $.fn[NAME$8];
+  var JQUERY_NO_CONFLICT$8 = $.fn[Name$8];
   var Default$6 = {
     offset: 10,
     method: 'auto',
@@ -3737,14 +3737,14 @@
         var id = $(config.target).attr('id');
 
         if (!id) {
-          id = Util.getUID(NAME$8);
+          id = Util.getUID(Name$8);
           $(config.target).attr('id', id);
         }
 
         config.target = "#" + id;
       }
 
-      Util.typeCheckConfig(NAME$8, config, DefaultType$6);
+      Util.typeCheckConfig(Name$8, config, DefaultType$6);
       return config;
     };
 
@@ -3851,7 +3851,7 @@
 
         if (typeof config === 'string') {
           if (typeof data[config] === 'undefined') {
-            throw new TypeError("No method named \"" + config + "\"");
+            throw new TypeError("No method Named \"" + config + "\"");
           }
 
           data[config]();
@@ -3895,11 +3895,11 @@
    * ------------------------------------------------------------------------
    */
 
-  $.fn[NAME$8] = ScrollSpy._jQueryInterface;
-  $.fn[NAME$8].Constructor = ScrollSpy;
+  $.fn[Name$8] = ScrollSpy._jQueryInterface;
+  $.fn[Name$8].Constructor = ScrollSpy;
 
-  $.fn[NAME$8].noConflict = function () {
-    $.fn[NAME$8] = JQUERY_NO_CONFLICT$8;
+  $.fn[Name$8].noConflict = function () {
+    $.fn[Name$8] = JQUERY_NO_CONFLICT$8;
     return ScrollSpy._jQueryInterface;
   };
 
@@ -3909,12 +3909,12 @@
    * ------------------------------------------------------------------------
    */
 
-  var NAME$9 = 'tab';
+  var Name$9 = 'tab';
   var VERSION$9 = '4.3.1';
   var DATA_KEY$9 = 'bs.tab';
   var EVENT_KEY$9 = "." + DATA_KEY$9;
   var DATA_API_KEY$7 = '.data-api';
-  var JQUERY_NO_CONFLICT$9 = $.fn[NAME$9];
+  var JQUERY_NO_CONFLICT$9 = $.fn[Name$9];
   var Event$9 = {
     HIDE: "hide" + EVENT_KEY$9,
     HIDDEN: "hidden" + EVENT_KEY$9,
@@ -4093,7 +4093,7 @@
 
         if (typeof config === 'string') {
           if (typeof data[config] === 'undefined') {
-            throw new TypeError("No method named \"" + config + "\"");
+            throw new TypeError("No method Named \"" + config + "\"");
           }
 
           data[config]();
@@ -4127,11 +4127,11 @@
    * ------------------------------------------------------------------------
    */
 
-  $.fn[NAME$9] = Tab._jQueryInterface;
-  $.fn[NAME$9].Constructor = Tab;
+  $.fn[Name$9] = Tab._jQueryInterface;
+  $.fn[Name$9].Constructor = Tab;
 
-  $.fn[NAME$9].noConflict = function () {
-    $.fn[NAME$9] = JQUERY_NO_CONFLICT$9;
+  $.fn[Name$9].noConflict = function () {
+    $.fn[Name$9] = JQUERY_NO_CONFLICT$9;
     return Tab._jQueryInterface;
   };
 
@@ -4141,11 +4141,11 @@
    * ------------------------------------------------------------------------
    */
 
-  var NAME$a = 'toast';
+  var Name$a = 'toast';
   var VERSION$a = '4.3.1';
   var DATA_KEY$a = 'bs.toast';
   var EVENT_KEY$a = "." + DATA_KEY$a;
-  var JQUERY_NO_CONFLICT$a = $.fn[NAME$a];
+  var JQUERY_NO_CONFLICT$a = $.fn[Name$a];
   var Event$a = {
     CLICK_DISMISS: "click.dismiss" + EVENT_KEY$a,
     HIDE: "hide" + EVENT_KEY$a,
@@ -4260,7 +4260,7 @@
 
     _proto._getConfig = function _getConfig(config) {
       config = _objectSpread({}, Default$7, $(this._element).data(), typeof config === 'object' && config ? config : {});
-      Util.typeCheckConfig(NAME$a, config, this.constructor.DefaultType);
+      Util.typeCheckConfig(Name$a, config, this.constructor.DefaultType);
       return config;
     };
 
@@ -4306,7 +4306,7 @@
 
         if (typeof config === 'string') {
           if (typeof data[config] === 'undefined') {
-            throw new TypeError("No method named \"" + config + "\"");
+            throw new TypeError("No method Named \"" + config + "\"");
           }
 
           data[config](this);
@@ -4339,11 +4339,11 @@
    * ------------------------------------------------------------------------
    */
 
-  $.fn[NAME$a] = Toast._jQueryInterface;
-  $.fn[NAME$a].Constructor = Toast;
+  $.fn[Name$a] = Toast._jQueryInterface;
+  $.fn[Name$a].Constructor = Toast;
 
-  $.fn[NAME$a].noConflict = function () {
-    $.fn[NAME$a] = JQUERY_NO_CONFLICT$a;
+  $.fn[Name$a].noConflict = function () {
+    $.fn[Name$a] = JQUERY_NO_CONFLICT$a;
     return Toast._jQueryInterface;
   };
 

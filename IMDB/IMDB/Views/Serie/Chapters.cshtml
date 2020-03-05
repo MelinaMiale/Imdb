@@ -1,0 +1,37 @@
+﻿@model IMDB.Web.ViewModels.SerieChapter
+
+@{
+    ViewData["Name"] = "Chapters";
+}
+
+<h1>Chapters</h1>
+
+<p>
+    <a asp-action="CreateChapter" asp-route-serieId="@Model.Id">Create New</a>
+</p>
+<table class="table">
+
+    <tbody>
+        @foreach (var chapter in Model.Chapters)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => chapter.Id)</td>
+                <th>@Html.DisplayNameFor(modelItem => chapter.Id)</th>
+
+                <th>@Html.DisplayNameFor(modelItem => chapter.Name)</th>
+                <td>@Html.DisplayFor(modelItem => chapter.Name)</td>
+
+                <th>@Html.DisplayNameFor(modelItem => chapter.Duration)</th>
+                <td>@Html.DisplayFor(modelItem => chapter.Duration)</td>
+
+                <td>@Html.DisplayFor(modelItem => chapter.ReleaseDate)</td>
+                <th>@Html.DisplayNameFor(modelItem => chapter.ReleaseDate)</th>
+
+                <td>
+                    <a asp-action="Edit" asp-route-Id="chapter.Id">Edit</a> |
+                    <a class="btn btn-danger" asp-controller="Serie" asp-action="DeleteChapter" asp-route-chapterId="@chapter.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
