@@ -1,0 +1,47 @@
+﻿@model IMDB.Web.ViewModels.ChapterViewModel
+
+@{
+    ViewData["Name"] = "CreateChapter";
+}
+
+<h1>CreateChapter</h1>
+
+<h4>ChapterViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateChapter" asp-route-serieId="@Model.Serie.Id">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" hidden>
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReleaseDate" class="control-label"></label>
+                <input asp-for="ReleaseDate" class="form-control" />
+                <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Duration" class="control-label"></label>
+                <input asp-for="Duration" class="form-control" />
+                <span asp-validation-for="Duration" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group" hidden>
+                <label asp-for="Serie.Id" class="control-label"></label>
+                <input asp-for="Serie.Id" class="form-control" />
+                <span asp-validation-for="Serie.Id" class="text-danger"></span>
+            </div>
+
+            <form asp-action="CreateChapter">
+                <input type="submit" value="Create" class="btn btn-danger" asp-controller="Serie" asp-action="CreateChapterPost" asp-route-serieId="@Model.Serie.Id" /> |
+                <a asp-action="Index">Back to List</a>
+            </form>
+        </form>
+    </div>
+</div>

@@ -33,7 +33,7 @@ GO
 
 create table dbo.Movies (
 	Id BIGINT IDENTITY NOT NULL,
-	Title NVARCHAR(128) not null unique,
+	Name NVARCHAR(128) not null unique,
 	Nationality NVARCHAR(128) null,
 	ReleaseDate DATETIME2 null,
 	Poster NVARCHAR(255) null unique,

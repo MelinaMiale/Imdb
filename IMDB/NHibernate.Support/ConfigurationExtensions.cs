@@ -45,8 +45,8 @@ namespace NHibernate.Support
             /// <summary>
             /// Compares two objects and returns a value indicating whether one is less than, equal to, or greater than the other.
             /// </summary>
-            /// <param name="x">The first object to compare.</param>
-            /// <param name="y">The second object to compare.</param>
+            /// <param Name="x">The first object to compare.</param>
+            /// <param Name="y">The second object to compare.</param>
             /// <returns>A signed integer that indicates the relative values of x and y, as shown in the following table.
             /// Less than zero: x is less than y.
             ///	Zero: x equals y.

@@ -427,7 +427,7 @@
 	 *  currency: ["$", false]
 	 *  currency: ["RM", false] - also works with text based symbols such as "RM" - Malaysia Ringgit etc
 	 *
-	 *  <input class="currencyInput" name="currencyInput">
+	 *  <input class="currencyInput" Name="currencyInput">
 	 *
 	 * Soft symbol checking
 	 *  currencyInput: {
@@ -475,10 +475,10 @@
 	 * @example $.validator.methods.date("01.01.1900")
 	 * @result false
 	 *
-	 * @example <input name="pippo" class="{dateITA:true}" />
+	 * @example <input Name="pippo" class="{dateITA:true}" />
 	 * @desc Declares an optional input element whose value must be a valid date.
 	 *
-	 * @name $.validator.methods.dateITA
+	 * @Name $.validator.methods.dateITA
 	 * @type Boolean
 	 * @cat Plugins/Validate/Methods
 	 */
@@ -807,7 +807,7 @@
 	* @example $.validator.methods.pattern("BR1004",element,/^AR\d{4}$/)
 	* @result false
 	*
-	* @name $.validator.methods.pattern
+	* @Name $.validator.methods.pattern
 	* @type Boolean
 	* @cat Plugins/Validate/Methods
 	*/
@@ -901,7 +901,7 @@
 	 * @example jQuery.validator.methods.postalCodeCA( "H0H0H0", element )
 	 * @result false
 	 *
-	 * @name jQuery.validator.methods.postalCodeCA
+	 * @Name jQuery.validator.methods.postalCodeCA
 	 * @type Boolean
 	 * @cat Plugins/Validate/Methods
 	 */
@@ -928,8 +928,8 @@
 	 *
 	 * The end result is that neither of these inputs:
 	 *
-	 *	<input class="productinfo" name="partnumber">
-	 *	<input class="productinfo" name="description">
+	 *	<input class="productinfo" Name="partnumber">
+	 *	<input class="productinfo" Name="description">
 	 *
 	 *	...will validate unless at least one of them is filled.
 	 *
@@ -967,9 +967,9 @@
 	 *
 	 * The end result, is that none of these inputs:
 	 *
-	 *	<input class="productinfo" name="partnumber">
-	 *	<input class="productinfo" name="description">
-	 *	<input class="productinfo" name="color">
+	 *	<input class="productinfo" Name="partnumber">
+	 *	<input class="productinfo" Name="description">
+	 *	<input class="productinfo" Name="color">
 	 *
 	 *	...will validate unless either at least two of them are filled,
 	 *	OR none of them are.
@@ -1083,10 +1083,10 @@
 	 *
 	 * Works with all kind of text inputs.
 	 *
-	 * @example <input type="text" size="20" name="VehicleID" class="{required:true,vinUS:true}" />
+	 * @example <input type="text" size="20" Name="VehicleID" class="{required:true,vinUS:true}" />
 	 * @desc Declares a required input element whose value must be a valid vehicle identification number.
 	 *
-	 * @name $.validator.methods.vinUS
+	 * @Name $.validator.methods.vinUS
 	 * @type Boolean
 	 * @cat Plugins/Validate/Methods
 	 */

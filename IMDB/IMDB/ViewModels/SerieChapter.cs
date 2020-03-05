@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace IMDB.Web.ViewModels
 {
-    public class SerieCharacters
+    public class SerieChapter
     {
         public long Id
         {
@@ -11,13 +11,13 @@ namespace IMDB.Web.ViewModels
             set;
         }
 
-        public string Name
+        public IList<Chapter> Chapters
         {
             get;
             set;
         }
 
-        public IList<Character> Characters
+        public string Name
         {
             get;
             set;
