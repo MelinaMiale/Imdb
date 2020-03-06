@@ -14,7 +14,7 @@ create table dbo.Chapters (
 	Id BIGINT IDENTITY NOT NULL,
 	ReleaseDate DATETIME2 null unique,
 	ChapterName NVARCHAR(50) null unique,
-	SerieId BIGINT not null,
+	SerieId BIGINT null,
 	primary key (Id)
 )
 GO
@@ -33,7 +33,7 @@ GO
 
 create table dbo.Movies (
 	Id BIGINT IDENTITY NOT NULL,
-	Name NVARCHAR(128) not null unique,
+	Title NVARCHAR(128) not null unique,
 	Nationality NVARCHAR(128) null,
 	ReleaseDate DATETIME2 null,
 	Poster NVARCHAR(255) null unique,

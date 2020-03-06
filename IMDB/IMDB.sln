@@ -13,7 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMDB.EntityModels", "IMDB.E
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "IMDB.Database", "IMDB.Database\IMDB.Database.sqlproj", "{3BD81C09-9DB4-447A-9C14-13453C411B98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMDB.WebApi", "IMDB.WebApi\IMDB.WebApi.csproj", "{C2F50343-8063-4D79-B63B-D04AA0909375}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMDB.WebApi", "IMDB.WebApi\IMDB.WebApi.csproj", "{C2F50343-8063-4D79-B63B-D04AA0909375}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMDB.Services.Contacts", "IMDB.Services.Contacts\IMDB.Services.Contacts.csproj", "{5A6BA68B-5B13-42B2-93EF-A3CCCBBB0A06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMDB.Services", "IMDB.Services\IMDB.Services.csproj", "{D8DC5387-6D3D-4355-9388-557E94966264}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +51,14 @@ Global
 		{C2F50343-8063-4D79-B63B-D04AA0909375}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2F50343-8063-4D79-B63B-D04AA0909375}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2F50343-8063-4D79-B63B-D04AA0909375}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A6BA68B-5B13-42B2-93EF-A3CCCBBB0A06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A6BA68B-5B13-42B2-93EF-A3CCCBBB0A06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A6BA68B-5B13-42B2-93EF-A3CCCBBB0A06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A6BA68B-5B13-42B2-93EF-A3CCCBBB0A06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8DC5387-6D3D-4355-9388-557E94966264}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8DC5387-6D3D-4355-9388-557E94966264}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8DC5387-6D3D-4355-9388-557E94966264}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8DC5387-6D3D-4355-9388-557E94966264}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

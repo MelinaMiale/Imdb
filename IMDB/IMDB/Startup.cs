@@ -1,4 +1,10 @@
+using IMDB.EntityModels;
 using IMDB.NHibernate;
+using IMDB.Services;
+using IMDB.Services.Contacts;
+using IMDB.Services.Contacts.Dto;
+using IMDB.Services.Mapping;
+using IMDB.Services.Mapping.Impl;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -17,14 +23,12 @@ namespace IMDB
 {
     public class Startup
     {
-        private readonly IConfiguration configuration;
-
         public Startup(IConfiguration configuration)
         {
-            this.configuration = configuration;
+            this.Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; internal set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -55,7 +59,7 @@ namespace IMDB
             {
                 //provider.GetService<Microsoft.Extensions.Logging.ILoggerFactory>().UseAsHibernateLoggerFactory();
                 return new Configuration() /*IMDB ES UN ALIAS QUE VOY A USAR PARA AGREGAR EN APPSETTINGS EL CONNECTION STRING*/
-                    .SetupConnection(configuration.GetConnectionString("IMDB"), new MsSql2012Dialect())
+                    .SetupConnection(Configuration.GetConnectionString("IMDB"), new MsSql2012Dialect())
                     .AddClassMappingAssemblies(typeof(AssemblyLocator).Assembly);
             });
             services.AddSingleton(provider => provider.GetService<Configuration>().BuildSessionFactory());
