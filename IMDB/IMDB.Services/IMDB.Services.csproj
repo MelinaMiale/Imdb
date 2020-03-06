@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
+    <PackageReference Include="NHibernate" Version="5.2.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IMDB.Database\IMDB.Database.sqlproj" />
+    <ProjectReference Include="..\IMDB.EntityModels\IMDB.EntityModels.csproj" />
+    <ProjectReference Include="..\IMDB.Services.Contacts\IMDB.Services.Contacts.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IMDB.EntityModels\IMDB.EntityModels.csproj" />
     <ProjectReference Include="..\IMDB.NHibernate\IMDB.NHibernate.csproj" />
+    <ProjectReference Include="..\IMDB.Services\IMDB.Services.csproj" />
     <ProjectReference Include="..\NHibernate.Support\NHibernate.Support.csproj" />
   </ItemGroup>
 
