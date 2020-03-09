@@ -45,7 +45,7 @@ namespace IMDB.NHibernate
                 {
                     m.Column("Poster");
                     m.NotNullable(false);
-                    m.Unique(true);
+                    //m.Unique(true);
                 });
 
             this.Property(

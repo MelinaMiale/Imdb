@@ -1,10 +1,11 @@
 ﻿using IMDB.EntityModels;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace IMDB.Services.Contacts.Dto
 {
-    public class MovieDto
+    public class ActorDto
     {
         private IList<long> characterIds;
 
@@ -14,7 +15,19 @@ namespace IMDB.Services.Contacts.Dto
             set;
         }
 
-        public string Name
+        public string FirstName
+        {
+            get;
+            set;
+        }
+
+        public string LastName
+        {
+            get;
+            set;
+        }
+
+        public IList<Character> Characters
         {
             get;
             set;
@@ -26,19 +39,13 @@ namespace IMDB.Services.Contacts.Dto
             set;
         }
 
-        public IList<CharacterDto> Characters
+        public int Age
         {
             get;
             set;
         }
 
-        public DateTime ReleaseDate
-        {
-            get;
-            set;
-        }
-
-        public string Poster
+        public string ProfileFoto
         {
             get;
             set;

@@ -11,6 +11,10 @@ namespace IMDB.Services.Contacts
 
         MovieDto GetMovieById(long idMovie);
 
-        public long SaveMovie(MovieDto newMovie);
+        long SaveMovie(MovieDto newMovie);
+
+        long UpdateMovie(MovieDto editedMovie);
+
+        bool RemoveMovie(long movieId);
     }
 }
