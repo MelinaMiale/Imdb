@@ -66,10 +66,12 @@ namespace IMDB.WebApi
             // data mapping services configuration
             services.AddScoped<IEntityMapper<Movie, MovieDto>, MovieMapper>();
             services.AddScoped<IEntityMapper<Actor, ActorDto>, ActorMapper>();
+            services.AddScoped<IEntityMapper<Character, CharacterDto>, CharacterMapper>();
 
             // add entities services
             services.AddScoped<IMovieService, MovieServices>();
             services.AddScoped<IActorService, ActorServices>();
+            services.AddScoped<ICharacterService, CharacterServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
