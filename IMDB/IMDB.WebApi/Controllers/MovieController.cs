@@ -14,10 +14,12 @@ namespace IMDB.WebApi.Controllers
     public class MovieController : ControllerBase
     {
         private IMovieService movieService;
+        private ICharacterService characterService;
 
-        public MovieController(IMovieService movieService)
+        public MovieController(IMovieService movieService, ICharacterService characterService)
         {
             this.movieService = movieService;
+            this.characterService = characterService;
         }
 
         //obtener listado de peliculas
@@ -132,6 +134,25 @@ namespace IMDB.WebApi.Controllers
             catch (EntityNotFoundException)
             {
                 return NotFound();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpGet]
+        [Route("Characters/{movieId}")]
+        public ActionResult<IEnumerable<CharacterDto>> GetCharacters(long movieId)
+        {
+            if (movieId <= 0)
+            {
+                return BadRequest("Movie Id is invalid");
+            }
+            try
+            {
+                var allcharacters = characterService.GetCharacters(movieId);
+                return Ok(allcharacters);
             }
             catch (Exception)
             {
