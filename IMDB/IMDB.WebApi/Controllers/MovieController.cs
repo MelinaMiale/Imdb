@@ -80,5 +80,63 @@ namespace IMDB.WebApi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
+
+        [HttpPut]
+        [Route("{movieId}/Update")]
+        public ActionResult<long> Update(MovieDto movieToEdit)
+        {
+            if (movieToEdit == null)
+            {
+                return BadRequest("invalid movie");
+            }
+
+            try
+            {
+                var updatedMovieId = movieService.UpdateMovie(movieToEdit);
+                return Ok(updatedMovieId);
+            }
+            catch (EntityNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (BadRequestException bex)
+            {
+                return BadRequest(bex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpDelete]
+        [Route("Delete/{movieId}")]
+        public ActionResult Delete(long movieId)
+        {
+            if (movieId <= 0)
+            {
+                return BadRequest("Movie id is invalid");
+            }
+            try
+            {
+                var movieWasRemoved = movieService.RemoveMovie(movieId);
+                if (movieWasRemoved)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError);
+                }
+            }
+            catch (EntityNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
     }
 }

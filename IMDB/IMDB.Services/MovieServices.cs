@@ -1,8 +1,10 @@
-﻿using IMDB.EntityModels;
+﻿using ContosoUniversity.Services.Contracts.Exceptions;
+using IMDB.EntityModels;
 using IMDB.Services.Contacts;
 using IMDB.Services.Contacts.Dto;
 using IMDB.Services.Mapping;
 using NHibernate;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -47,6 +49,44 @@ namespace IMDB.Services
                 this.session.Transaction.Commit();
 
                 return movie.Id;
+            }
+        }
+
+        public long UpdateMovie(MovieDto editedMovie)
+        {
+            using (var transaction = this.session.BeginTransaction())
+            {
+                var movieToUpdate = this.session.Get<Movie>(editedMovie.Id);
+                if (editedMovie == null)
+                {
+                    throw new EntityNotFoundException(string.Format("movie with id: {0} was not found", editedMovie.Id));
+                }
+
+                //paso dto to model
+                movieToUpdate = this.movieMapper.ToModel(editedMovie, movieToUpdate);
+
+                //guardo en db
+                this.session.Save(movieToUpdate);
+                this.session.Transaction.Commit();
+
+                return editedMovie.Id;
+            }
+        }
+
+        public bool RemoveMovie(long movieId)
+        {
+            using (var transaction = this.session.BeginTransaction())
+            {
+                var movieToDelete = this.session.Get<Movie>(movieId);
+
+                if (movieToDelete == null)
+                {
+                    throw new EntityNotFoundException(string.Format("movie with id: {0} was not found", movieId));
+                }
+
+                this.session.Delete(movieToDelete);
+                transaction.Commit();
+                return true;
             }
         }
     }

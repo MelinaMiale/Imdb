@@ -7,17 +7,17 @@ using System.Linq;
 
 namespace IMDB.Services.Mapping.Impl
 {
-    public class MovieMapper : IEntityMapper<Movie, MovieDto>
+    public class ActorMapper : IEntityMapper<Actor, ActorDto>
     {
         private ISession session;
 
-        public MovieMapper(ISession session)
+        public ActorMapper()
         {
             this.session = session;
         }
 
-        //paso dto a entity
-        public Movie ToModel(MovieDto source, Movie destination)
+        //paso a entity
+        public Actor ToModel(ActorDto source, Actor destination)
         {
             if (source == null)
             {
@@ -29,10 +29,11 @@ namespace IMDB.Services.Mapping.Impl
             }
 
             destination.Id = source.Id;
-            destination.Name = source.Name;
+            destination.FirstName = source.FirstName;
+            destination.LastName = source.LastName;
             destination.Nationality = source.Nationality;
-            destination.Poster = source.Poster;
-            destination.ReleaseDate = source.ReleaseDate;
+            destination.ProfileFoto = source.ProfileFoto;
+            destination.Age = source.Age;
 
             //borro los personajes q tenga ese modelo para desp agregar los que vienen del dto
             destination.Characters.Clear();
@@ -47,24 +48,24 @@ namespace IMDB.Services.Mapping.Impl
             return destination;
         }
 
-        //paso entity a dto
-        public MovieDto ToDto(Movie source, MovieDto destination)
+        //paso a dto
+        public ActorDto ToDto(Actor source, ActorDto destination)
         {
             if (source == null)
             {
                 throw new ArgumentNullException(nameof(source));
             }
-
             if (destination == null)
             {
                 throw new ArgumentNullException(nameof(destination));
             }
 
             destination.Id = source.Id;
-            destination.Name = source.Name;
+            destination.FirstName = source.FirstName;
+            destination.LastName = source.LastName;
             destination.Nationality = source.Nationality;
-            destination.Poster = source.Poster;
-            destination.ReleaseDate = source.ReleaseDate;
+            destination.ProfileFoto = source.ProfileFoto;
+            destination.Age = source.Age;
             destination.CharacterIds = source.Characters.Select(character => character.Id).ToArray();
 
             return destination;
