@@ -5,14 +5,14 @@ namespace IMDB.Services.Contacts
 {
     public interface IActorService
     {
-        IEnumerable<ActorDto> GetAllActors();
+        public IEnumerable<ActorDto> GetAllActors();
 
         ActorDto GetActorById(long idActor);
 
-        long SaveActor(MovieDto newMovie);
+        long SaveActor(ActorDto newActor);
 
-        long UpdateActor(MovieDto editedMovie);
+        long UpdateActor(ActorDto editedActor);
 
-        bool RemoveActor(long movieId);
+        bool RemoveActor(long actorId);
     }
 }

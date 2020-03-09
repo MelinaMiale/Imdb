@@ -4,7 +4,7 @@
 	LastName NVARCHAR(128) not null,
 	Nationality NVARCHAR(128) null,
 	Age INT not null,
-	ProfileFoto NVARCHAR(255) null unique,
+	ProfileFoto NVARCHAR(255) null,
 	primary key (Id)
 )
 GO

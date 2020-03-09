@@ -11,7 +11,7 @@ namespace IMDB.Services.Mapping.Impl
     {
         private ISession session;
 
-        public ActorMapper()
+        public ActorMapper(ISession session)
         {
             this.session = session;
         }

@@ -1,34 +1,36 @@
-﻿using ContosoUniversity.Services.Contracts.Exceptions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using ContosoUniversity.Services.Contracts.Exceptions;
 using IMDB.Services.Contacts;
 using IMDB.Services.Contacts.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 
 namespace IMDB.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MovieController : ControllerBase
+    public class ActorController : ControllerBase
     {
-        private IMovieService movieService;
+        private IActorService actorService;
 
-        public MovieController(IMovieService movieService)
+        public ActorController(IActorService actorService)
         {
-            this.movieService = movieService;
+            this.actorService = actorService;
         }
 
-        //obtener listado de peliculas
+        //listado de actores
         [HttpGet]
         [Route("Index")]
-        public ActionResult<IEnumerable<MovieDto>> GetAll()
+        public ActionResult<IEnumerable<ActorDto>> GetAllActors()
         {
             try
             {
-                var allMovies = movieService.GetAllMovies();
-                return Ok(allMovies);
+                var allActors = actorService.GetAllActors();
+                return Ok(allActors);
             }
             catch (Exception)
             {
@@ -36,18 +38,19 @@ namespace IMDB.WebApi.Controllers
             }
         }
 
+        //detalle de un actor (getById)
         [HttpGet]
-        [Route("{movieId}/Details/")]
-        public ActionResult<MovieDto> GetById(long movieId)
+        [Route("{actorId}/Details")]
+        public ActionResult<ActorDto> GetById(long actorId)
         {
-            if (movieId <= 0)
+            if (actorId <= 0)
             {
-                return BadRequest("Movie Id is invalid");
+                return BadRequest("Actor id was not found");
             }
             try
             {
-                var movieById = movieService.GetMovieById(movieId);
-                return Ok(movieId);
+                var actorById = actorService.GetActorById(actorId);
+                return Ok(actorId);
             }
             catch (EntityNotFoundException)
             {
@@ -59,21 +62,22 @@ namespace IMDB.WebApi.Controllers
             }
         }
 
+        //crear un actor
         [HttpPost]
         [Route("Create")]
-        public ActionResult<long> CreateMovie(MovieDto newMovieDto)
+        public ActionResult<long> SaveActor(ActorDto newActor)
         {
-            if (newMovieDto == null)
+            if (newActor == null)
             {
-                return BadRequest("Invalid movie");
+                return BadRequest("Invalid actor");
             }
 
             try
             {
-                var savedMovieId = movieService.SaveMovie(newMovieDto);
-                var createdResourse = string.Format("{0}{1}", Request.GetDisplayUrl(), savedMovieId);
+                var savedActorId = actorService.SaveActor(newActor);
+                var createdResource = string.Format("{0}{1}", Request.GetDisplayUrl(), savedActorId);
 
-                return Created(new Uri(createdResourse), savedMovieId);//created: status ok 201!
+                return Created(new Uri(createdResource), savedActorId);
             }
             catch (Exception)
             {
@@ -81,19 +85,19 @@ namespace IMDB.WebApi.Controllers
             }
         }
 
+        //editar actor
         [HttpPut]
-        [Route("{movieId}/Update")]
-        public ActionResult<long> Update(MovieDto movieToEdit)
+        [Route("{actorId}/Edit")]
+        public ActionResult<long> Update(ActorDto editedActorDto)
         {
-            if (movieToEdit == null)
+            if (editedActorDto == null)
             {
-                return BadRequest("invalid movie");
+                return BadRequest("Invalid actor");
             }
-
             try
             {
-                var updatedMovieId = movieService.UpdateMovie(movieToEdit);
-                return Ok(updatedMovieId);
+                var updatedActorId = actorService.UpdateActor(editedActorDto);
+                return Ok(updatedActorId);
             }
             catch (EntityNotFoundException)
             {
@@ -109,18 +113,20 @@ namespace IMDB.WebApi.Controllers
             }
         }
 
+        //borrar un actor
         [HttpDelete]
-        [Route("Delete/{movieId}")]
-        public ActionResult Delete(long movieId)
+        [Route("{actorId}/Delete")]
+        public ActionResult<bool> Delete(long actorId)
         {
-            if (movieId <= 0)
+            if (actorId <= 0)
             {
                 return BadRequest("Movie id is invalid");
             }
+
             try
             {
-                var movieWasRemoved = movieService.RemoveMovie(movieId);
-                if (movieWasRemoved)
+                var actorWasRemoved = actorService.RemoveActor(actorId);
+                if (actorWasRemoved)
                 {
                     return Ok();
                 }

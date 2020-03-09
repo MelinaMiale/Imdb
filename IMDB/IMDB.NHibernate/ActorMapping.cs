@@ -64,7 +64,7 @@ namespace IMDB.NHibernate
                {
                    m.Column("ProfileFoto");
                    m.NotNullable(false);
-                   m.Unique(true);
+                   // m.Unique(true);
                });
 
             //one to many
