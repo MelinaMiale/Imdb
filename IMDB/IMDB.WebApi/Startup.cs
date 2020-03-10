@@ -66,7 +66,7 @@ namespace IMDB.WebApi
             // data mapping services configuration
             services.AddScoped<IEntityMapper<Movie, MovieDto>, MovieMapper>();
             services.AddScoped<IEntityMapper<Actor, ActorDto>, ActorMapper>();
-            services.AddScoped<IEntityMapper<Character, CharacterDto>, CharacterMapper>();
+            services.AddScoped<IEntityMapper<Character, CharacterDTO>, CharacterMapper>();
 
             // add entities services
             services.AddScoped<IMovieService, MovieServices>();

@@ -65,7 +65,7 @@ namespace IMDB.Services.Mapping.Impl
             destination.Nationality = source.Nationality;
             destination.Poster = source.Poster;
             destination.ReleaseDate = source.ReleaseDate;
-            destination.CharacterIds = source.Characters.Select(character => character.Id).ToArray();
+            destination.CharacterIds = source.Characters.Select(character => character.Id).ToArray();//obtengo los personajes (a traves del idDePersobaje) y se los asigno a la lista de personajes de la pelicula tipo DTo
 
             return destination;
         }

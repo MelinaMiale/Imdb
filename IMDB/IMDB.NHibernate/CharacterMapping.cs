@@ -24,8 +24,8 @@ namespace IMDB.NHibernate
                 m =>
                 {
                     m.Column("CharacterName");
-                    m.NotNullable(false);
-                    m.Unique(true);
+                    m.NotNullable(true);
+                    //  m.Unique(true);
                     m.Length(50);
                 });
 

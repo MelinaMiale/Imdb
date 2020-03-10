@@ -1,5 +1,4 @@
-﻿using IMDB.EntityModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace IMDB.Services.Contacts.Dto
@@ -26,12 +25,6 @@ namespace IMDB.Services.Contacts.Dto
             set;
         }
 
-        public IList<CharacterDto> Characters
-        {
-            get;
-            set;
-        }
-
         public DateTime ReleaseDate
         {
             get;
@@ -45,7 +38,7 @@ namespace IMDB.Services.Contacts.Dto
         }
 
         public IList<long> CharacterIds
-        {
+        {//en el mapper asigno a la pelicula los personajes usando esta lista de idDePersonaje.
             get { return this.characterIds ?? (this.characterIds = new List<long>()); }
             set { this.characterIds = value; }
         }

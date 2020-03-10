@@ -22,7 +22,7 @@ GO
 
 create table dbo.Characters (
 	Id BIGINT IDENTITY NOT NULL,
-	CharacterName NVARCHAR(50) null unique,
+	CharacterName NVARCHAR(50) not null,
 	ActorId BIGINT not null,
 	MovieId BIGINT null,
 	SerieId BIGINT null,

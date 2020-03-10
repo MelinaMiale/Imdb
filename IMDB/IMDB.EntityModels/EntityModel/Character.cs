@@ -31,15 +31,5 @@
             get;
             set;
         }
-
-        //public Serie Serie
-        //{
-        //    get;
-        //    set;
-        //}
-
-        //   public int IdActor { get; set; }
-
-        //  public int IdMovie { get; set; }
     }
 }
