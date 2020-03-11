@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace IMDB.Services.Contacts
+﻿namespace IMDB.Services.Contacts
 {
-    class ISerieService
+    public interface ISerieService
     {
     }
 }

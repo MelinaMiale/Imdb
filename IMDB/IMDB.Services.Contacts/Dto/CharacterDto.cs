@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Text;
+﻿using System.Runtime.Serialization;
 
 namespace IMDB.Services.Contacts.Dto
 {
@@ -31,6 +28,13 @@ namespace IMDB.Services.Contacts.Dto
 
         [DataMember]
         public MovieDto Movie
+        {
+            get;
+            set;
+        }
+
+        [DataMember]
+        public SerieDto Serie
         {
             get;
             set;

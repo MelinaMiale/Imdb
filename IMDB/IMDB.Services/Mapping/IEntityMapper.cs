@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace IMDB.Services.Mapping
+﻿namespace IMDB.Services.Mapping
 {
     public interface IEntityMapper<TModel, TDto>
     {

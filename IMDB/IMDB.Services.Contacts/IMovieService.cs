@@ -1,5 +1,4 @@
 ﻿using IMDB.Services.Contacts.Dto;
-using System;
 using System.Collections.Generic;
 
 namespace IMDB.Services.Contacts
