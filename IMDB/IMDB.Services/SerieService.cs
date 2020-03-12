@@ -28,5 +28,25 @@ namespace IMDB.Services
 
             return allSeriesDto;
         }
+
+        public SerieDto GetById(long serieId)
+        {
+            var serieById = this.session.Get<Serie>(serieId);
+            var serieByIdDto = this.serieMapper.ToDto(serieById, new SerieDto());
+
+            return serieByIdDto;
+        }
+
+        public long SaveSerie(SerieDto newSerieDto)
+        {
+            using (var transaction = this.session.BeginTransaction())
+            {
+                var serie = this.serieMapper.ToModel(newSerieDto, new Serie());
+                this.session.Save(serie);
+                this.session.Transaction.Commit();
+
+                return serie.Id;
+            }
+        }
     }
 }

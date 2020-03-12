@@ -59,7 +59,6 @@ namespace IMDB.Services.Mapping.Impl
 
             //borro los personajes y capitulos q tenga ese modelo para desp agregar los que vienen del dto
             destination.Characters.Clear();
-            destination.Chapters.Clear();
 
             //agrego los personajes que vienen del dto
             var charactersIds = new HashSet<long>(source.CharacterIds);
@@ -67,6 +66,8 @@ namespace IMDB.Services.Mapping.Impl
             {
                 destination.Characters.Add(character);
             }
+
+            destination.Chapters.Clear();
 
             //agrego los capitulos que vienen del dto
             var chapterIds = new HashSet<long>(source.ChapterIds);
