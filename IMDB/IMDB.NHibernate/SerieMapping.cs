@@ -35,7 +35,6 @@ namespace IMDB.NHibernate
                 {
                     m.Column("Nationality");
                     m.NotNullable(false);
-                    m.Unique(false);
                     m.Length(30);
                 });
 
@@ -45,7 +44,6 @@ namespace IMDB.NHibernate
                 {
                     m.Column("Poster");
                     m.NotNullable(false);
-                    //  m.Unique(true);
                 });
 
             this.Property(
