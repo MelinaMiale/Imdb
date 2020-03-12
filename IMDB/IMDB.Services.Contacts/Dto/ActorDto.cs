@@ -1,5 +1,4 @@
-﻿using IMDB.EntityModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -22,12 +21,6 @@ namespace IMDB.Services.Contacts.Dto
         }
 
         public string LastName
-        {
-            get;
-            set;
-        }
-
-        public IList<Character> Characters
         {
             get;
             set;

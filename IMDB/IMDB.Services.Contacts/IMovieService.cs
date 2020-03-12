@@ -1,5 +1,4 @@
-﻿using IMDB.EntityModels;
-using IMDB.Services.Contacts.Dto;
+﻿using IMDB.Services.Contacts.Dto;
 using System;
 using System.Collections.Generic;
 

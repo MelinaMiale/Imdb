@@ -1,37 +1,36 @@
-﻿using IMDB.EntityModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace IMDB.Services.Contacts.Dto
 {
-    public class CharacterDto
+    [DataContract]
+    public class CharacterDTO
     {
+        [DataMember]
         public long Id
         {
             get;
             set;
         }
 
+        [DataMember]
         public string Name
         {
             get;
             set;
         }
 
-        public Actor Actor
+        [DataMember]
+        public ActorDto Actor
         {
             get;
             set;
         }
 
-        public Movie Movie
-        {
-            get;
-            set;
-        }
-
-        public Serie Serie
+        [DataMember]
+        public MovieDto Movie
         {
             get;
             set;

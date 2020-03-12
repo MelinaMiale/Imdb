@@ -7,14 +7,14 @@ namespace IMDB.Services.Contacts
 {
     public interface ICharacterService
     {
-        IEnumerable<CharacterDto> GetCharacters(long movieId);
+        IEnumerable<CharacterDTO> GetCharacters(long movieId);
 
-        //CharacterDto GetCharacterById(long idCharacter);
+        public CharacterDTO GetCharacterById(long characterId);
 
-        //long SaveCharacter(CharacterDto newCharacter);
+        public long SaveCharacter(CharacterDTO newCharacterDto);
 
-        //long UpdateCharacter(CharacterDto updatedCharacter);
+        public CharacterDTO UpdateCharacter(CharacterDTO characterId);
 
-        //bool DeleteCharacter(long characterId);
+        bool RemoveCharacter(long characterId);
     }
 }
