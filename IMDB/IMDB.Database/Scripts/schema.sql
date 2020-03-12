@@ -44,9 +44,9 @@ GO
 
 create table dbo.Series (
 	Id BIGINT IDENTITY NOT NULL,
-	Name NVARCHAR(30) null unique,
+	Name NVARCHAR(30) not null unique,
 	Nationality NVARCHAR(30) null,
-	Poster NVARCHAR(255) null unique,
+	Poster NVARCHAR(255) null,
 	ReleaseDate DATETIME2 null,
 	primary key (Id)
 )

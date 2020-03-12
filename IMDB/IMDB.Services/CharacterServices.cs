@@ -4,10 +4,8 @@ using IMDB.Services.Contacts;
 using IMDB.Services.Contacts.Dto;
 using IMDB.Services.Mapping;
 using NHibernate;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace IMDB.Services
 {
@@ -16,15 +14,17 @@ namespace IMDB.Services
         private ISession session;
         private IEntityMapper<Character, CharacterDTO> characterMapper;
         private IEntityMapper<Movie, MovieDto> movieMapper;
+        private IEntityMapper<Actor, ActorDto> actorMapper;
 
-        public CharacterServices(ISession session, IEntityMapper<Character, CharacterDTO> characterMapper, IEntityMapper<Movie, MovieDto> movieMapper)
+        public CharacterServices(ISession session, IEntityMapper<Character, CharacterDTO> characterMapper, IEntityMapper<Movie, MovieDto> movieMapper, IEntityMapper<Actor, ActorDto> actorMapper)
         {
             this.session = session;
             this.characterMapper = characterMapper;
             this.movieMapper = movieMapper;
+            this.actorMapper = actorMapper;
         }
 
-        public IEnumerable<CharacterDTO> GetCharacters(long movieId)
+        public IEnumerable<CharacterDTO> GetMovieCharacters(long movieId)
         {
             //obtengo pelicula
             var movie = this.session.Get<Movie>(movieId);
@@ -41,6 +41,25 @@ namespace IMDB.Services
                 charactersDto.Add(this.characterMapper.ToDto(character, new CharacterDTO()));
             }
 
+            return charactersDto;
+        }
+
+        public IEnumerable<CharacterDTO> GetActorCharacters(long actorId)
+        {
+            //obtengo actor
+            var actorById = this.session.Get<Actor>(actorId);
+
+            //obtengo todos los personajes (INNER JOIN VS ACTOR AND CHARACTERS TABLES)
+            var allCharacters = this.session.Query<Character>().Where(c => c.Actor.Id == actorId);
+
+            //paso a dto los personajes y los agrego a la lista de tipo dto
+            var charactersDto = new List<CharacterDTO>();
+            foreach (var character in allCharacters)
+            {
+                charactersDto.Add(this.characterMapper.ToDto(character, new CharacterDTO()));
+            }
+
+            // devuelvo lista
             return charactersDto;
         }
 
@@ -93,7 +112,7 @@ namespace IMDB.Services
             return characterDto;
         }
 
-        public CharacterDTO UpdateCharacter(CharacterDTO updatedCharacter)
+        public long UpdateCharacter(CharacterDTO updatedCharacter)
         {
             using (var transaction = this.session.BeginTransaction())
             {
@@ -103,13 +122,13 @@ namespace IMDB.Services
                     throw new EntityNotFoundException(string.Format("movie with id: {0} was not found", updatedCharacter.Id));
                 }
                 //mapeo personaje editado a modelo
-                characterToEdit = this.characterMapper.ToModel(updatedCharacter, new Character());
+                characterToEdit = this.characterMapper.ToModel(updatedCharacter, characterToEdit);
 
                 //persisto en bd
                 this.session.Save(characterToEdit);
                 this.session.Transaction.Commit();
 
-                return updatedCharacter;
+                return updatedCharacter.Id;
             }
         }
     }

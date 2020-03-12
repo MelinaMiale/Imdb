@@ -4,7 +4,6 @@ using IMDB.Services.Contacts;
 using IMDB.Services.Contacts.Dto;
 using IMDB.Services.Mapping;
 using NHibernate;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 

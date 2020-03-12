@@ -1,10 +1,14 @@
-﻿using System;
+﻿using IMDB.Services.Contacts.Dto;
 using System.Collections.Generic;
-using System.Text;
 
 namespace IMDB.Services.Contacts
 {
-    class ISerieService
+    public interface ISerieService
     {
+        public IEnumerable<SerieDto> GetAllSeries();
+
+        public SerieDto GetById(long serieId);
+
+        public long SaveSerie(SerieDto newSerieDto);
     }
 }

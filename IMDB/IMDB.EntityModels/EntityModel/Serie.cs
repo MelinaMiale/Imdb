@@ -50,6 +50,8 @@ namespace IMDB.EntityModels
 
         public Serie()
         {
+            this.Characters = new List<Character>();
+            this.Chapters = new List<Chapter>();
         }
     }
 }

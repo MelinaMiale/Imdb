@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace IMDB.Services.Mapping.Impl
+﻿namespace IMDB.Services.Mapping.Impl
 {
-    class ChapterMapper
+    internal class ChapterMapper
     {
     }
 }

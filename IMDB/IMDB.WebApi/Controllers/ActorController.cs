@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ContosoUniversity.Services.Contracts.Exceptions;
+﻿using ContosoUniversity.Services.Contracts.Exceptions;
 using IMDB.Services.Contacts;
 using IMDB.Services.Contacts.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 
 namespace IMDB.WebApi.Controllers
 {
@@ -16,10 +14,12 @@ namespace IMDB.WebApi.Controllers
     public class ActorController : ControllerBase
     {
         private IActorService actorService;
+        private ICharacterService characterService;
 
-        public ActorController(IActorService actorService)
+        public ActorController(IActorService actorService, ICharacterService characterService)
         {
             this.actorService = actorService;
+            this.characterService = characterService;
         }
 
         //listado de actores
@@ -138,6 +138,140 @@ namespace IMDB.WebApi.Controllers
             catch (EntityNotFoundException)
             {
                 return NotFound();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        //listo personajes
+        [HttpGet]
+        [Route("{actorId}/Characters")]
+        public ActionResult<IEnumerable<CharacterDTO>> GetCharacters(long actorId)
+        {
+            //verifico id
+            if (actorId <= 0)
+            {
+                return BadRequest("Id is not valid");
+            }
+
+            try
+            {
+                //obtengo lista de personajesDto
+                var allCharacters = characterService.GetActorCharacters(actorId);
+
+                //devuelvo la lista
+                return Ok(allCharacters);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpGet]
+        [Route("{actorId}/Characters/{characterId}")]
+        public ActionResult<CharacterDTO> GetCharacterById(long characterId)
+        {
+            if (characterId <= 0)
+            {
+                return BadRequest("Character id not valid");
+            }
+
+            try
+            {
+                var characterById = characterService.GetCharacterById(characterId);
+                return Ok(characterById);
+            }
+            catch (EntityNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpPost]
+        [Route("{actorId}/Characters/Create")]
+        public ActionResult<long> CreateCharacter(CharacterDTO newCharacterDto)
+        {
+            //evaluo el personaje
+            if (newCharacterDto == null)
+            {
+                throw new ArgumentNullException(nameof(newCharacterDto));
+            }
+            try
+            {
+                //llamo al servicio para guardar el personaje en bd
+                //regreso ok con el id del nuevo personaje
+                var savedCharacterId = characterService.SaveCharacter(newCharacterDto);
+                var createdResource = string.Format("{0}{1}", Request.GetDisplayUrl(), savedCharacterId);
+
+                return Ok(savedCharacterId);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpDelete]
+        [Route("{actorId}/Characters/{characterId}/Delete")]
+        public ActionResult<bool> DeleteCharacter(long characterId)
+        {
+            //valido role id
+            if (characterId <= 0)
+            {
+                return BadRequest("Id not valid");
+            }
+            try
+            {
+                //utilizo servicio para borrar personaje
+                //devuelvo ok si se borro con exito
+                var characterWasDeleted = characterService.RemoveCharacter(characterId);
+                if (characterWasDeleted)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError);
+                }
+            }
+            catch (EntityNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpPut]
+        [Route("{actorId}/Characters/{characterId}/Edit")]
+        public ActionResult<long> UpdateCharacter(CharacterDTO updatedCharacter)
+        {
+            if (updatedCharacter == null)
+            {
+                return BadRequest("Character not valid");
+            }
+            // obtengo personaje con info editada
+            try
+            {
+                var editedCharacterId = characterService.UpdateCharacter(updatedCharacter);
+                return Ok(editedCharacterId);
+            }
+            catch (EntityNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (BadRequestException bex)
+            {
+                return BadRequest(bex.Message);
             }
             catch (Exception)
             {

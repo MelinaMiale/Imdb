@@ -1,10 +1,4 @@
-using IMDB.EntityModels;
 using IMDB.NHibernate;
-using IMDB.Services;
-using IMDB.Services.Contacts;
-using IMDB.Services.Contacts.Dto;
-using IMDB.Services.Mapping;
-using IMDB.Services.Mapping.Impl;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;

@@ -2,8 +2,6 @@
 using IMDB.Services.Contacts.Dto;
 using NHibernate;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace IMDB.Services.Mapping.Impl
 {
@@ -12,6 +10,7 @@ namespace IMDB.Services.Mapping.Impl
         private ISession session;
         private IEntityMapper<Actor, ActorDto> actorMapper;
         private IEntityMapper<Movie, MovieDto> movieMapper;
+        private IEntityMapper<Serie, SerieDto> serieMapper;
 
         public CharacterMapper(ISession session, IEntityMapper<Actor, ActorDto> actorMapper, IEntityMapper<Movie, MovieDto> movieMapper)
         {
@@ -35,7 +34,7 @@ namespace IMDB.Services.Mapping.Impl
             destination.Id = source.Id;
             destination.Name = source.Name;
             destination.Actor = this.actorMapper.ToModel(source.Actor, new Actor());
-            // destination.Serie = source.Serie;
+            destination.Serie = this.serieMapper.ToModel(source.Serie, new Serie());
             destination.Movie = this.movieMapper.ToModel(source.Movie, new Movie());
 
             return destination;
@@ -56,7 +55,7 @@ namespace IMDB.Services.Mapping.Impl
             destination.Id = source.Id;
             destination.Name = source.Name;
             destination.Actor = this.actorMapper.ToDto(source.Actor, new ActorDto());
-            //destination.Serie = source.Serie;
+            destination.Serie = this.serieMapper.ToDto(source.Serie, new SerieDto());
             destination.Movie = this.movieMapper.ToDto(source.Movie, new MovieDto());
 
             return destination;

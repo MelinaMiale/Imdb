@@ -151,7 +151,7 @@ namespace IMDB.WebApi.Controllers
             }
             try
             {
-                var allcharacters = characterService.GetCharacters(movieId);
+                var allcharacters = characterService.GetMovieCharacters(movieId);
                 return Ok(allcharacters);
             }
             catch (Exception)
@@ -184,12 +184,11 @@ namespace IMDB.WebApi.Controllers
             }
         }
 
-        //el update no funciona correctamente, en lugar de actualizar un personaje existente crea uno nuevo
         [HttpPut]
         [Route("{movieId}/Characters/{characterId}/Edit")]
-        public ActionResult<CharacterDTO> UpdateCharacter(CharacterDTO updatedCharacter)
+        public ActionResult<long> UpdateCharacter(CharacterDTO updatedCharacter)
         {
-            //valido id
+            //valido personaje
             if (updatedCharacter == null)
             {
                 return BadRequest("Character Id is invalid");
@@ -198,8 +197,8 @@ namespace IMDB.WebApi.Controllers
             // obtengo personaje con info editada
             try
             {
-                this.characterService.UpdateCharacter(updatedCharacter);
-                return Ok(updatedCharacter);
+                var editedCharacterId = characterService.UpdateCharacter(updatedCharacter);
+                return Ok(editedCharacterId);
             }
             catch (EntityNotFoundException)
             {
