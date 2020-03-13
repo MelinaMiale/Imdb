@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ContosoUniversity.Services.Contracts.Exceptions;
+﻿using ContosoUniversity.Services.Contracts.Exceptions;
 using IMDB.Services.Contacts;
 using IMDB.Services.Contacts.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 
 namespace IMDB.WebApi.Controllers
 {
@@ -18,11 +16,13 @@ namespace IMDB.WebApi.Controllers
     {
         private ISerieService serieService;
         private ICharacterService characterService;
+        private IChapterService chapterService;
 
-        public SerieController(ISerieService serieService, ICharacterService characterService)
+        public SerieController(ISerieService serieService, ICharacterService characterService, IChapterService chapterService)
         {
             this.serieService = serieService;
             this.characterService = characterService;
+            this.chapterService = chapterService;
         }
 
         //listar series
@@ -272,6 +272,25 @@ namespace IMDB.WebApi.Controllers
         }
 
         //listado capitulos
+        [HttpGet]
+        [Route("{serieId}/Chapters")]
+        public ActionResult<IEnumerable<ChapterDto>> GetChapters(long serieId)
+        {
+            if (serieId <= 0)
+            {
+                return BadRequest("Id is not valid");
+            }
+            try
+            {
+                var allChapters = this.chapterService.GetAllChapters(serieId);
+                return Ok(allChapters);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
         //capitulo by id
         //alta capitulos
         //baja capitulos

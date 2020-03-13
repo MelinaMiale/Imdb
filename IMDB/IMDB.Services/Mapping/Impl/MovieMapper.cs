@@ -2,8 +2,6 @@
 using IMDB.Services.Contacts.Dto;
 using NHibernate;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace IMDB.Services.Mapping.Impl
 {

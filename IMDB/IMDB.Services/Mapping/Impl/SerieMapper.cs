@@ -2,7 +2,6 @@
 using IMDB.Services.Contacts.Dto;
 using NHibernate;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace IMDB.Services.Mapping.Impl
@@ -33,7 +32,7 @@ namespace IMDB.Services.Mapping.Impl
             destination.Nationality = source.Nationality;
             destination.Poster = source.Poster;
             destination.ReleaseDate = source.ReleaseDate;
-            destination.CharacterIds = source.Characters.Select(character => character.Id).ToArray();
+            //destination.CharacterIds = source.Characters.Select(character => character.Id).ToArray();
             //destination.ChapterIds = source.Chapters.Select(chapter => chapter.Id).ToArray();
             //no seria necesario mapear los personajes aqui porque tiene una seccion aparte donde se dan de alta y baja, listan y editan.
 

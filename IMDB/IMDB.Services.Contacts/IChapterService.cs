@@ -1,6 +1,10 @@
-﻿namespace IMDB.Services.Contacts
+﻿using IMDB.Services.Contacts.Dto;
+using System.Collections.Generic;
+
+namespace IMDB.Services.Contacts
 {
-    internal class IChapterService
+    public interface IChapterService
     {
+        public IEnumerable<ChapterDto> GetAllChapters(long serieId);
     }
 }
