@@ -35,8 +35,15 @@ namespace IMDB.Services.Mapping.Impl
             destination.Id = source.Id;
             destination.Name = source.Name;
             destination.Actor = this.actorMapper.ToModel(source.Actor, new Actor());
-            destination.Serie = this.serieMapper.ToModel(source.Serie, new Serie());
-            destination.Movie = this.movieMapper.ToModel(source.Movie, new Movie());
+
+            if (source.Serie != null)
+            {
+                destination.Serie = this.serieMapper.ToModel(source.Serie, new Serie());
+            }
+            if (source.Movie != null)
+            {
+                destination.Movie = this.movieMapper.ToModel(source.Movie, new Movie());
+            }
 
             return destination;
         }
