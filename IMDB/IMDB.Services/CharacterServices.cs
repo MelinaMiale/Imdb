@@ -91,11 +91,9 @@ namespace IMDB.Services
                     throw new EntityNotFoundException(string.Format("movie with id: {0} was not found", characterId));
                 }
 
-                //lo borro y persisto en bd
                 this.session.Delete(characterToDelete);
                 this.session.Transaction.Commit();
 
-                //devuelvo ok! si lo borre
                 return true;
             }
         }

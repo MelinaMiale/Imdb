@@ -186,6 +186,37 @@ namespace IMDB.WebApi.Controllers
         }
 
         //baja rol
+        [HttpDelete]
+        [Route("{serieId}/Characters/{characterId}/Delete")]
+        public ActionResult DeleteCharacter(long characterId)
+        {
+            if (characterId <= 0)
+            {
+                return BadRequest("Id is invalid");
+            }
+
+            try
+            {
+                var characterWasDeleted = this.characterService.RemoveCharacter(characterId);
+                if (characterWasDeleted)
+                {
+                    return Ok(StatusCodes.Status200OK);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError);
+                }
+            }
+            catch (EntityNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
         //modificacion rol
 
         //listado capitulos
