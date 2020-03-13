@@ -1,4 +1,5 @@
-﻿using IMDB.EntityModels;
+﻿using ContosoUniversity.Services.Contracts.Exceptions;
+using IMDB.EntityModels;
 using IMDB.Services.Contacts;
 using IMDB.Services.Contacts.Dto;
 using IMDB.Services.Mapping;
@@ -46,6 +47,23 @@ namespace IMDB.Services
                 this.session.Transaction.Commit();
 
                 return serie.Id;
+            }
+        }
+
+        public bool DeleteSerie(long serieId)
+        {
+            using (var transaction = this.session.BeginTransaction())
+            {
+                var serieToDelete = this.session.Get<Serie>(serieId);
+
+                if (serieToDelete == null)
+                {
+                    throw new EntityNotFoundException(string.Format("serie with id: {0} was not found", serieId));
+                }
+
+                this.session.Delete(serieToDelete);
+                this.session.Transaction.Commit();
+                return true;
             }
         }
     }
