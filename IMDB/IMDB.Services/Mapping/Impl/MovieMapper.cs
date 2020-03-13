@@ -35,14 +35,17 @@ namespace IMDB.Services.Mapping.Impl
             destination.ReleaseDate = source.ReleaseDate;
 
             //borro los personajes q tenga ese modelo para desp agregar los que vienen del dto
-            destination.Characters.Clear();
+            ////destination.Characters.Clear();
 
-            //agrego los personajes que vienen del dto
-            var charactersIds = new HashSet<long>(source.CharacterIds);
-            foreach (var character in this.session.Query<Character>().ToList().Where(c => charactersIds.Contains(c.Id)))
-            {
-                destination.Characters.Add(character);
-            }
+            ////agrego los personajes que vienen del dto
+            //var sourceCharactersIds = new HashSet<long>(source.CharacterIds);
+            //var charactersIds = new HashSet<long>(source.CharacterIds);
+            //foreach (var character in this.session.Query<Character>().ToList().Where(c => charactersIds.Contains(c.Id)))
+            //{
+            //    destination.Characters.Add(character);
+            //}
+
+            //no seria necesario mapear los personajes aqui porque tiene una seccion aparte donde se dan de alta y baja, listan y editan.
 
             return destination;
         }
@@ -65,7 +68,8 @@ namespace IMDB.Services.Mapping.Impl
             destination.Nationality = source.Nationality;
             destination.Poster = source.Poster;
             destination.ReleaseDate = source.ReleaseDate;
-            destination.CharacterIds = source.Characters.Select(character => character.Id).ToArray();//obtengo los personajes (a traves del idDePersobaje) y se los asigno a la lista de personajes de la pelicula tipo DTo
+            //destination.CharacterIds = source.Characters.Select(character => character.Id).ToArray();//obtengo los personajes (a traves del idDePersobaje) y se los asigno a la lista de personajes de la pelicula tipo DTo
+            //no seria necesario mapear los personajes aqui porque tiene una seccion aparte donde se dan de alta y baja, listan y editan.
 
             return destination;
         }

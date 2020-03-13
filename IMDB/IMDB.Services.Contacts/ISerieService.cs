@@ -12,5 +12,7 @@ namespace IMDB.Services.Contacts
         public long SaveSerie(SerieDto newSerieDto);
 
         public bool DeleteSerie(long serieId);
+
+        public long UpdateSerie(SerieDto editedSerie);
     }
 }

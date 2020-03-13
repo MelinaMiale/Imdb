@@ -117,8 +117,53 @@ namespace IMDB.WebApi.Controllers
         }
 
         //modificacion serie
+        [HttpPut]
+        [Route("{serieId}/Edit")]
+        public ActionResult<long> UpdateSerie(SerieDto editedSerie)
+        {
+            if (editedSerie == null)
+            {
+                return BadRequest("Invalid serie");
+            }
+            try
+            {
+                var updatedSerieId = serieService.UpdateSerie(editedSerie);
+                return Ok(updatedSerieId);
+            }
+            catch (EntityNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (BadRequestException bex)
+            {
+                return BadRequest(bex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
 
         //listado personajes
+        //[HttpGet]
+        //[Route("{serieId}/Characters")]
+        //public ActionResult<IEnumerable<CharacterDTO>> GetCharacters(long serieId)
+        //{
+        //    if (serieId <= 0)
+        //    {
+        //        return BadRequest("Movie Id is invalid");
+        //    }
+        //    try
+        //    {
+        //        var allcharacters = characterService.GetSerieCharacters(serieId);
+        //        return Ok(allcharacters);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError);
+        //    }
+        //}
+
         //alta rol
         //baja rol
         //modificacion rol

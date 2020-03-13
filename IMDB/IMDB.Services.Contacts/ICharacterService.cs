@@ -16,5 +16,7 @@ namespace IMDB.Services.Contacts
         public long UpdateCharacter(CharacterDTO characterId);
 
         bool RemoveCharacter(long characterId);
+
+        // public IEnumerable<CharacterDTO> GetSerieCharacters(long serieId);
     }
 }

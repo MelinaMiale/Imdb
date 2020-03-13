@@ -12,11 +12,12 @@ namespace IMDB.Services.Mapping.Impl
         private IEntityMapper<Movie, MovieDto> movieMapper;
         private IEntityMapper<Serie, SerieDto> serieMapper;
 
-        public CharacterMapper(ISession session, IEntityMapper<Actor, ActorDto> actorMapper, IEntityMapper<Movie, MovieDto> movieMapper)
+        public CharacterMapper(ISession session, IEntityMapper<Actor, ActorDto> actorMapper, IEntityMapper<Movie, MovieDto> movieMapper, IEntityMapper<Serie, SerieDto> serieMapper)
         {
             this.session = session;
             this.actorMapper = actorMapper;
             this.movieMapper = movieMapper;
+            this.serieMapper = serieMapper;
         }
 
         public Character ToModel(CharacterDTO source, Character destination)
@@ -55,8 +56,15 @@ namespace IMDB.Services.Mapping.Impl
             destination.Id = source.Id;
             destination.Name = source.Name;
             destination.Actor = this.actorMapper.ToDto(source.Actor, new ActorDto());
-            destination.Serie = this.serieMapper.ToDto(source.Serie, new SerieDto());
-            destination.Movie = this.movieMapper.ToDto(source.Movie, new MovieDto());
+
+            if (source.Serie != null)
+            {
+                destination.Serie = this.serieMapper.ToDto(source.Serie, new SerieDto());
+            }
+            if (source.Movie != null)
+            {
+                destination.Movie = this.movieMapper.ToDto(source.Movie, new MovieDto());
+            }
 
             return destination;
         }

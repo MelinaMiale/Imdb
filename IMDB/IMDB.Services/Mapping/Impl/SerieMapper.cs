@@ -34,7 +34,8 @@ namespace IMDB.Services.Mapping.Impl
             destination.Poster = source.Poster;
             destination.ReleaseDate = source.ReleaseDate;
             destination.CharacterIds = source.Characters.Select(character => character.Id).ToArray();
-            destination.ChapterIds = source.Chapters.Select(chapter => chapter.Id).ToArray();
+            //destination.ChapterIds = source.Chapters.Select(chapter => chapter.Id).ToArray();
+            //no seria necesario mapear los personajes aqui porque tiene una seccion aparte donde se dan de alta y baja, listan y editan.
 
             return destination;
         }
@@ -57,24 +58,19 @@ namespace IMDB.Services.Mapping.Impl
             destination.Poster = source.Poster;
             destination.ReleaseDate = source.ReleaseDate;
 
-            //borro los personajes y capitulos q tenga ese modelo para desp agregar los que vienen del dto
-            destination.Characters.Clear();
+            //no seria necesario mapear los personajes aqui porque tiene una seccion aparte donde se dan de alta y baja, listan y editan.
 
             //agrego los personajes que vienen del dto
-            var charactersIds = new HashSet<long>(source.CharacterIds);
-            foreach (var character in this.session.Query<Character>().ToList().Where(c => charactersIds.Contains(c.Id)))
-            {
-                destination.Characters.Add(character);
-            }
+            //foreach (var character in this.session.Query<Character>().ToList().Where(c => source.CharacterIds.Contains(c.Id)))
+            //{
+            //    destination.Characters.Add(character);
+            //}
 
-            destination.Chapters.Clear();
-
-            //agrego los capitulos que vienen del dto
-            var chapterIds = new HashSet<long>(source.ChapterIds);
-            foreach (var chapter in this.session.Query<Chapter>().ToList().Where(episode => chapterIds.Contains(episode.Id)))
-            {
-                destination.Chapters.Add(chapter);
-            }
+            ////agrego los capitulos que vienen del dto
+            //foreach (var chapter in this.session.Query<Chapter>().ToList().Where(episode => source.ChapterIds.Contains(episode.Id)))
+            //{
+            //    destination.Chapters.Add(chapter);
+            //}
 
             return destination;
         }

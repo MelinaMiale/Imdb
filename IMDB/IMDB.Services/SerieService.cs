@@ -66,5 +66,22 @@ namespace IMDB.Services
                 return true;
             }
         }
+
+        public long UpdateSerie(SerieDto editedSerie)
+        {
+            using (var transaction = this.session.BeginTransaction())
+            {
+                //obtengo pelicula a editar
+                var serieToUpdate = this.session.Get<Serie>(editedSerie.Id);
+
+                //pasar la serie editada de tipo dto a modelo
+                serieToUpdate = this.serieMapper.ToModel(editedSerie, serieToUpdate);
+
+                this.session.Save(serieToUpdate);
+                this.session.Transaction.Commit();
+
+                return serieToUpdate.Id;
+            }
+        }
     }
 }
