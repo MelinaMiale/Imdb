@@ -132,21 +132,21 @@ namespace IMDB.Services
             }
         }
 
-        //public IEnumerable<CharacterDTO> GetSerieCharacters(long serieId)
-        //{
-        //    //obtengo pelicula
-        //    var serie = this.session.Get<Movie>(serieId);
+        public IEnumerable<CharacterDTO> GetSerieCharacters(long serieId)
+        {
+            //obtengo pelicula
+            var serie = this.session.Get<Movie>(serieId);
 
-        //    //obtengo todos los personajes (INNER JOIN VS MOVIE AND CHARACTERS TABLES)
-        //    var characters = this.session.Query<Character>().Where(c => c.Serie.Id == serieId);// trae personaje con pelicula asociada
+            //obtengo todos los personajes (INNER JOIN VS MOVIE AND CHARACTERS TABLES)
+            var characters = this.session.Query<Character>().Where(c => c.Serie.Id == serieId);// trae personaje con pelicula asociada
 
-        //    var charactersDto = new List<CharacterDTO>();
-        //    foreach (var character in characters)
-        //    {
-        //        charactersDto.Add(this.characterMapper.ToDto(character, new CharacterDTO()));
-        //    }
+            var charactersDto = new List<CharacterDTO>();
+            foreach (var character in characters)
+            {
+                charactersDto.Add(this.characterMapper.ToDto(character, new CharacterDTO()));
+            }
 
-        //    return charactersDto;
-        //}
+            return charactersDto;
+        }
     }
 }

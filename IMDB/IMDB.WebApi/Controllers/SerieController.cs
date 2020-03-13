@@ -145,26 +145,46 @@ namespace IMDB.WebApi.Controllers
         }
 
         //listado personajes
-        //[HttpGet]
-        //[Route("{serieId}/Characters")]
-        //public ActionResult<IEnumerable<CharacterDTO>> GetCharacters(long serieId)
-        //{
-        //    if (serieId <= 0)
-        //    {
-        //        return BadRequest("Movie Id is invalid");
-        //    }
-        //    try
-        //    {
-        //        var allcharacters = characterService.GetSerieCharacters(serieId);
-        //        return Ok(allcharacters);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return StatusCode(StatusCodes.Status500InternalServerError);
-        //    }
-        //}
+        [HttpGet]
+        [Route("{serieId}/Characters")]
+        public ActionResult<IEnumerable<CharacterDTO>> GetCharacters(long serieId)
+        {
+            if (serieId <= 0)
+            {
+                return BadRequest("Movie Id is invalid");
+            }
+            try
+            {
+                var allcharacters = characterService.GetSerieCharacters(serieId);
+                return Ok(allcharacters);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
 
         //alta rol
+        [HttpPost]
+        [Route("{serieId}/CreateCharacter")]
+        public ActionResult<long> SaveCharacter(CharacterDTO newCharacter)
+        {
+            if (newCharacter == null)
+            {
+                return BadRequest("The character is not valid");
+            }
+
+            try
+            {
+                var newCharacterId = this.characterService.SaveCharacter(newCharacter);
+                return Ok(newCharacter);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
         //baja rol
         //modificacion rol
 
