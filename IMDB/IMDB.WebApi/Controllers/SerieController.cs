@@ -217,7 +217,59 @@ namespace IMDB.WebApi.Controllers
             }
         }
 
+        //rol by id
+        [HttpGet]
+        [Route("{serieId}/Characters/{characterId}")]
+        public ActionResult<CharacterDTO> GetCharacterById(long characterId)
+        {
+            //verifico q el id exista
+            if (characterId < 0)
+            {
+                return BadRequest("Character Id is invalid");
+            }
+            try //obtengo personaje
+            {
+                var characterById = characterService.GetCharacterById(characterId);
+                return Ok(characterById);
+            }
+            catch (EntityNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
         //modificacion rol
+        [HttpPut]
+        [Route("{serieId}/Characters/{characterId}/Edit")]
+        public ActionResult<long> UpdateCharacter(CharacterDTO updatedCharacter)
+        {
+            if (updatedCharacter == null)
+            {
+                return BadRequest("Character Id is invalid");
+            }
+
+            try
+            {
+                var editedCharacterId = characterService.UpdateCharacter(updatedCharacter);
+                return Ok(editedCharacterId);
+            }
+            catch (EntityNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (BadRequestException bex)
+            {
+                return BadRequest(bex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
 
         //listado capitulos
         //capitulo by id
