@@ -36,7 +36,7 @@ namespace IMDB.Services.Mapping.Impl
             destination.Age = source.Age;
 
             //borro los personajes q tenga ese modelo para desp agregar los que vienen del dto
-            destination.Characters.Clear();
+            //destination.Characters.Clear();
 
             //agrego los personajes que vienen del dto
             var charactersIds = new HashSet<long>(source.CharacterIds);
