@@ -86,6 +86,36 @@ namespace IMDB.WebApi.Controllers
         }
 
         //baja serie
+        [HttpDelete]
+        [Route("{serieId}/Delete")]
+        public ActionResult DeleteSerie(long serieId)
+        {
+            if (serieId <= 0)
+            {
+                return BadRequest("Serie id is not valid");
+            }
+            try
+            {
+                var serieWasRemoved = this.serieService.DeleteSerie(serieId);
+                if (serieWasRemoved)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError);
+                }
+            }
+            catch (EntityNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
         //modificacion serie
 
         //listado personajes
