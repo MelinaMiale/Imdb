@@ -10,5 +10,9 @@ namespace IMDB.Services.Contacts
         public long SaveChapter(ChapterDto newChapter);
 
         public bool RemoveCharacter(long chapterId);
+
+        public ChapterDto GetById(long chapterId);
+
+        public ChapterDto UpdateChapter(ChapterDto updatedChapter);
     }
 }

@@ -71,5 +71,35 @@ namespace IMDB.Services
                 return true;
             }
         }
+
+        public ChapterDto GetById(long chapterId)
+        {
+            using (var transaction = this.session.BeginTransaction())
+            {
+                var chapterById = this.session.Get<Chapter>(chapterId);
+                var chapterDto = this.chapterMapper.ToDto(chapterById, new ChapterDto());
+
+                return chapterDto;
+            }
+        }
+
+        public ChapterDto UpdateChapter(ChapterDto updatedChapter)
+        {
+            using (var transaction = this.session.BeginTransaction())
+            {
+                var chapterToEdit = this.session.Get<Chapter>(updatedChapter.Id);
+                if (chapterToEdit == null)
+                {
+                    throw new EntityNotFoundException(string.Format("chapter with id: {0} was not found", updatedChapter.Id));
+                }
+                chapterToEdit = this.chapterMapper.ToModel(updatedChapter, chapterToEdit);
+
+                //persisto en bd
+                this.session.Save(chapterToEdit);
+                this.session.Transaction.Commit();
+
+                return updatedChapter;
+            }
+        }
     }
 }
