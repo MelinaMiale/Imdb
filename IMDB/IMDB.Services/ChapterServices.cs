@@ -1,4 +1,5 @@
-﻿using IMDB.EntityModels;
+﻿using ContosoUniversity.Services.Contracts.Exceptions;
+using IMDB.EntityModels;
 using IMDB.Services.Contacts;
 using IMDB.Services.Contacts.Dto;
 using IMDB.Services.Mapping;
@@ -34,6 +35,41 @@ namespace IMDB.Services
             }
 
             return allChaptersDto;
+        }
+
+        public long SaveChapter(ChapterDto newChapterDto)
+        {
+            using (var transaction = this.session.BeginTransaction())
+            {
+                //paso de dto a entity
+                var newchapter = this.chapterMapper.ToModel(newChapterDto, new Chapter());
+
+                //guardo en db
+                this.session.Save(newchapter);
+                this.session.Transaction.Commit();
+
+                //devuelvo el id del nuevo character
+                return newchapter.Id;
+            }
+        }
+
+        public bool RemoveCharacter(long chapterId)
+        {
+            using (var transaction = this.session.BeginTransaction())
+            {
+                //obtengo el personaje a borrar
+                var chapterToDelete = this.session.Get<Chapter>(chapterId);
+
+                if (chapterToDelete == null)
+                {
+                    throw new EntityNotFoundException(string.Format("movie with id: {0} was not found", chapterId));
+                }
+
+                this.session.Delete(chapterToDelete);
+                this.session.Transaction.Commit();
+
+                return true;
+            }
         }
     }
 }

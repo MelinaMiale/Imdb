@@ -292,8 +292,59 @@ namespace IMDB.WebApi.Controllers
         }
 
         //capitulo by id
+
         //alta capitulos
+        [HttpPost]
+        [Route("{serieId}/Chapters/Create")]
+        public ActionResult<long> SaveChapter(ChapterDto newChapter)
+        {
+            if (newChapter == null)
+            {
+                return BadRequest("Chapter invalid");
+            }
+
+            try
+            {
+                var newChapterId = chapterService.SaveChapter(newChapter);
+                return Ok(newChapterId);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
         //baja capitulos
+        [HttpDelete]
+        [Route("{serieID}/Chapters/{chapterId}/Delete")]
+        public ActionResult DeleteChapter(long chapterId)
+        {
+            if (chapterId <= 0)
+            {
+                return BadRequest("Id is not valid");
+            }
+            try
+            {
+                var chapterWasDeleted = this.chapterService.RemoveCharacter(chapterId);
+                if (chapterWasDeleted)
+                {
+                    return Ok(StatusCodes.Status200OK);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError);
+                }
+            }
+            catch (EntityNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
         //modificacion capitulos
     }
 }

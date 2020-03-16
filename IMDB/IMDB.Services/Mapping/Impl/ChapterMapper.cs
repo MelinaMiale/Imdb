@@ -41,7 +41,23 @@ namespace IMDB.Services.Mapping.Impl
 
         public Chapter ToModel(ChapterDto source, Chapter destination)
         {
-            throw new NotImplementedException();
+            if (source == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (destination == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            destination.Id = source.Id;
+            destination.Name = source.Name;
+            destination.ReleaseDate = source.ReleaseDate;
+            destination.Duration = source.Duration;
+            destination.Serie = this.serieMapper.ToModel(source.Serie, new Serie());
+
+            return destination;
         }
     }
 }

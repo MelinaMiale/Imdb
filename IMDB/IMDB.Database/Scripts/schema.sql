@@ -12,8 +12,8 @@ GO
 
 create table dbo.Chapters (
 	Id BIGINT IDENTITY NOT NULL,
-	ReleaseDate DATETIME2 null unique,
-	ChapterName NVARCHAR(50) null unique,
+	ReleaseDate DATETIME2 null,
+	ChapterName NVARCHAR(50) null,
 	SerieId BIGINT null,
 	primary key (Id)
 )

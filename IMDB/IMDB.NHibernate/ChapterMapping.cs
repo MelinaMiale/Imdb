@@ -25,7 +25,6 @@ namespace IMDB.NHibernate
                 {
                     m.Column("ChapterName");
                     m.NotNullable(false);
-                    m.Unique(true);
                     m.Length(50);
                 });
 
@@ -35,7 +34,6 @@ namespace IMDB.NHibernate
                 {
                     m.Column("ReleaseDate");
                     m.NotNullable(false);
-                    m.Unique(true);
                 });
 
             // many-to-one
@@ -46,7 +44,7 @@ namespace IMDB.NHibernate
                     m.Update(true);
                     m.NotNullable(false);
                     m.Column("SerieId");
-                    m.Unique(false);
+                    //   m.Unique(false);
                     m.Cascade(Cascade.None);
                 });
         }
