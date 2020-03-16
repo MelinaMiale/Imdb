@@ -261,10 +261,6 @@ namespace IMDB.WebApi.Controllers
             {
                 return NotFound();
             }
-            catch (BadRequestException bex)
-            {
-                return BadRequest(bex.Message);
-            }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
@@ -292,6 +288,28 @@ namespace IMDB.WebApi.Controllers
         }
 
         //capitulo by id
+        [HttpGet]
+        [Route("{serieId}/Chapters/{chapterId}")]
+        public ActionResult<ChapterDto> GetChapterById(long chapterId)
+        {
+            if (chapterId <= 0)
+            {
+                return BadRequest("invalid chapter id");
+            }
+            try
+            {
+                var chapterById = chapterService.GetById(chapterId);
+                return Ok(chapterById);
+            }
+            catch (EntityNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
 
         //alta capitulos
         [HttpPost]
@@ -346,5 +364,38 @@ namespace IMDB.WebApi.Controllers
         }
 
         //modificacion capitulos
+        [HttpPut]
+        [Route("{serieId}/Chapters/{chapterId}/Edit")]
+        public ActionResult<long> UpdateCharacter(ChapterDto updatedCharacter)
+        {
+            if (updatedCharacter == null)
+            {
+                return BadRequest("invalid chapter");
+            }
+            try
+            {
+                var editedChapter = chapterService.UpdateChapter(updatedCharacter);
+                return Ok(editedChapter);
+            }
+            catch (EntityNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
     }
 }
+
+/*
+ {
+        "duration": 5.1,
+        "name": "Episode #1.1",
+        "serie": {
+            "id": 1
+        }
+}
+
+ */
