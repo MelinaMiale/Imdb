@@ -1,4 +1,4 @@
-import { Movie } from './movie';
+import { Movie } from './classes/movie';
 
 export const MOVIES: Movie[] = [
   { id: 11, name: 'Dr Nice' },
