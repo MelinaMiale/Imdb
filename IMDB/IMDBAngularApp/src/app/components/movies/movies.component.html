@@ -3,7 +3,9 @@
 
 <ul class= "movies">
   <li *ngFor= "let movie of movies">
-    <span class= "badge">{{ movie.id }}</span> {{ movie.name }}
+    <a routerLink= "/detail/{{ movie.id }}">View Details</a>
+      <span class= "badge">{{ movie.id }}</span> {{ movie.name }}
   </li>
 </ul>
+
 
