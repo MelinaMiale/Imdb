@@ -1,6 +1,7 @@
 ﻿using ContosoUniversity.Services.Contracts.Exceptions;
 using IMDB.Services.Contacts;
 using IMDB.Services.Contacts.Dto;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 
 namespace IMDB.WebApi.Controllers
 {
+    //[EnableCors(Startup.CorsPolicy)]
     [Route("api/[controller]")]
     [ApiController]
     public class MovieController : ControllerBase

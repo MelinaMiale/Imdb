@@ -4,8 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MoviesComponent } from './components/movies/movies.component';
-import { MovieDetailComponent } from './components/movie-detail/movie-detail.component';
-/*import { HttpClientModule }    from '@angular/common/http';*/
+import { MovieDetailComponent } from './components/movies/movie-detail/movie-detail.component';
+import { CreateMovieComponent } from './components/movies/create-movie/create-movie.component';
+import { HttpClientModule }    from '@angular/common/http';
 
 
 @NgModule({
@@ -13,14 +14,17 @@ import { MovieDetailComponent } from './components/movie-detail/movie-detail.com
     AppComponent,
     MoviesComponent,
     MovieDetailComponent,
-    /*HttpClientModule*/
+    CreateMovieComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
